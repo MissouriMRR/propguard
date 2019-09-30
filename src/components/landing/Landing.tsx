@@ -10,7 +10,7 @@ const Landing: React.FC = () => {
                         <div className="row align-items-center h-100">
                             <div className="col-8 mx-auto text-center">
                                 <div className="jumbotron text-center mt-5 mt-xl-0">
-                                    <h1 className="title">
+                                    <h1 className="title anim-typewriter">
                                         Propguard
                                     </h1>
                                     <small>A webapp that teaches people how to use Dronekit and Python to start and launch the drones</small> <br></br>

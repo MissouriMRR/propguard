@@ -16,3 +16,44 @@ html, body, .Landing {
         text-align: center;
     }
 }
+
+.title {
+    position: relative;
+    top: 50%;
+    width: 16em;
+    margin: 0 auto;
+    border-right: 2px solid rgba(255, 255, 255, 0);
+    overflow: hidden;
+    transform: translateY(-50%);
+}
+.anim-typewriter {
+    animation: typewriter 1s steps(9) 1s 1 normal both,
+    blinkTextCursor 1s steps(9) infinite normal;
+}
+
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+    to {
+        width: 190px;
+    }
+}
+
+@keyframes blinkTextCursor {
+    0% {
+        border-right-color: rgba(0, 0, 0, 1);
+    }
+    25% {
+        border-right-color: rgba(0, 0, 0, 1);
+    }
+    50% {
+        border-right-color: rgba(0, 0, 0, 1);
+    }
+    75% {
+        border-right-color: transparent;
+    }
+    100% {
+        border-right-color: transparent;
+    }
+}
