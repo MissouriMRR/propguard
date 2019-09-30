@@ -29,6 +29,7 @@ html, body, .Landing {
 .anim-typewriter {
     animation: typewriter 1s steps(9) 1s 1 normal both,
     blinkTextCursor 1s steps(9) infinite normal;
+    height: 50px;
 }
 
 @keyframes typewriter {
