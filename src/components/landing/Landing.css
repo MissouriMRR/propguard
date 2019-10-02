@@ -17,15 +17,31 @@ html, body, .Landing {
     }
 }
 
+@media screen and (max-width: 768px) {
+    .terminal {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .jumbotron {
+        padding-top: 60px;
+    }
+}
+
+.jumbotron {
+    height: 350px;
+}
+
 .title {
     position: relative;
-    top: 50%;
     width: 16em;
     margin: 0 auto;
     border-right: 2px solid rgba(255, 255, 255, 0);
     overflow: hidden;
     transform: translateY(-50%);
 }
+
 .anim-typewriter {
     animation: typewriter 1s steps(9) 1s 1 normal both,
     blinkTextCursor 1s steps(9) infinite normal;

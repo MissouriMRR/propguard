@@ -15,7 +15,8 @@ const Landing: React.FC = () => {
                                         Propguard
                                     </h1>
                                     <small>A webapp that teaches people how to use Dronekit and Python to start and launch the drones</small> <br></br>
-                                    <button className="btn btn-primary col-6 mt-5">Start</button>
+                                    <button className="btn btn-primary col-6 mt-5">Start Tutorial</button>
+                                    <div className="mt-4"><a href="#">Wiki</a></div>
                                 </div>
                             </div>
                         </div>
@@ -25,7 +26,7 @@ const Landing: React.FC = () => {
                     <div className="container h-100">
                         <div className="row align-items-center h-100">
                             <div className="terminal-container col-lg-12">
-                                <img className="terminal" src={terminal} alt="Terminal"></img>
+                                <img className="terminal pb-5" src={terminal} alt="Terminal"></img>
                             </div>
                         </div>
                     </div>
