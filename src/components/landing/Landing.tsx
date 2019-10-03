@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { Link } from 'react-router-dom';
 import './Landing.css';
 import terminal from './landing-images/terminal.gif';
 
@@ -21,7 +22,7 @@ const Landing: React.FC = () => {
                                         Propguard
                                     </h1>
                                     <small>A webapp that teaches people how to use Dronekit and Python to start and launch the drones</small> <br></br>
-                                    <button className="btn btn-primary col-6 mt-5" onClick={startTutorial}>Start Tutorial</button>
+                                    <Link to="/tutorial"><button className="btn btn-primary col-6 mt-5" onClick={startTutorial}>Start Tutorial</button></Link>
                                     <div className="mt-4"><a href="#">Wiki</a></div>
                                 </div>
                             </div>
