@@ -1,0 +1,27 @@
+{
+  "extends": [
+    "tslint:latest",
+    "tslint-react",
+    "tslint-plugin-prettier",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "no-any": {
+      "severity": "warning"
+    },
+    "typedef": [
+      true,
+      "call-signature",
+      "arrow-call-signature",
+      "parameter",
+      "arrow-parameter",
+      "property-declaration",
+      "variable-declaration",
+      "member-variable-declaration",
+      "object-destructuring",
+      "array-destructuring"
+    ],
+    "no-default-export": true,
+    "prettier": true
+  }
+}
