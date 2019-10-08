@@ -7,22 +7,6 @@ html, body, .Landing {
     font-weight: 400;
 }
 
-.terminal {
-    border-radius: 1%;
-}
-
-@media screen and (max-width: 1200px) {
-    .terminal-container {
-        text-align: center;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .terminal {
-        width: 100%;
-    }
-}
-
 @media screen and (max-width: 575px) {
     .jumbotron {
         padding-top: 60px;
