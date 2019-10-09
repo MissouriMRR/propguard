@@ -3,17 +3,17 @@
   "name": "Multirotor Robot Design Team Propguard",
   "icons": [
     {
-      "src": "multirotor-icon.png",
+      "src": "multirotor-icon-16-24-32-64.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "multirotor-icon.png",
+      "src": "multirotor-icon-192.ico",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "multirotor-icon.png",
+      "src": "multirotor-icon-512.ico",
       "type": "image/png",
       "sizes": "512x512"
     }
