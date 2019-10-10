@@ -13,9 +13,9 @@
       "sizes": "192x192"
     },
     {
-      "src": "multirotor-icon-512.ico",
+      "src": "multirotor-icon.ico",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "200x200"
     }
   ],
   "start_url": ".",
