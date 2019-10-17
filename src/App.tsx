@@ -1,13 +1,13 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Landing from './components/landing/Landing'
-import styled from 'styled-components';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import styled from "styled-components";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { Landing } from "./components/landing/Landing";
 
 const App: React.FC = () => {
   const App = styled.div`
-      height: 100vh;
-  `
+    height: 100vh;
+  `;
 
   return (
     <Router>
@@ -20,6 +20,6 @@ const App: React.FC = () => {
       </App>
     </Router>
   );
-}
+};
 
 export default App;
