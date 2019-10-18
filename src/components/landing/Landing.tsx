@@ -1,15 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { AnyStyledComponent } from "styled-components";
 
 const Landing: React.FC = (): JSX.Element => {
-  const Landing = styled.div`
+  const Land: AnyStyledComponent = styled.div`
     height: 100%;
     overflow-x: hidden;
     background-color: #454c60;
   `;
 
-  const Main = styled.div`
+  const Main: AnyStyledComponent = styled.div`
     height: 350px;
     color: white;
 
@@ -20,7 +20,7 @@ const Landing: React.FC = (): JSX.Element => {
     }
   `;
 
-  const Title = styled.div`
+  const Title: AnyStyledComponent = styled.div`
     position: relative;
     font-size: 40px;
     width: 16em;
@@ -61,17 +61,17 @@ const Landing: React.FC = (): JSX.Element => {
     }
   `;
 
-  const Subtext = styled.span`
+  const Subtext: AnyStyledComponent = styled.span`
     font-size: 16px;
   `;
 
-  const Button = styled.button`
+  const Button: AnyStyledComponent = styled.button`
     background-color: #afeb80;
     color: white;
   `;
 
   return (
-    <Landing className="Landing">
+    <Land>
       <div className="container h-100 text-center">
         <div className="row align-items-center h-100">
           <Main className="col-lg-6 col-md-8 col-10 offset-lg-3 offset-md-2 offset-1 text-center mt-5 mt-xl-0">
@@ -87,7 +87,7 @@ const Landing: React.FC = (): JSX.Element => {
           </Main>
         </div>
       </div>
-    </Landing>
+    </Land>
   );
 };
 
