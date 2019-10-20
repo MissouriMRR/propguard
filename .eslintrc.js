@@ -17,7 +17,8 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: [
-    'prettier'
+    'prettier',
+    '@typescript-eslint'
   ],
   rules: {
     "import/prefer-default-export": 0,
@@ -25,7 +26,8 @@ module.exports = {
     "max-classes-per-file": 0,
     "no-param-reassign": 1,
     "prettier/prettier": "error",
-    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx", ".ts", ".tsx"] }]
+    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    '@typescript-eslint/indent': ['error', 2]
   },
   settings: {
     "import/resolver": {
