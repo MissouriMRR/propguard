@@ -4,12 +4,12 @@ module.exports = {
     es6: true
   },
   extends: [
-    'airbnb',
-    'airbnb-typescript',
-    'prettier',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
+    'airbnb',
+    'airbnb-typescript',
+    'prettier'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
