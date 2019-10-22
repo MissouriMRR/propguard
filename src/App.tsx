@@ -7,6 +7,7 @@ import { Landing } from "./components/landing/Landing";
 const App: React.FC = (): JSX.Element => {
   const Main: AnyStyledComponent = styled.div`
     height: 100vh;
+    overflow-y: hidden;
   `;
 
   return (
