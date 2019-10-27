@@ -5,12 +5,12 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { Landing } from "./components/landing/Landing";
 import { TutorialApp } from "components/tutorial-app/TutorialApp";
 
-const App: React.FC = (): JSX.Element => {
-  const Main: AnyStyledComponent = styled.div`
-    height: 100vh;
-    overflow-y: hidden;
-  `;
+const Main: AnyStyledComponent = styled.div`
+  height: 100vh;
+  overflow-y: hidden;
+`;
 
+const App: React.FC = (): JSX.Element => {
   return (
     <Router>
       <Main>
