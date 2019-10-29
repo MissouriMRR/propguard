@@ -1,14 +1,26 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import styled, { AnyStyledComponent } from "styled-components";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { Landing } from "./components/landing/Landing";
 
-const App: React.FC = () => {
+const Main: AnyStyledComponent = styled.main`
+  height: 100vh;
+  overflow-y: hidden;
+`;
+
+const App: React.FC = (): JSX.Element => {
   return (
-    <div className="App">
-      <h1>High tech React app NOW WITH TYPESCRIPT!!!!!</h1>
-      <h1>Please create your own branch before working with this project!</h1>
-      <h1>And please put your components in the src/components folder.</h1>
-    </div>
-  );
-}
+    <Router>
+      <Main>
+        <Landing />
 
-export default App;
+        <Switch>
+          <Route path="/" component={Landing} />
+        </Switch>
+      </Main>
+    </Router>
+  );
+};
+
+export { App };
