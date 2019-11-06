@@ -16,15 +16,32 @@ const Text: AnyStyledComponent = styled.textarea`
 `;
 
 const TextEditor: React.FC = (): JSX.Element => {
-  let [text, setText]: any = useState("");
+  let [suggestion, setSuggestion]: any = useState("");
+
+  let words: string[] = ["drone", "python", "code"];
+
+  const autoCompleteCheck = (txt: any) => {
+    for (let i = 0; i < words.length; i++) {
+      setSuggestion("");
+      if (
+        words[i].startsWith(txt) &&
+        txt.length !== words[i].length &&
+        txt.length !== 0
+      ) {
+        setSuggestion(words[i]);
+        break;
+      }
+    }
+  };
 
   return (
     <Main>
       <Text
         type="text"
-        value={text}
-        onChange={(event: any) => setText(event.target.value)}
+        onChange={(event: any) => autoCompleteCheck(event.target.value)}
+        spellCheck="false"
       />
+      <div>{suggestion}</div>
     </Main>
   );
 };
