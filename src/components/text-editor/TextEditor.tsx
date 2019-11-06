@@ -21,6 +21,12 @@ const TextEditor: React.FC = (): JSX.Element => {
   let words: string[] = ["drone", "python", "code"];
 
   const autoCompleteCheck = (txt: any) => {
+    let startIndex = 0;
+    if (txt.includes(" ")) {
+      startIndex = txt.lastIndexOf(" ");
+      txt = txt.substring(startIndex + 1);
+    }
+
     for (let i = 0; i < words.length; i++) {
       setSuggestion("");
       if (
