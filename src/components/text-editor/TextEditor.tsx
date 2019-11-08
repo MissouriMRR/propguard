@@ -20,7 +20,11 @@ const TextEditor: React.FC = (): JSX.Element => {
 
   let words: string[] = ["drone", "python", "code"];
 
-  const autoCompleteCheck = (txt: any) => {
+  const removeSuggestion = () => {
+    setSuggestion("");
+  };
+
+  const autoCompleteCheck = (txt: string) => {
     let startIndex = 0;
     if (txt.includes(" ")) {
       startIndex = txt.lastIndexOf(" ");
@@ -44,6 +48,7 @@ const TextEditor: React.FC = (): JSX.Element => {
     <Main>
       <Text
         type="text"
+        onBlur={removeSuggestion}
         onChange={(event: any) => autoCompleteCheck(event.target.value)}
         spellCheck="false"
       />
