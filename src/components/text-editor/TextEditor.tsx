@@ -26,9 +26,18 @@ const TextEditor: React.FC = (): JSX.Element => {
 
   const autoCompleteCheck = (txt: string) => {
     let startIndex = 0;
+    let terminal: any = document.getElementById("terminal");
     if (txt.includes(" ")) {
       startIndex = txt.lastIndexOf(" ");
-      txt = txt.substring(startIndex + 1);
+      if (terminal.value.length <= terminal.selectionStart) {
+        txt = txt.substring(startIndex + 1);
+      } else {
+        let currentStr = txt.substring(0, terminal.selectionStart);
+        txt = txt.substring(
+          currentStr.lastIndexOf(" ") + 1,
+          terminal.selectionStart
+        );
+      }
     }
 
     for (let i = 0; i < words.length; i++) {
@@ -51,6 +60,7 @@ const TextEditor: React.FC = (): JSX.Element => {
         onBlur={removeSuggestion}
         onChange={(event: any) => autoCompleteCheck(event.target.value)}
         spellCheck="false"
+        id="terminal"
       />
       <div>{suggestion}</div>
     </Main>
