@@ -13,6 +13,21 @@ const Text: AnyStyledComponent = styled.textarea`
   height: 90%;
   border-radius: 5px;
   resize: none;
+  border: none;
+
+  :focus {
+    outline: none;
+  }
+`;
+
+const Button: AnyStyledComponent = styled.button`
+  position: relative;
+  bottom: 100px;
+  width: 100px;
+
+  @media only screen and (max-width: 800px) {
+    bottom: 60px;
+  }
 `;
 
 const TextEditor: React.FC = (): JSX.Element => {
@@ -61,8 +76,10 @@ const TextEditor: React.FC = (): JSX.Element => {
         onChange={(event: any) => autoCompleteCheck(event.target.value)}
         spellCheck="false"
         id="terminal"
+        placeholder="Type in anything you want to your heart’s content. Text wrapping is included too!"
       />
       <div>{suggestion}</div>
+      <Button className="btn btn-success">Run</Button>
     </Main>
   );
 };

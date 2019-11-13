@@ -5,12 +5,12 @@ import styled, { AnyStyledComponent } from "styled-components";
 const Land: AnyStyledComponent = styled.div`
   height: 100%;
   overflow-x: hidden;
-  background-color: #454c60;
+  background-color: #dce1ee;
 `;
 
 const Main: AnyStyledComponent = styled.div`
   height: 350px;
-  color: white;
+  color: black;
 
   @media screen and (max-width: 575px) {
     .jumbotron {
@@ -43,13 +43,13 @@ const Title: AnyStyledComponent = styled.div`
 
   @keyframes blinkTextCursor {
     0% {
-      border-right-color: rgba(255, 255, 255, 1);
+      border-right-color: rgba(0, 0, 0, 1);
     }
     25% {
-      border-right-color: rgba(255, 255, 255, 1);
+      border-right-color: rgba(0, 0, 0, 1);
     }
     50% {
-      border-right-color: rgba(255, 255, 255, 1);
+      border-right-color: rgba(0, 0, 00, 1);
     }
     75% {
       border-right-color: transparent;
@@ -65,8 +65,9 @@ const Subtext: AnyStyledComponent = styled.span`
 `;
 
 const Button: AnyStyledComponent = styled.button`
-  background-color: #afeb80;
+  background-color: #8dca5d;
   color: white;
+  width: 100px;
 `;
 
 const Landing: React.FC = (): JSX.Element => {
@@ -82,7 +83,7 @@ const Landing: React.FC = (): JSX.Element => {
             </Subtext>
             <br />
             <Link to="/tutorial">
-              <Button className="btn col-6 mt-5">Start Tutorial</Button>
+              <Button className="btn col-6 mt-5">Start</Button>
             </Link>
           </Main>
         </div>
