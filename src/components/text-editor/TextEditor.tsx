@@ -31,7 +31,7 @@ const Button: AnyStyledComponent = styled.button`
 `;
 
 const TextEditor: React.FC = (): JSX.Element => {
-  let [suggestion, setSuggestion]: any = useState("");
+  let [suggestion, setSuggestion] = useState("");
 
   let words: string[] = ["drone", "python", "code"];
 

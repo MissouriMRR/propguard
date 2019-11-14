@@ -1,5 +1,6 @@
 import React from "react";
 import { TextEditor } from "../text-editor/TextEditor";
+import { Output } from "../output/Output";
 import styled, { AnyStyledComponent } from "styled-components";
 
 const Parent: AnyStyledComponent = styled.div`
@@ -35,7 +36,7 @@ const TutorialApp: React.FC = (): JSX.Element => {
         <TextEditor />
       </Column>
       <Column>
-        <h3 className="text-center">Output will go here</h3>
+        <Output />
       </Column>
     </Parent>
   );
