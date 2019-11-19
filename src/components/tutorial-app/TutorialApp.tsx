@@ -35,7 +35,7 @@ const TutorialApp: React.FC = (): JSX.Element => {
       <Column>
         <TextEditor />
       </Column>
-      <Column>
+      <Column className="text-center">
         <Output />
       </Column>
     </Parent>
