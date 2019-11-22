@@ -6,6 +6,9 @@ import { TutorialApp } from "./components/tutorial-app/TutorialApp";
 import { Landing } from "./components/landing/Landing";
 
 const Main: AnyStyledComponent = styled.div`
+  background-color: #dce1ee;
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   overflow-y: hidden;
 `;

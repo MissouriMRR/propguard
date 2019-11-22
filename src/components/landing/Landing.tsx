@@ -3,13 +3,19 @@ import { Link } from "react-router-dom";
 import styled, { AnyStyledComponent } from "styled-components";
 
 const Land: AnyStyledComponent = styled.div`
-  height: 100%;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: #dce1ee;
+  height: 100vh;
 `;
 
 const Main: AnyStyledComponent = styled.div`
-  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   color: black;
 
   @media screen and (max-width: 575px) {
@@ -21,14 +27,15 @@ const Main: AnyStyledComponent = styled.div`
 
 const Title: AnyStyledComponent = styled.div`
   position: relative;
-  font-size: 40px;
-  width: 16em;
-  height: 16%;
-  margin: 0 auto;
+  font-family: "Raleway", "Open Sans", "Roboto";
+  font-size: 96px;
+  font-weight: normal;
+  width: 190px;
+  height: auto;
+  margin: 0 auto 0 auto;
   border-right: 2px solid rgba(255, 255, 255, 0);
   overflow: hidden;
   transform: translateY(-50%);
-  font-weight: 400;
   animation: typewriter 1s steps(9) 1s 1 normal both,
     blinkTextCursor 1s steps(11) infinite normal;
 
@@ -37,7 +44,7 @@ const Title: AnyStyledComponent = styled.div`
       width: 0;
     }
     to {
-      width: 190px;
+      width: 490px;
     }
   }
 
@@ -61,33 +68,37 @@ const Title: AnyStyledComponent = styled.div`
 `;
 
 const Subtext: AnyStyledComponent = styled.span`
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: normal;
+  max-width: 467px;
+  margin: -50px auto 0 auto;
+  text-align: center;
 `;
 
 const Button: AnyStyledComponent = styled.button`
   background-color: #8dca5d;
+  border-radius: 5px;
+  border-style: none;
   color: white;
-  width: 100px;
+  margin: 50px auto;
+  height: 40px;
+  width: 150px;
 `;
 
 const Landing: React.FC = (): JSX.Element => {
   return (
     <Land>
-      <div className="container h-100 text-center">
-        <div className="row align-items-center h-100">
-          <Main className="col-lg-6 col-md-8 col-10 offset-lg-3 offset-md-2 offset-1 text-center mt-5 mt-xl-0">
-            <Title>Propguard</Title>
-            <Subtext>
-              A webapp that teaches people how to use Dronekit and Python to
-              start and launch the drones
-            </Subtext>
-            <br />
-            <Link to="/tutorial">
-              <Button className="btn col-6 mt-5">Start</Button>
-            </Link>
-          </Main>
-        </div>
-      </div>
+      <Main>
+        <Title>Propguard</Title>
+        <Subtext>
+          A webapp that teaches people how to use Dronekit and Python to start
+          and launch the drones
+        </Subtext>
+        <br />
+        <Link to="/tutorial">
+          <Button>Start</Button>
+        </Link>
+      </Main>
     </Land>
   );
 };
