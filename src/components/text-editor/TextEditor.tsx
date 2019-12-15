@@ -1,3 +1,11 @@
+/*
+  Custom ESlint rule overrides specifically for this file.
+  TODO: Write aobut first rule 
+  Second ESlint rule overide fixes a conflict between ESlint and Typescript
+  with a certain weird indentation edge case
+*/
+/* eslint no-param-reassign: 0 */
+/* eslint @typescript-eslint/indent: 0 */
 import React, { useState } from "react";
 import styled, { AnyStyledComponent } from "styled-components";
 
@@ -11,7 +19,7 @@ const Main: AnyStyledComponent = styled.div`
   text-align: center;
 `;
 
-const Wrapper: AnyStyledComponent = styled.div`
+const Terminal: AnyStyledComponent = styled.form`
   background-color: #fff;
   border-radius: 5px;
   display: flex;
@@ -64,16 +72,26 @@ const TextEditor: React.FC = (): JSX.Element => {
 
   const words: string[] = ["drone", "python", "code"];
 
-  const removeSuggestion = () => {
+  const input: React.RefObject<HTMLTextAreaElement> = React.createRef<
+    HTMLTextAreaElement
+  >();
+
+  const removeSuggestion = (): void => {
     setSuggestion("");
   };
 
   const autoCompleteCheck = (txt: string): void => {
     let startIndex = 0;
 
+    // FIXME: Find the right type on this. The HTMLTextAreaElement type
+    // still returns an error
     const terminal: any = document.getElementById("terminal");
+
+    if (terminal === null) return; // Don't run autocomplete on empty terminal
+
     if (txt.includes(" ")) {
       startIndex = txt.lastIndexOf(" ");
+
       if (terminal.value.length <= terminal.selectionStart) {
         txt = txt.substring(startIndex + 1);
       } else {
@@ -98,23 +116,39 @@ const TextEditor: React.FC = (): JSX.Element => {
     }
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+
+    // Don't submit if there's nothing in the terminal
+    if (!input.current) return;
+
+    // TODO: Placeholder alert. Replace this when we get global state working
+    alert(`Hi, you submitted: ${input.current.value}`);
+  };
+
   return (
     <Main>
-      <Wrapper>
+      <Terminal
+        onSubmit={(event: React.FormEvent<HTMLFormElement>): void =>
+          handleSubmit(event)
+        }
+      >
         <Text
           type="text"
           onBlur={removeSuggestion}
           onChange={(event: React.ChangeEvent<HTMLInputElement>): void =>
-            autoCompleteCheck(event.target.value)}
+            autoCompleteCheck(event.target.value)
+          }
           spellCheck="false"
           id="terminal"
           placeholder="Type in anything you want to your heart’s content. Text wrapping is included too!"
+          ref={input}
         />
         <SuggestBox>
           <h1>{suggestion}</h1>
         </SuggestBox>
-        <Button>Run</Button>
-      </Wrapper>
+        <Button type="submit">Run</Button>
+      </Terminal>
     </Main>
   );
 };
