@@ -1,10 +1,5 @@
-/*
-  Custom ESlint rule overrides specifically for this file.
-  TODO: Write aobut first rule 
-  Second ESlint rule overide fixes a conflict between ESlint and Typescript
-  with a certain weird indentation edge case
-*/
-/* eslint no-param-reassign: 0 */
+// Custon ESlint rule overide fixes a conflict between ESlint and Prettier
+// rules on a certain weird indentation edge case on line 71.
 /* eslint @typescript-eslint/indent: 0 */
 import React, { useState } from "react";
 import styled, { AnyStyledComponent } from "styled-components";
@@ -70,6 +65,8 @@ const SuggestBox: AnyStyledComponent = styled.div`
 const TextEditor: React.FC = (): JSX.Element => {
   const [suggestion, setSuggestion] = useState<string>("");
 
+  // TODO: Import external array containing the actual keywords
+  // These are the words that we want to suggest to the user
   const words: string[] = ["drone", "python", "code"];
 
   const input: React.RefObject<HTMLTextAreaElement> = React.createRef<
@@ -81,10 +78,10 @@ const TextEditor: React.FC = (): JSX.Element => {
   };
 
   const autoCompleteCheck = (txt: string): void => {
+    let text: string = txt;
     let startIndex = 0;
 
-    // FIXME: Find the right type on this. The HTMLTextAreaElement type
-    // still returns an error
+    // Keeping the type as any since the types for DOM stuff are poorly defined
     const terminal: any = document.getElementById("terminal");
 
     if (terminal === null) return; // Don't run autocomplete on empty terminal
@@ -93,10 +90,10 @@ const TextEditor: React.FC = (): JSX.Element => {
       startIndex = txt.lastIndexOf(" ");
 
       if (terminal.value.length <= terminal.selectionStart) {
-        txt = txt.substring(startIndex + 1);
+        text = text.substring(startIndex + 1);
       } else {
-        const currentStr = txt.substring(0, terminal.selectionStart);
-        txt = txt.substring(
+        const currentStr = text.substring(0, terminal.selectionStart);
+        text = text.substring(
           currentStr.lastIndexOf(" ") + 1,
           terminal.selectionStart
         );
@@ -106,9 +103,9 @@ const TextEditor: React.FC = (): JSX.Element => {
     for (let i = 0; i < words.length; i += 1) {
       setSuggestion("");
       if (
-        words[i].startsWith(txt) &&
-        txt.length !== words[i].length &&
-        txt.length !== 0
+        words[i].startsWith(text) &&
+        text.length !== words[i].length &&
+        text.length !== 0
       ) {
         setSuggestion(words[i]);
         break;
