@@ -69,6 +69,8 @@ const TextEditor: React.FC = (): JSX.Element => {
   // These are the words that we want to suggest to the user
   const words: string[] = ["drone", "python", "code"];
 
+  // We are using uncontrolled method of creating Forms in React, so we go
+  // ahead and set this variable to the content inside of the terminal
   const input: React.RefObject<HTMLTextAreaElement> = React.createRef<
     HTMLTextAreaElement
   >();
@@ -77,15 +79,19 @@ const TextEditor: React.FC = (): JSX.Element => {
     setSuggestion("");
   };
 
+  // Uses JavaScript DOM to detect where the user's cursor position is
+  // and offers a suggestion based on what the user has typed since then
+  // We may end up using a better method as this project progresses
   const autoCompleteCheck = (txt: string): void => {
     let text: string = txt;
     let startIndex = 0;
 
-    // Keeping the type as any since the types for DOM stuff are poorly defined
+    // Keeping the type as "any" since DOM stuff isn't super supported
     const terminal: any = document.getElementById("terminal");
 
     if (terminal === null) return; // Don't run autocomplete on empty terminal
 
+    // Determines which word we want to offer a suggestion for
     if (txt.includes(" ")) {
       startIndex = txt.lastIndexOf(" ");
 
@@ -93,6 +99,7 @@ const TextEditor: React.FC = (): JSX.Element => {
         text = text.substring(startIndex + 1);
       } else {
         const currentStr = text.substring(0, terminal.selectionStart);
+
         text = text.substring(
           currentStr.lastIndexOf(" ") + 1,
           terminal.selectionStart
@@ -100,8 +107,10 @@ const TextEditor: React.FC = (): JSX.Element => {
       }
     }
 
+    // Compares the user's word with our list of suggestions
     for (let i = 0; i < words.length; i += 1) {
       setSuggestion("");
+
       if (
         words[i].startsWith(text) &&
         text.length !== words[i].length &&
