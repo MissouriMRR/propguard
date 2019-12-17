@@ -1,5 +1,5 @@
 // Custon ESlint rule overide fixes a conflict between ESlint and Prettier
-// rules on a certain weird indentation edge case on line 71.
+// rules on a certain weird indentation edge case on line 74-76. on var input
 /* eslint @typescript-eslint/indent: 0 */
 import React, { useState } from "react";
 import styled, { AnyStyledComponent } from "styled-components";
