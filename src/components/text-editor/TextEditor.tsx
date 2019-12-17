@@ -7,7 +7,7 @@ import styled, { AnyStyledComponent } from "styled-components";
 const Main: AnyStyledComponent = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   height: 100%;
   width: 100%;
@@ -21,7 +21,7 @@ const Terminal: AnyStyledComponent = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 80%;
+  height: 90%;
   width: 70%;
 `;
 
@@ -33,6 +33,7 @@ const Text: AnyStyledComponent = styled.textarea`
   margin: 0 0 10px 0;
   resize: none;
   width: 80%;
+  font-size: 16px;
 
   :focus {
     outline: none;
@@ -45,6 +46,7 @@ const Button: AnyStyledComponent = styled.button`
   border-style: none;
   height: 43px;
   width: 98px;
+  font-size: 18px;
 
   @media only screen and (max-width: 800px) {
     bottom: 60px;
@@ -57,7 +59,7 @@ const SuggestBox: AnyStyledComponent = styled.div`
   max-width: 80%;
 
   h1 {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: normal;
   }
 `;

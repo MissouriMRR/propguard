@@ -7,7 +7,7 @@ const TutorialBG: AnyStyledComponent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 80%;
+  height: 90%;
   width: 70%;
 
   h1 {
@@ -15,15 +15,26 @@ const TutorialBG: AnyStyledComponent = styled.div`
   }
 `;
 
-const Title: AnyStyledComponent = styled.div`
+const Title: AnyStyledComponent = styled.h1`
+  text-align: left;
   font-size: 32px;
-  margin-top: 20px;
+  font-weight: normal;
+  margin: 20px 0 0 0;
+  width: 80%;
+`;
+
+const TutorialText: AnyStyledComponent = styled.div`
+  font-size: 16px;
+  max-width: 80%;
 `;
 
 const TutorialDisplay: React.FC = (): JSX.Element => {
   return (
     <TutorialBG>
-      <Title>Tutorials will go here</Title>
+      <Title>Example tutorial</Title>
+      <TutorialText>
+        <p>This component is currently being implemented.</p>
+      </TutorialText>
     </TutorialBG>
   );
 };

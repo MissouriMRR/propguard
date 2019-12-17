@@ -80,6 +80,7 @@ const Button: AnyStyledComponent = styled.button`
   border-radius: 5px;
   border-style: none;
   color: white;
+  font-size: 18px;
   margin: 50px auto;
   height: 40px;
   width: 150px;
