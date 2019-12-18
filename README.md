@@ -19,11 +19,15 @@
 
 ## What is this?
 
-Currently only two software members really know how to start the drone and enable its autonomous features. We need to change that. Propguard is a webapp that teaches people how to use Dronekit and Python to start and launch the drones.
+Propguard is a webapp built for Missouri S&T's Multirotor Drone Design Team meant to preserve the knowledge and experience of its past members. This means that Propguard teaches new members how to start working on the team's custom flight code via a Codecademy-like tutorial interface.
+
+A second part of Propguard (in development) is to create a wiki that will serve as the collective knowledge of all the past members of the Multirotor team. During our flight tests we always run into issues, and some of those issues happen to be things that have been solved in the past. We obviously don't want to keep making the same mistakes.
+
+The tech stack for the front-end is Typescript and ReactJS.
 
 ## Usage
 
-We're working on getting a live version up so for now you'll have to run this project locally on your machine. See the next section for instructions on how to run it.
+We're working on getting a live version up so for now you'll have to run this project locally on your machine. See the **Get Started** section for instructions on how to run it.
 
 ## Get started
 
