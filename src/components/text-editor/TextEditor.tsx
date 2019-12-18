@@ -25,15 +25,15 @@ const Button: AnyStyledComponent = styled.button`
   bottom: 100px;
   width: 100px;
 
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 768px) {
     bottom: 60px;
   }
 `;
 
 const TextEditor: React.FC = (): JSX.Element => {
-  let [suggestion, setSuggestion] = useState("");
+  const [suggestion, setSuggestion] = useState("");
 
-  let words: string[] = ["drone", "python", "code"];
+  const words: string[] = ["drone", "python", "code"];
 
   const removeSuggestion = () => {
     setSuggestion("");
@@ -41,13 +41,13 @@ const TextEditor: React.FC = (): JSX.Element => {
 
   const autoCompleteCheck = (txt: string) => {
     let startIndex = 0;
-    let terminal: any = document.getElementById("terminal");
+    const terminal: any = document.getElementById("terminal");
     if (txt.includes(" ")) {
       startIndex = txt.lastIndexOf(" ");
       if (terminal.value.length <= terminal.selectionStart) {
         txt = txt.substring(startIndex + 1);
       } else {
-        let currentStr = txt.substring(0, terminal.selectionStart);
+        const currentStr = txt.substring(0, terminal.selectionStart);
         txt = txt.substring(
           currentStr.lastIndexOf(" ") + 1,
           terminal.selectionStart

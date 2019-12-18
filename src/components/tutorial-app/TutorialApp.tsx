@@ -1,7 +1,7 @@
 import React from "react";
+import styled, { AnyStyledComponent } from "styled-components";
 import { TextEditor } from "../text-editor/TextEditor";
 import { Output } from "../output/Output";
-import styled, { AnyStyledComponent } from "styled-components";
 
 const Parent: AnyStyledComponent = styled.div`
   display: flex;
@@ -10,7 +10,7 @@ const Parent: AnyStyledComponent = styled.div`
   height: 100%;
   background-color: #dce1ee;
 
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 768px) {
     flex-direction: column;
   }
 `;
@@ -20,7 +20,7 @@ const Column: AnyStyledComponent = styled.div`
   color: black;
   height: 100%;
 
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 768px) {
     width: 100%;
     height: 33%;
   }
