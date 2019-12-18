@@ -13,7 +13,7 @@ const Main: AnyStyledComponent = styled.div`
   border: none;
 `;
 
-const Container: AnyStyledComponent = styled.div``;
+const Container: AnyStyledComponent = styled.section``;
 
 const TurtleContainer: AnyStyledComponent = styled.div``;
 
@@ -24,17 +24,18 @@ const Turtle: AnyStyledComponent = styled.img`
   border-radius: 30px;
 `;
 
-const Data: AnyStyledComponent = styled.div``;
+const Data: AnyStyledComponent = styled.section``;
 
-const DataContainer: AnyStyledComponent = styled.div``;
+const DataContainer: AnyStyledComponent = styled.section``;
 
 const Armed: AnyStyledComponent = styled.h1`
   font-size: 30px;
 `;
 
 const DataElem: AnyStyledComponent = styled.h2`
-  font-size: 22px;
+  font-size: 18px;
   font-weight: normal;
+  color: grey;
 `;
 
 const ResetBtn: AnyStyledComponent = styled.button``;
@@ -46,7 +47,7 @@ const Output: React.FC = (): JSX.Element => {
   const altitudeText = `Altitude: ${altitude} m`;
   const velocityText = `Velocity: ${velocity} m/s`;
 
-  const resetDroneState = () => {
+  const resetDroneState = (): void => {
     setArmed(false);
     setAltitude(0);
     setVelocity(0);
