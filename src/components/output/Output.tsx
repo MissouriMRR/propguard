@@ -4,53 +4,32 @@ import turtle from "./images/turtle.png";
 
 const Main: AnyStyledComponent = styled.div`
   display: inline-block;
+  background-color: white;
   margin-top: 20px;
   width: 75%;
   height: 90%;
   border-radius: 5px;
-  background-color: white;
-  text-align: center;
-
-  @media only screen and (max-width: 800px) {
-    text-align: left;
-  }
+  resize: none;
+  border: none;
 `;
+
+const Container: AnyStyledComponent = styled.div``;
+
+const TurtleContainer: AnyStyledComponent = styled.div``;
 
 const Turtle: AnyStyledComponent = styled.img`
-  position: relative;
-  border-radius: 35px;
+  margin-top: 20px;
   width: 150px;
   height: auto;
-  margin-top: 25px;
-  display: inline;
-
-  @media only screen and (max-width: 800px) {
-    margin-top: 0;
-    padding: 10px;
-    display: inline-block;
-  }
+  border-radius: 30px;
 `;
 
-const Data: AnyStyledComponent = styled.div`
-  position: relative;
-  margin-top: 50px;
-  text-align: center;
-  font-weight: bold;
-  display: inline;
+const Data: AnyStyledComponent = styled.div``;
 
-  @media only screen and (max-width: 800px) {
-    margin-top: 0px;
-    display: inline-block;
-    padding-top: 20px;
-    padding-left: 20px;
-  }
-`;
+const DataContainer: AnyStyledComponent = styled.div``;
 
 const Armed: AnyStyledComponent = styled.h1`
-  position: relative;
   font-size: 30px;
-  font-weight: normal;
-  margin-bottom: 10px;
 `;
 
 const DataElem: AnyStyledComponent = styled.h2`
@@ -58,43 +37,30 @@ const DataElem: AnyStyledComponent = styled.h2`
   font-weight: normal;
 `;
 
-const ResetBtn: AnyStyledComponent = styled.button`
-  position: absolute;
-  border-radius: 5px;
-  background-color: #c5c5c5;
-  bottom: 70px;
-  width: 120px;
-  height: 35px;
-  margin-left: -57.5px;
-  outline: none;
-  border: none;
-  display: inline;
-
-  :hover {
-    background-color: #a5a5a5;
-  }
-
-  @media only screen and (max-width: 800px) {
-    position: relative;
-    top: 0;
-    bottom: 0;
-  }
-`;
+const ResetBtn: AnyStyledComponent = styled.button``;
 
 const Output: React.FC = (): JSX.Element => {
-  let [armed] = useState(false);
-  let [altitude] = useState(0);
-  let [velocity] = useState(0);
+  const [armed] = useState(false);
+  const [altitude] = useState(0);
+  const [velocity] = useState(0);
+  const altitudeText = `Altitude: ${altitude} m`;
+  const velocityText = `Velocity: ${velocity} m/s`;
 
   return (
     <Main>
-      <Turtle src={turtle} alt="Turtle Drone" />
-      <Data>
-        <Armed>{armed ? <span>Armed</span> : <span>Unarmed</span>}</Armed>
-        <DataElem>Altitude: {altitude} m</DataElem>
-        <DataElem>Velocity: {velocity} m/s</DataElem>
-      </Data>
-      <ResetBtn>Reset Drone</ResetBtn>
+      <Container className="row">
+        <TurtleContainer className="offset-1 offset-md-0 col-4 col-md-12">
+          <Turtle src={turtle} alt="Turtle Drone" />
+        </TurtleContainer>
+        <DataContainer className="col-7 col-md-12 mt-3 mt-md-2">
+          <Data>
+            <Armed>{armed ? <span>Armed</span> : <span>Unarmed</span>}</Armed>
+            <DataElem>{altitudeText}</DataElem>
+            <DataElem>{velocityText}</DataElem>
+            <ResetBtn className="btn btn-secondary">Reset Drone</ResetBtn>
+          </Data>
+        </DataContainer>
+      </Container>
     </Main>
   );
 };
