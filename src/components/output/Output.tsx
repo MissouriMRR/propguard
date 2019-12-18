@@ -40,11 +40,17 @@ const DataElem: AnyStyledComponent = styled.h2`
 const ResetBtn: AnyStyledComponent = styled.button``;
 
 const Output: React.FC = (): JSX.Element => {
-  const [armed] = useState(false);
-  const [altitude] = useState(0);
-  const [velocity] = useState(0);
+  const [armed, setArmed] = useState(false);
+  const [altitude, setAltitude] = useState(0);
+  const [velocity, setVelocity] = useState(0);
   const altitudeText = `Altitude: ${altitude} m`;
   const velocityText = `Velocity: ${velocity} m/s`;
+
+  const resetDroneState = () => {
+    setArmed(false);
+    setAltitude(0);
+    setVelocity(0);
+  };
 
   return (
     <Main>
@@ -57,7 +63,9 @@ const Output: React.FC = (): JSX.Element => {
             <Armed>{armed ? <span>Armed</span> : <span>Unarmed</span>}</Armed>
             <DataElem>{altitudeText}</DataElem>
             <DataElem>{velocityText}</DataElem>
-            <ResetBtn className="btn btn-secondary">Reset Drone</ResetBtn>
+            <ResetBtn className="btn btn-secondary" onClick={resetDroneState}>
+              Reset Drone
+            </ResetBtn>
           </Data>
         </DataContainer>
       </Container>
