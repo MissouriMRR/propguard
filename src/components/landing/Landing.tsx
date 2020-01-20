@@ -36,6 +36,7 @@ const Title: AnyStyledComponent = styled.div`
   border-right: 2px solid rgba(255, 255, 255, 0);
   overflow: hidden;
   transform: translateY(-50%);
+
   animation: typewriter 1s steps(9) 1s 1 normal both,
     blinkTextCursor 1s steps(11) infinite normal;
 
@@ -50,7 +51,7 @@ const Title: AnyStyledComponent = styled.div`
 
   @keyframes blinkTextCursor {
     0% {
-      border-right-color: rgba(0, 0, 0, 1);
+border-right-color: rgba(0, 0, 0, 1);
     }
     25% {
       border-right-color: rgba(0, 0, 0, 1);
