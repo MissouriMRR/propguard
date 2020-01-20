@@ -21,7 +21,7 @@
 
 Propguard is a web app built for Missouri S&T's Multirotor Robot Design Team meant to preserve the knowledge and experience of its past members. Propguard teaches new members how to start working on the team's flight code via a Codeacademy-like tutorial interface.
 
-A second part of Propguard (in development) is to create a wiki that will serve as the collective knowledge of all the past members of the Multirotor team. During our flight tests we always run into issues, and some of those issues happen to be things that have been solved in the past. We obviously don't want to keep making the same mistakes.
+It includes a wiki that will serve as the collective knowledge of all the past members of the team. During our flight tests we always run into issues, and some of those issues happen to be things that have been solved in the past. We obviously don't want to keep making the same mistakes.
 
 The tech stack for the front-end is Typescript and ReactJS.
 
