@@ -92,8 +92,8 @@ const Landing: React.FC = (): JSX.Element => {
       <Main>
         <Title>Propguard</Title>
         <Subtext>
-          A webapp that teaches people how to use Dronekit and Python to start
-          and launch the drones
+          A webapp that teaches people how to use MAVSDK and Python to start
+          flying copters autonomously
         </Subtext>
         <br />
         <Link to="/tutorial">

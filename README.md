@@ -69,24 +69,13 @@ yarn start
 
 ## Roadmap and progress
 
-### Winter Break Goals
-
-- Finish front-end for the tutorial part of Propguard
-
-### Before Spring Break
-
-- Write basic tutorials for setting up development environments for the flight team
-- Create the front-end for the wiki
-
-### Before Finals
-
-- Write a tutorial on writing actual flight code
-- Create a backend for the wiki to host content on
-- Come up with a system that lets the wiki by easily editable with some CMS like Ghost+Gatsby or something similar
-
-### Summer 2020 Before Competition
-
-- Find a place to host the wiki and tutorial
+- Finish front-end for the tutorial part of Propguard (Feb 11)
+- Write basic tutorials for setting up development environments for the flight team (Feb 25)
+- Create the front-end for the wiki (Feb 25)
+- Write a tutorial for writing actual flight code (March 10)
+- Create a backend for the wiki to host content on (April 7)
+- Find a place to host the wiki and tutorial (March 25)
+- Come up with a system that lets the wiki by easily editable with some CMS like Ghost+Gatsby or something similar (April 21)
 
 ## Contributing
 
