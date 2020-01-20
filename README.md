@@ -51,7 +51,7 @@ git clone https://github.com/MissouriMRR/propguard.git
 2. Install the required packages for the project
 
 ```sh
-yarn
+yarn install
 ```
 
 3. Run the development version of Propguard
