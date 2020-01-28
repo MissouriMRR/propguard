@@ -39,11 +39,11 @@ const TextEditor: React.FC = (): JSX.Element => {
 
   const words: string[] = ["drone", "python", "code"];
 
-  const removeSuggestion = () => {
+  const removeSuggestion = (): void => {
     setSuggestion("");
   };
 
-  const autoCompleteCheck = (txt: string) => {
+  const autoCompleteCheck = (txt: string): void => {
     let startIndex = 0;
     const terminal: any = document.getElementById("terminal");
     if (txt.includes(" ")) {
