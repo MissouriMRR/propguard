@@ -2,7 +2,6 @@
 [![Issues][issues-shield]][issues-url]
 
 <!-- PROJECT LOGO AND TITILE -->
-<!-- TODO: Add project logo and title-->
 <br />
 <p align="center">
     <h2 align="center">Propguard</h2>
@@ -71,11 +70,10 @@ yarn start
 
 - Finish front-end for the tutorial part of Propguard (Feb 11)
 - Write basic tutorials for setting up development environments for the flight team (Feb 25)
-- Create the front-end for the wiki (Feb 25)
 - Write a tutorial for writing actual flight code (March 10)
-- Create a backend for the wiki to host content on (April 7)
-- Find a place to host the wiki and tutorial (March 25)
-- Come up with a system that lets the wiki by easily editable with some CMS like Ghost+Gatsby or something similar (April 21)
+- Create a backend and database to host propguard tutorial (March 17)
+- Find a place to host the wiki and tutorial (March 19)
+- Come up with a system that lets the wiki by easily editable with some CMS like Ghost+Gatsby or something similar (April 14)
 
 ## Contributing
 
