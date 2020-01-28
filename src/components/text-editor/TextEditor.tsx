@@ -30,6 +30,10 @@ const Button: AnyStyledComponent = styled.button`
   }
 `;
 
+const Suggestion: AnyStyledComponent = styled.div`
+  height: 20px;
+`;
+
 const TextEditor: React.FC = (): JSX.Element => {
   const [suggestion, setSuggestion] = useState("");
 
@@ -78,7 +82,7 @@ const TextEditor: React.FC = (): JSX.Element => {
         id="terminal"
         placeholder="Type in anything you want to your heart’s content. Text wrapping is included too!"
       />
-      <div>{suggestion}</div>
+      <Suggestion>{suggestion}</Suggestion>
       <Button className="btn btn-success">Run</Button>
     </Main>
   );

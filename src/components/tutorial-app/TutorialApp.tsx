@@ -9,6 +9,7 @@ const Parent: AnyStyledComponent = styled.div`
   flex-wrap: nowrap;
   height: 100%;
   background-color: #dce1ee;
+  overflow-y: auto;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -22,7 +23,6 @@ const Column: AnyStyledComponent = styled.div`
 
   @media only screen and (max-width: 768px) {
     width: 100%;
-    height: 33%;
   }
 `;
 
