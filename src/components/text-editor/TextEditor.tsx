@@ -81,31 +81,25 @@ const TextEditor: React.FC = (): JSX.Element => {
     setSuggestion("");
   };
 
-  // Uses JavaScript DOM to detect where the user's cursor position is
+  // Uses selectionStart to detect where the user's cursor position is
   // and offers a suggestion based on what the user has typed since then
-  // We may end up using a better method as this project progresses
-  const autoCompleteCheck = (txt: string): void => {
-    let text: string = txt;
+  const autoCompleteCheck = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    let text: string = event.target.value;
+    const cursorPos = event.target.selectionStart || 0;
     let startIndex = 0;
 
-    // Keeping the type as "any" since DOM stuff isn't super supported
-    const terminal: any = document.getElementById("terminal");
-
-    if (terminal === null) return; // Don't run autocomplete on empty terminal
-
     // Determines which word we want to offer a suggestion for
-    if (txt.includes(" ")) {
-      startIndex = txt.lastIndexOf(" ");
+    if (event.target.value.includes(" ")) {
+      startIndex = event.target.value.lastIndexOf(" ");
 
-      if (terminal.value.length <= terminal.selectionStart) {
+      if (event.target.value.length <= cursorPos) {
         text = text.substring(startIndex + 1);
       } else {
-        const currentStr = text.substring(0, terminal.selectionStart);
+        const currentStr = text.substring(0, cursorPos);
 
-        text = text.substring(
-          currentStr.lastIndexOf(" ") + 1,
-          terminal.selectionStart
-        );
+        text = text.substring(currentStr.lastIndexOf(" ") + 1, cursorPos);
       }
     }
 
@@ -144,11 +138,11 @@ const TextEditor: React.FC = (): JSX.Element => {
         <Text
           type="text"
           onBlur={removeSuggestion}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>): void =>
-            autoCompleteCheck(event.target.value)
-          }
+          onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
+            autoCompleteCheck(event);
+            console.log(event.type);
+          }}
           spellCheck="false"
-          id="terminal"
           placeholder="Type in anything you want to your heart’s content. Text wrapping is included too!"
           ref={input}
         />
