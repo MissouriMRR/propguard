@@ -2,6 +2,7 @@ export default [
   {
     type: "frame",
     step: 1,
+    title: "Introduction",
     instructions: [
       {
         type: "text",
@@ -27,6 +28,37 @@ export default [
   {
     type: "frame",
     step: 2,
+    title: "Step 2",
+    instructions: [
+      {
+        type: "text",
+        content: "Instruction frames are used to separate each step."
+      },
+      {
+        type: "text",
+        content: "We ."
+      }
+    ]
+  },
+  {
+    type: "frame",
+    step: 3,
+    title: "Step 3",
+    instructions: [
+      {
+        type: "text",
+        content: "Instruction frames are used to separate each step."
+      },
+      {
+        type: "text",
+        content: "We ."
+      }
+    ]
+  },
+  {
+    type: "frame",
+    step: 4,
+    title: "Step 4",
     instructions: [
       {
         type: "text",
