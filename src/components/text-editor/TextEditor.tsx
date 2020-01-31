@@ -26,7 +26,7 @@ const Button: AnyStyledComponent = styled.button`
   width: 100px;
 
   @media only screen and (max-width: 768px) {
-    bottom: 60px;
+    bottom: 80px;
   }
 `;
 

@@ -13,20 +13,37 @@ const Main: AnyStyledComponent = styled.div`
   border: none;
 `;
 
-const Container: AnyStyledComponent = styled.section``;
+const Container: AnyStyledComponent = styled.section`
+  text-align: center;
+`;
 
-const TurtleContainer: AnyStyledComponent = styled.div``;
+const TurtleContainer: AnyStyledComponent = styled.div`
+  display: inline-block;
+
+  @media screen and (max-width: 495px) {
+    display: none;
+  }
+`;
 
 const Turtle: AnyStyledComponent = styled.img`
   margin-top: 20px;
   width: 150px;
   height: auto;
   border-radius: 30px;
+  display: inline-block;
+
+  @media screen and (max-width: 577px) {
+    display: none;
+  }
 `;
 
-const Data: AnyStyledComponent = styled.section``;
+const Data: AnyStyledComponent = styled.section`
+  width: 100%;
+`;
 
-const DataContainer: AnyStyledComponent = styled.section``;
+const DataContainer: AnyStyledComponent = styled.section`
+  width: 100%;
+`;
 
 const Armed: AnyStyledComponent = styled.h1`
   font-size: 30px;
@@ -36,6 +53,7 @@ const DataElem: AnyStyledComponent = styled.h2`
   font-size: 18px;
   font-weight: normal;
   color: grey;
+  width: 100%;
 `;
 
 const ResetBtn: AnyStyledComponent = styled.button``;
@@ -59,7 +77,7 @@ const Output: React.FC = (): JSX.Element => {
         <TurtleContainer className="offset-1 offset-md-0 col-4 col-md-12">
           <Turtle src={turtle} alt="Turtle Drone" />
         </TurtleContainer>
-        <DataContainer className="col-7 col-md-12 mt-3 mt-md-2">
+        <DataContainer className="col-12 col-sm-7 col-md-12 mt-3 mt-md-2">
           <Data>
             <Armed>{armed ? <span>Armed</span> : <span>Unarmed</span>}</Armed>
             <DataElem>{altitudeText}</DataElem>
