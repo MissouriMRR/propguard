@@ -23,7 +23,7 @@ const Title: AnyStyledComponent = styled.h1`
   width: 80%;
 `;
 
-const TutorialText: AnyStyledComponent = styled.div`
+const TutorialText: AnyStyledComponent = styled.p`
   font-size: 16px;
   max-width: 80%;
 `;
@@ -33,7 +33,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
     <TutorialBG>
       <Title>Example tutorial</Title>
       <TutorialText>
-        <p>This component is currently being implemented.</p>
+        This component is currently being implemented.
       </TutorialText>
     </TutorialBG>
   );
