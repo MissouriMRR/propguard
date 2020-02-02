@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled, { AnyStyledComponent } from "styled-components";
 
-const NavWrapper: AnyStyledComponent = styled.div`
+const NavWrapper: AnyStyledComponent = styled.nav`
   display: flex;
   flex-direction: row;
   justify-content: space-between;

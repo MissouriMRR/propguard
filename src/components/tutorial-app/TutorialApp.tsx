@@ -5,13 +5,13 @@ import { Navbar } from "../navbar/Navbar";
 import { TextEditor } from "../text-editor/TextEditor";
 import { TutorialDisplay } from "../tutorial-display/TutorialDisplay";
 
-const TutorialPage: AnyStyledComponent = styled.main`
+const TutorialPage: AnyStyledComponent = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
 `;
 
-const Parent: AnyStyledComponent = styled.div`
+const MainWrapper: AnyStyledComponent = styled.main`
   display: flex;
   align-items: flex-start;
   flex-direction: row;
@@ -41,7 +41,7 @@ const TutorialApp: React.FC = (): JSX.Element => {
   return (
     <TutorialPage>
       <Navbar />
-      <Parent>
+      <MainWrapper>
         <Column>
           <TutorialDisplay />
         </Column>
@@ -51,7 +51,7 @@ const TutorialApp: React.FC = (): JSX.Element => {
         <Column>
           <h3 className="text-center">Output will go here</h3>
         </Column>
-      </Parent>
+      </MainWrapper>
     </TutorialPage>
   );
 };

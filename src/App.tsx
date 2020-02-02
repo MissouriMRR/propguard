@@ -4,7 +4,7 @@ import styled, { AnyStyledComponent } from "styled-components";
 import { TutorialApp } from "./components/tutorial-app/TutorialApp";
 import { Landing } from "./components/landing/Landing";
 
-const Main: AnyStyledComponent = styled.div`
+const AppWrapper: AnyStyledComponent = styled.div`
   background-color: #dce1ee;
   display: flex;
   flex-direction: column;
@@ -15,12 +15,12 @@ const Main: AnyStyledComponent = styled.div`
 const App: React.FC = (): JSX.Element => {
   return (
     <Router>
-      <Main>
+      <AppWrapper>
         <Switch>
           <Route exact path="/" component={Landing} />
           <Route path="/tutorial" component={TutorialApp} />
         </Switch>
-      </Main>
+      </AppWrapper>
     </Router>
   );
 };

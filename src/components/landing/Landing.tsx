@@ -11,7 +11,7 @@ const Land: AnyStyledComponent = styled.div`
   height: 100vh;
 `;
 
-const Main: AnyStyledComponent = styled.div`
+const LandPageWrapper: AnyStyledComponent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,14 +25,14 @@ const Main: AnyStyledComponent = styled.div`
   }
 `;
 
-const Title: AnyStyledComponent = styled.div`
+const Title: AnyStyledComponent = styled.h1`
   position: relative;
   font-family: "Raleway", "Open Sans", "Roboto";
   font-size: 96px;
   font-weight: normal;
   width: 190px;
   height: auto;
-  margin: 0 auto 0 auto;
+  margin: 0 auto 1rem auto;
   border-right: 2px solid rgba(255, 255, 255, 0);
   overflow: hidden;
   transform: translateY(-50%);
@@ -51,7 +51,7 @@ const Title: AnyStyledComponent = styled.div`
 
   @keyframes blinkTextCursor {
     0% {
-border-right-color: rgba(0, 0, 0, 1);
+      border-right-color: rgba(0, 0, 0, 1);
     }
     25% {
       border-right-color: rgba(0, 0, 0, 1);
@@ -68,7 +68,7 @@ border-right-color: rgba(0, 0, 0, 1);
   }
 `;
 
-const Subtext: AnyStyledComponent = styled.span`
+const Subtext: AnyStyledComponent = styled.aside`
   font-size: 18px;
   font-weight: normal;
   max-width: 467px;
@@ -90,7 +90,7 @@ const Button: AnyStyledComponent = styled.button`
 const Landing: React.FC = (): JSX.Element => {
   return (
     <Land>
-      <Main>
+      <LandPageWrapper>
         <Title>Propguard</Title>
         <Subtext>
           A webapp that teaches people how to use MAVSDK and Python to start
@@ -100,7 +100,7 @@ const Landing: React.FC = (): JSX.Element => {
         <Link to="/tutorial">
           <Button>Start</Button>
         </Link>
-      </Main>
+      </LandPageWrapper>
     </Land>
   );
 };

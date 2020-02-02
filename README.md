@@ -5,7 +5,7 @@
 <br />
 <p align="center">
     <h2 align="center">Propguard</h2>
-    <p align="center">Currently only two software members really know how to start the drone and enable its autonomous features. We need to change that. Propguard is a webapp that teaches people how to use Dronekit and Python to start and launch the drones.</p>
+    <p align="center">Propguard is a webapp that teaches people how to start writing basic flight code with technologies like Dronekit, MAVSDK, and Python.</p>
 </p>
 
 ## Table of Contents
@@ -26,7 +26,7 @@ The tech stack for the front-end is Typescript and ReactJS.
 
 ## Usage
 
-We're working on getting a live version up so for now you'll have to run this project locally on your machine. See the **Get Started** section for instructions on how to run it.
+We're working on getting a live version up so for now you'll have to run this project locally on your machine. See the [**Get Started**](#get-started) section for instructions on how to run it.
 
 ## Get started
 
@@ -68,12 +68,7 @@ yarn start
 
 ## Roadmap and progress
 
-- Finish front-end for the tutorial part of Propguard (Feb 11)
-- Write basic tutorials for setting up development environments for the flight team (Feb 25)
-- Write a tutorial for writing actual flight code (March 10)
-- Create a backend and database to host propguard tutorial (March 17)
-- Find a place to host the wiki and tutorial (March 19)
-- Come up with a system that lets the wiki by easily editable with some CMS like Ghost+Gatsby or something similar (April 14)
+See the [Projects section](https://github.com/MissouriMRR/propguard/projects) for more information on deadlines and tasks that need to be done. We expect to have Propguard ready before the summer of 2020.
 
 ## Contributing
 
