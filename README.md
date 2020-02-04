@@ -5,7 +5,7 @@
 <br />
 <p align="center">
     <h2 align="center">Propguard</h2>
-    <p align="center">Propguard is a webapp that teaches people how to start writing basic flight code with technologies like Dronekit, MAVSDK, and Python.</p>
+    <p align="center">Propguard is a webapp that teaches people how to start writing basic flight code with technologies like PX4, MAVSDK, and Python.</p>
 </p>
 
 ## Table of Contents

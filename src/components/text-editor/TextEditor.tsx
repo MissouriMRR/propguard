@@ -113,7 +113,7 @@ const TextEditor: React.FC = (): JSX.Element => {
         break;
       }
     }
-  });
+  }, [userInput, cursorPos]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
