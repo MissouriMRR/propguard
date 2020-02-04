@@ -68,7 +68,7 @@ const Title: AnyStyledComponent = styled.h1`
   }
 `;
 
-const Subtext: AnyStyledComponent = styled.aside`
+const Subtext: AnyStyledComponent = styled.p`
   font-size: 18px;
   font-weight: normal;
   max-width: 467px;

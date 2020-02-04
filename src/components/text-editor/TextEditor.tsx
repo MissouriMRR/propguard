@@ -5,16 +5,6 @@ import React, { useState, useEffect } from "react";
 import styled, { AnyStyledComponent } from "styled-components";
 
 const TerminalWrapper: AnyStyledComponent = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  text-align: center;
-`;
-
-const Terminal: AnyStyledComponent = styled.div`
   background-color: #fff;
   border-radius: 5px;
   display: flex;
@@ -25,7 +15,7 @@ const Terminal: AnyStyledComponent = styled.div`
   width: 70%;
 `;
 
-const Text: AnyStyledComponent = styled.textarea`
+const Terminal: AnyStyledComponent = styled.textarea`
   margin: 0;
   border-radius: 5px;
   border-style: none;
@@ -87,12 +77,17 @@ const TextEditor: React.FC = (): JSX.Element => {
   useEffect(() => {
     let text: string = userInput;
     let startIndex = 0;
+    let tempIndex = 0;
 
-    // Determines which word we want to offer a suggestion for
-    if (userInput.includes(" ")) {
-      startIndex = userInput.lastIndexOf(" ");
+    if (text.includes(" ") || text.includes("\n")) {
+      startIndex = text.lastIndexOf(" ");
+      tempIndex = text.lastIndexOf("\n");
 
-      if (userInput.length <= cursorPos) {
+      // If a user used a newline to start their new word, we will
+      // use the inde of the newline instead
+      if (tempIndex > startIndex) startIndex = tempIndex;
+
+      if (text.length <= cursorPos) {
         text = text.substring(startIndex + 1);
       } else {
         const currentStr = text.substring(0, cursorPos);
@@ -127,20 +122,18 @@ const TextEditor: React.FC = (): JSX.Element => {
 
   return (
     <TerminalWrapper>
-      <Terminal>
-        <Text
-          type="text"
-          onBlur={removeSuggestion}
-          onChange={handleChange}
-          spellCheck="false"
-          placeholder="Type in anything you want to your heart’s content. Text wrapping is included too!"
-          value={userInput}
-        />
-        <SuggestBox>
-          <h1>{suggestion}</h1>
-        </SuggestBox>
-        <Button onClick={handleSubmit}>Run</Button>
-      </Terminal>
+      <Terminal
+        type="text"
+        onBlur={removeSuggestion}
+        onChange={handleChange}
+        spellCheck="false"
+        placeholder="Type in anything you want to your heart’s content. Text wrapping is included too!"
+        value={userInput}
+      />
+      <SuggestBox>
+        <h1>{suggestion}</h1>
+      </SuggestBox>
+      <Button onClick={handleSubmit}>Run</Button>
     </TerminalWrapper>
   );
 };
