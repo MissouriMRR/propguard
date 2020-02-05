@@ -6,10 +6,11 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
+    'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
     'airbnb',
     'airbnb-typescript',
-    'prettier'
+    'prettier',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -27,8 +28,9 @@ module.exports = {
     "no-param-reassign": 1,
     "prettier/prettier": "error",
     "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
-    '@typescript-eslint/indent': ['error', 2]
-  },
+    "@typescript-eslint/indent": ["error", 2],
+    "react/jsx-curly-newline": 0,
+    },
   settings: {
     "import/resolver": {
       "node": {

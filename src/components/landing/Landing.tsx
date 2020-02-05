@@ -3,14 +3,20 @@ import { Link } from "react-router-dom";
 import styled, { AnyStyledComponent } from "styled-components";
 
 const Land: AnyStyledComponent = styled.div`
-  height: 100%;
-  overflow-x: hidden;
-  background-color: #454c60;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #dce1ee;
+  height: 100vh;
 `;
 
-const Main: AnyStyledComponent = styled.main`
-  height: 350px;
-  color: white;
+const LandPageWrapper: AnyStyledComponent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
 
   @media screen and (max-width: 575px) {
     .jumbotron {
@@ -21,14 +27,16 @@ const Main: AnyStyledComponent = styled.main`
 
 const Title: AnyStyledComponent = styled.h1`
   position: relative;
-  font-size: 40px;
-  width: 16em;
-  height: 16%;
-  margin: 0 auto;
+  font-family: "Raleway", "Open Sans", "Roboto";
+  font-size: 96px;
+  font-weight: normal;
+  width: 190px;
+  height: auto;
+  margin: 0 auto 1rem auto;
   border-right: 2px solid rgba(255, 255, 255, 0);
   overflow: hidden;
   transform: translateY(-50%);
-  font-weight: 400;
+
   animation: typewriter 1s steps(9) 1s 1 normal both,
     blinkTextCursor 1s steps(11) infinite normal;
 
@@ -37,19 +45,19 @@ const Title: AnyStyledComponent = styled.h1`
       width: 0;
     }
     to {
-      width: 190px;
+      width: 490px;
     }
   }
 
   @keyframes blinkTextCursor {
     0% {
-      border-right-color: rgba(255, 255, 255, 1);
+      border-right-color: rgba(0, 0, 0, 1);
     }
     25% {
-      border-right-color: rgba(255, 255, 255, 1);
+      border-right-color: rgba(0, 0, 0, 1);
     }
     50% {
-      border-right-color: rgba(255, 255, 255, 1);
+      border-right-color: rgba(0, 0, 00, 1);
     }
     75% {
       border-right-color: transparent;
@@ -60,33 +68,39 @@ const Title: AnyStyledComponent = styled.h1`
   }
 `;
 
-const Subtext: AnyStyledComponent = styled.aside`
-  font-size: 16px;
+const Subtext: AnyStyledComponent = styled.p`
+  font-size: 18px;
+  font-weight: normal;
+  max-width: 467px;
+  margin: -50px auto 0 auto;
+  text-align: center;
 `;
 
 const Button: AnyStyledComponent = styled.button`
-  background-color: #afeb80;
+  background-color: #8dca5d;
+  border-radius: 5px;
+  border-style: none;
   color: white;
+  font-size: 18px;
+  margin: 50px auto;
+  height: 40px;
+  width: 150px;
 `;
 
 const Landing: React.FC = (): JSX.Element => {
   return (
     <Land>
-      <div className="container h-100 text-center">
-        <div className="row align-items-center h-100">
-          <Main className="col-lg-6 col-md-8 col-10 offset-lg-3 offset-md-2 offset-1 text-center mt-5 mt-xl-0">
-            <Title>Propguard</Title>
-            <Subtext>
-              A webapp that teaches people how to use Dronekit and Python to
-              start and launch the drones
-            </Subtext>
-            <br />
-            <Link to="/tutorial">
-              <Button className="btn col-6 mt-5">Start Tutorial</Button>
-            </Link>
-          </Main>
-        </div>
-      </div>
+      <LandPageWrapper>
+        <Title>Propguard</Title>
+        <Subtext>
+          A webapp that teaches people how to use MAVSDK and Python to start
+          flying copters autonomously
+        </Subtext>
+        <br />
+        <Link to="/tutorial">
+          <Button>Start</Button>
+        </Link>
+      </LandPageWrapper>
     </Land>
   );
 };
