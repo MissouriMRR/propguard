@@ -28,8 +28,8 @@ const Title: AnyStyledComponent = styled.h1`
 `;
 
 const ContentWrapper: AnyStyledComponent = styled.div`
+  width: 80%;
   font-size: 16px;
-  max-width: 80%;
 `;
 
 interface ButtonProps {
@@ -49,7 +49,14 @@ const Button: AnyStyledComponent = styled.button`
 `;
 
 const CodeBlock: AnyStyledComponent = styled.div`
-  background-color: grey;
+  padding: 0.5rem 1rem;
+  font-family: "Source Code Pro";
+  background-color: #e8e8e8;
+  border-radius: 5px;
+
+  span {
+    white-space: pre;
+  }
 `;
 
 const ButtonGroup: AnyStyledComponent = styled.div`
@@ -69,12 +76,15 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
     if (element.type === "code")
       return (
         <CodeBlock>
-          <p>{element.content}</p>
+          <span>{element.content}</span>
         </CodeBlock>
       );
     return "Hi";
   });
 
+  // Empty div shown in place of back button on the first step so
+  // the next button stays in the same place, and the next button is
+  // removed on the final step
   return (
     <TutorialBG>
       <ContentWrapper>
@@ -82,12 +92,18 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
         {tutorialData}
       </ContentWrapper>
       <ButtonGroup>
-        <Button onClick={(): void => setStep(step - 1)} next={false}>
-          Back
-        </Button>
-        <Button onClick={(): void => setStep(step + 1)} next>
-          Next
-        </Button>
+        {step === 1 ? (
+          <div />
+        ) : (
+          <Button onClick={(): void => setStep(step - 1)} next={false}>
+            Back
+          </Button>
+        )}
+        {step === data.length ? null : (
+          <Button onClick={(): void => setStep(step + 1)} next>
+            Next
+          </Button>
+        )}
       </ButtonGroup>
     </TutorialBG>
   );

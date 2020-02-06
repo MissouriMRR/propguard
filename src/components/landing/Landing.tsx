@@ -51,7 +51,7 @@ const Title: AnyStyledComponent = styled.div`
 
   @keyframes blinkTextCursor {
     0% {
-border-right-color: rgba(0, 0, 0, 1);
+      border-right-color: rgba(0, 0, 0, 1);
     }
     25% {
       border-right-color: rgba(0, 0, 0, 1);
