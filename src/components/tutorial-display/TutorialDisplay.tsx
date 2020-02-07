@@ -27,8 +27,15 @@ const Title: AnyStyledComponent = styled.h1`
   width: 80%;
 `;
 
+const StepContentWrapper: AnyStyledComponent = styled.div`
+  height: 100%;
+  max-height: 55vh;
+  overflow-y: auto;
+`;
+
 const ContentWrapper: AnyStyledComponent = styled.div`
   width: 80%;
+  height: 100%;
   font-size: 16px;
 `;
 
@@ -89,7 +96,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
     <TutorialBG>
       <ContentWrapper>
         <Title>{data[step - 1].title}</Title>
-        {tutorialData}
+        <StepContentWrapper>{tutorialData}</StepContentWrapper>
       </ContentWrapper>
       <ButtonGroup>
         {step === 1 ? (

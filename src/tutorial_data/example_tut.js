@@ -59,7 +59,7 @@ while (codeBlock = True):
       },
       {
         type: "text",
-        content: "* Figure out a way to store code blocks with newlines."
+        content: "* Figure out a better way to store code blocks with newlines."
       },
       {
         type: "text",
@@ -82,7 +82,25 @@ while (codeBlock = True):
     instructions: [
       {
         type: "text",
-        content: "This is the last step."
+        content:
+          "This is the last step. We're gonna test out the scrolling feature."
+      },
+      {
+        type: "text",
+        content:
+          "Ghost flathead warbonnet, cowfish ghost knifefish oceanic flyingfish Jack Dempsey! Black prickleback glassfish bonytongue, moonfish, duckbill eel cusk-eel goby kappy Atlantic saury eagle ray arrowtooth eel loach goby ray. Pilot fish sucker, golden loach cornetfish x-ray tetra wolf-eel blacktip reef shark."
+      },
+      {
+        type: "code",
+        content: `
+codeBlock = True
+while (codeBlock = True):
+  renderCodeBlock();
+        `
+      },
+      {
+        type: "text",
+        content: `Featherback slipmouth taimen tiger shark eulachon hillstream loach sixgill ray featherfin knifefish kissing gourami moray eel yellowtail kingfish. Dory yellowhead jawfish searobin zebra danio dusky grouper. Longnose lancetfish panga; jewfish blue shark, flat loach round stingray bigscale ghost pipefish tiger barb Bitterling Pacific salmon. Chubsucker nase, woody sculpin sailfish ling cod large-eye bream Atlantic trout deepwater cardinalfish yellowmargin triggerfish driftfish grunion, northern squawfish. Straptail stickleback Old World rivuline, "mullet dab cornetfish," ghost pipefish. Flat loach kanyu pipefish northern sea robin merluccid hake, damselfish armoured catfish, mako shark herring smelt menhaden Razorback sucker bowfin straptail guppy zebra bullhead shark.`
       }
     ]
   }

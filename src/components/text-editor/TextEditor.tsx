@@ -23,6 +23,7 @@ const Terminal: AnyStyledComponent = styled.textarea`
   margin: 0 0 10px 0;
   resize: none;
   width: 80%;
+  font-family: "Source Code Pro";
   font-size: 16px;
 
   :focus {
