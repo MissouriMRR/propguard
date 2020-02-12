@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled, { AnyStyledComponent } from "styled-components";
 
 // TODO: Switch data source from local sources to a backend API
-import data from "../../tutorial_data/example_tut";
+import data from "../../tutorial_data/example_tut.json";
 
 const TutorialBG: AnyStyledComponent = styled.div`
   background-color: #fff;
