@@ -3,13 +3,22 @@ import styled, { AnyStyledComponent } from "styled-components";
 import { TextEditor } from "../text-editor/TextEditor";
 import { Output } from "../output/Output";
 
-const Parent: AnyStyledComponent = styled.div`
+import { Navbar } from "../navbar/Navbar";
+
+import { TutorialDisplay } from "../tutorial-display/TutorialDisplay";
+
+const TutorialPage: AnyStyledComponent = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
+const MainWrapper: AnyStyledComponent = styled.main`
   display: flex;
   align-items: flex-start;
-  flex-wrap: nowrap;
-  height: 100%;
-  background-color: #dce1ee;
-  overflow-y: auto;
+  flex-direction: row;
+  flex-wrap: none;
+  flex: 1;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -17,6 +26,9 @@ const Parent: AnyStyledComponent = styled.div`
 `;
 
 const Column: AnyStyledComponent = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   width: 33%;
   color: black;
   height: 100%;
@@ -28,17 +40,20 @@ const Column: AnyStyledComponent = styled.div`
 
 const TutorialApp: React.FC = (): JSX.Element => {
   return (
-    <Parent>
-      <Column>
-        <h3 className="text-center">Tutorials will go here</h3>
-      </Column>
-      <Column>
-        <TextEditor />
-      </Column>
-      <Column className="text-center">
-        <Output />
-      </Column>
-    </Parent>
+    <TutorialPage>
+      <Navbar />
+      <MainWrapper>
+        <Column>
+          <TutorialDisplay />
+        </Column>
+        <Column>
+          <TextEditor />
+        </Column>
+        <Column>
+          <Output />
+        </Column>
+      </MainWrapper>
+    </TutorialPage>
   );
 };
 
