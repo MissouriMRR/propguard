@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled, { AnyStyledComponent } from "styled-components";
 
-// TODO: Switch data source from local sources to a backend API
 import data from "../../tutorial_data/example_tut.json";
 
 const TutorialBG: AnyStyledComponent = styled.div`
@@ -74,7 +73,6 @@ const ButtonGroup: AnyStyledComponent = styled.div`
   justify-content: space-between;
 `;
 
-// FIXME: Make sure that you can't walk over the array
 const TutorialDisplay: React.FC = (): JSX.Element => {
   const [step, setStep] = useState(1);
 
