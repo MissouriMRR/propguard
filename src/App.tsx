@@ -5,7 +5,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { TutorialApp } from "./components/tutorial-app/TutorialApp";
 import { Landing } from "./components/landing/Landing";
 
-const Main: AnyStyledComponent = styled.div`
+const Main: AnyStyledComponent = styled.main`
   height: 100vh;
   overflow-y: hidden;
 `;

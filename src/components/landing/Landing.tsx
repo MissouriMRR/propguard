@@ -5,12 +5,12 @@ import styled, { AnyStyledComponent } from "styled-components";
 const Land: AnyStyledComponent = styled.div`
   height: 100%;
   overflow-x: hidden;
-  background-color: #dce1ee;
+  background-color: #454c60;
 `;
 
-const Main: AnyStyledComponent = styled.div`
+const Main: AnyStyledComponent = styled.main`
   height: 350px;
-  color: black;
+  color: white;
 
   @media screen and (max-width: 575px) {
     .jumbotron {
@@ -19,7 +19,7 @@ const Main: AnyStyledComponent = styled.div`
   }
 `;
 
-const Title: AnyStyledComponent = styled.div`
+const Title: AnyStyledComponent = styled.h1`
   position: relative;
   font-size: 40px;
   width: 16em;
@@ -43,13 +43,13 @@ const Title: AnyStyledComponent = styled.div`
 
   @keyframes blinkTextCursor {
     0% {
-      border-right-color: rgba(0, 0, 0, 1);
+      border-right-color: rgba(255, 255, 255, 1);
     }
     25% {
-      border-right-color: rgba(0, 0, 0, 1);
+      border-right-color: rgba(255, 255, 255, 1);
     }
     50% {
-      border-right-color: rgba(0, 0, 00, 1);
+      border-right-color: rgba(255, 255, 255, 1);
     }
     75% {
       border-right-color: transparent;
@@ -60,14 +60,13 @@ const Title: AnyStyledComponent = styled.div`
   }
 `;
 
-const Subtext: AnyStyledComponent = styled.span`
+const Subtext: AnyStyledComponent = styled.aside`
   font-size: 16px;
 `;
 
 const Button: AnyStyledComponent = styled.button`
-  background-color: #8dca5d;
+  background-color: #afeb80;
   color: white;
-  width: 100px;
 `;
 
 const Landing: React.FC = (): JSX.Element => {
