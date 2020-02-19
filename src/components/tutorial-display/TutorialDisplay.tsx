@@ -1,3 +1,6 @@
+/* eslint react/no-array-index-key: 0 */
+// NOTE: We use the index for the the array.map function simply because
+// we don't modify the array afterwords, so the index will always be correct
 import React, { useState } from "react";
 import styled, { AnyStyledComponent } from "styled-components";
 
@@ -76,11 +79,11 @@ const ButtonGroup: AnyStyledComponent = styled.div`
 const TutorialDisplay: React.FC = (): JSX.Element => {
   const [step, setStep] = useState(1);
 
-  const tutorialData = data[step - 1].instructions.map(element => {
-    if (element.type === "text") return <p>{element.content}</p>;
+  const tutorialData = data[step - 1].instructions.map((element, index) => {
+    if (element.type === "text") return <p key={index}>{element.content}</p>;
     if (element.type === "code")
       return (
-        <CodeBlock>
+        <CodeBlock key={index}>
           <span>{element.content}</span>
         </CodeBlock>
       );
