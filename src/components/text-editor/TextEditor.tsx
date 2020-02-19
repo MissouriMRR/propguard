@@ -17,6 +17,7 @@ const TerminalWrapper: AnyStyledComponent = styled.div`
 
 const Terminal: AnyStyledComponent = styled.textarea`
   margin: 0;
+  padding: 2rem;
   border-radius: 5px;
   border-style: none;
   height: 75%;
@@ -37,6 +38,7 @@ const Button: AnyStyledComponent = styled.button`
   height: 43px;
   width: 98px;
   font-size: 18px;
+  margin: 0 0 2rem 0;
 
   @media only screen and (max-width: 800px) {
     bottom: 60px;
@@ -108,7 +110,7 @@ const TextEditor: React.FC = (): JSX.Element => {
         break;
       }
     }
-  }, [userInput, cursorPos]);
+  }, [userInput, cursorPos, words]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
