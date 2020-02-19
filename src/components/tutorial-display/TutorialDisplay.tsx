@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled, { AnyStyledComponent } from "styled-components";
 
-import data from "../../tutorial_data/example_tut.json";
+import data from "../../data/tutorial_data/example_tut.json";
 
 const TutorialBG: AnyStyledComponent = styled.div`
   background-color: #fff;
