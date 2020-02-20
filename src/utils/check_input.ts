@@ -1,6 +1,4 @@
-// TODO: Function should probably return line and col of error rather
-// than just console.log it
-const checkInput = (userInput: string, solution: string): boolean => {
+const checkInput = (userInput: string, solution: string): string => {
   const index = 0;
   let line = 1;
   let col = 1;
@@ -13,16 +11,13 @@ const checkInput = (userInput: string, solution: string): boolean => {
     }
 
     if (userInput[index] !== solution[index]) {
-      console.error(`You have an error on line ${line} and column ${col}`);
-      return false;
+      return `You have an error on line ${line} and column ${col}`;
     }
 
     col += 1;
   }
 
-  // console.log(line, col);
-
-  return true;
+  return `Your code is correct!`;
 };
 
 export { checkInput };
