@@ -4,6 +4,9 @@
 import React, { useState, useEffect } from "react";
 import styled, { AnyStyledComponent } from "styled-components";
 
+import { checkInput } from "../../utils/check_input";
+import answerData from "../../utils/correct_example.json";
+
 const TerminalWrapper: AnyStyledComponent = styled.div`
   background-color: #fff;
   border-radius: 5px;
@@ -119,7 +122,7 @@ const TextEditor: React.FC = (): JSX.Element => {
     if (!userInput) return;
 
     // TODO: Placeholder alert. Replace this when we get global state working
-    alert(`Hi, you submitted: ${userInput}`);
+    console.log(checkInput(userInput, answerData[0].answers));
   };
 
   return (
