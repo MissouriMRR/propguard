@@ -19,14 +19,14 @@ const TerminalWrapper: AnyStyledComponent = styled.div`
 `;
 
 const Terminal: AnyStyledComponent = styled.textarea`
+  height: 75%;
+  width: 66%;
   margin: 0;
   padding: 2rem;
-  border-radius: 5px;
-  border-style: none;
-  height: 75%;
+  overflow: auto;
+  border: none;
   margin: 0 0 10px 0;
   resize: none;
-  width: 80%;
   font-size: 16px;
 
   :focus {
@@ -89,7 +89,7 @@ const TextEditor: React.FC = (): JSX.Element => {
       tempIndex = text.lastIndexOf("\n");
 
       // If a user used a newline to start their new word, we will
-      // use the inde of the newline instead
+      // use the index of the newline instead
       if (tempIndex > startIndex) startIndex = tempIndex;
 
       if (text.length <= cursorPos) {
