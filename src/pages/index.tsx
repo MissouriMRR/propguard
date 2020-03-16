@@ -1,7 +1,7 @@
 import React from "react";
 
-import { App } from "../components/app";
+import { TutorialApp } from "../components/app";
 
-const IndexPage = (): JSX.Element => <App />;
+const IndexPage = (): JSX.Element => <TutorialApp />;
 
 export default IndexPage;
