@@ -3,11 +3,7 @@
 // we don't modify the array afterwords, so the index will always be correct
 import React, { useState } from "react";
 import styled, { AnyStyledComponent } from "styled-components";
-
-// TODO: Convert data sourcing from Gatsby. This means that we DO NOT
-// import the data directly. Instead we use GraphQL queries and store the
-// result of that query into a JSON object called data (or whatever we want)
-import data from "./example_tut.json";
+import { useStaticQuery, graphql } from "gatsby"
 
 const TutorialBG: AnyStyledComponent = styled.div`
   background-color: #fff;
@@ -82,7 +78,24 @@ const ButtonGroup: AnyStyledComponent = styled.div`
 const TutorialDisplay: React.FC = (): JSX.Element => {
   const [step, setStep] = useState(1);
 
-  const tutorialData = data[step - 1].instructions.map((element, index) => {
+  let data = useStaticQuery(graphql`
+    query {
+      allExampleTutJson {
+        nodes {
+          type
+          step
+          title
+          instructions {
+            type
+            content
+          }
+        }
+      }
+    }
+  `);
+  data = data.allExampleTutJson.nodes;
+ 
+  const tutorialData = data[step - 1].instructions.map((element: any, index: number) => {
     if (element.type === "text") return <p key={index}>{element.content}</p>;
     if (element.type === "code")
       return (
