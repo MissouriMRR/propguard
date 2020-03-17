@@ -3,7 +3,7 @@
 // we don't modify the array afterwords, so the index will always be correct
 import React, { useState } from "react";
 import styled, { AnyStyledComponent } from "styled-components";
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql } from "gatsby";
 
 const TutorialBG: AnyStyledComponent = styled.div`
   background-color: #fff;
@@ -78,33 +78,44 @@ const ButtonGroup: AnyStyledComponent = styled.div`
 const TutorialDisplay: React.FC = (): JSX.Element => {
   const [step, setStep] = useState(1);
 
+  // TODO: Add a filter here to select a tutorial. Bonus if you can use
+  // a varible to do so
   let data = useStaticQuery(graphql`
     query {
-      allExampleTutJson {
+      allExampleGqlJson {
         nodes {
-          type
-          step
-          title
+          tutorial_title
           instructions {
+            step
+            title
             type
-            content
+            content {
+              type
+              value
+            }
           }
         }
       }
     }
   `);
-  data = data.allExampleTutJson.nodes;
- 
-  const tutorialData = data[step - 1].instructions.map((element: any, index: number) => {
-    if (element.type === "text") return <p key={index}>{element.content}</p>;
-    if (element.type === "code")
-      return (
-        <CodeBlock key={index}>
-          <span>{element.content}</span>
-        </CodeBlock>
-      );
-    return "Hi";
-  });
+
+  // We destructure the data since this query returns an array, and when
+  // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
+  // it just picks the first element
+  [data] = data.allExampleGqlJson.nodes;
+
+  const tutorialData = data.instructions[step - 1].content.map(
+    (element: any, index: number) => {
+      if (element.type === "text") return <p key={index}>{element.value}</p>;
+      if (element.type === "code")
+        return (
+          <CodeBlock key={index}>
+            <span>{element.value}</span>
+          </CodeBlock>
+        );
+      return "Invalid content type found! Check your source JSONs!";
+    }
+  );
 
   // Empty div shown in place of back button on the first step so
   // the next button stays in the same place, and the next button is
@@ -112,7 +123,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
   return (
     <TutorialBG>
       <ContentWrapper>
-        <Title>{data[step - 1].title}</Title>
+        <Title>{data.instructions[step - 1].title}</Title>
         <StepContentWrapper>{tutorialData}</StepContentWrapper>
       </ContentWrapper>
       <ButtonGroup>
@@ -123,7 +134,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
             Back
           </Button>
         )}
-        {step === data.length ? null : (
+        {step === data.instructions.length ? null : (
           <Button onClick={(): void => setStep(step + 1)} next>
             Next
           </Button>
