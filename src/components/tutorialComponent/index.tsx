@@ -77,12 +77,13 @@ const ButtonGroup: AnyStyledComponent = styled.div`
 
 const TutorialDisplay: React.FC = (): JSX.Element => {
   const [step, setStep] = useState(1);
+  let selectedTutorial: string = "Hello Data";
 
   // TODO: Add a filter here to select a tutorial. Bonus if you can use
   // a varible to do so
   let data = useStaticQuery(graphql`
     query {
-      allExampleGqlJson(filter:{tutorial_title:{eq: "Hello Data"}}) {
+      allExampleGqlJson {
         nodes {
           tutorial_title
           instructions {
@@ -102,7 +103,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
   // We destructure the data since this query returns an array, and when
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
   // it just picks the first element
-  [data] = data.allExampleGqlJson.nodes;
+  [data] = data.allExampleGqlJson.nodes.filter((tutorial: any) => tutorial.tutorial_title === selectedTutorial);
 
   const tutorialData = data.instructions[step - 1].content.map(
     (element: any, index: number) => {
