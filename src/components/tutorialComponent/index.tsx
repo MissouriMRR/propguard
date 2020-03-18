@@ -82,7 +82,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
   // a varible to do so
   let data = useStaticQuery(graphql`
     query {
-      allExampleGqlJson {
+      allExampleGqlJson(filter:{tutorial_title:{eq: "Hello Data"}}) {
         nodes {
           tutorial_title
           instructions {
