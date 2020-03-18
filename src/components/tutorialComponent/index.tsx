@@ -44,6 +44,24 @@ interface ButtonProps {
   next: boolean;
 }
 
+interface IContent {
+  type: String;
+  value: String;
+}
+
+interface IInstruction {
+  step: Number;
+  title: String;
+  type: String;
+  content: Array<IContent>
+}
+
+interface ITutorial {
+  id: String;
+  tutorial_title: String;
+  instructions: Array<IInstruction>;
+}
+
 const Button: AnyStyledComponent = styled.button`
   height: 2.5rem;
   width: 6rem;
@@ -103,10 +121,10 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
   // We destructure the data since this query returns an array, and when
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
   // it just picks the first element
-  [data] = data.allExampleGqlJson.nodes.filter((tutorial: any) => tutorial.tutorial_title === selectedTutorial);
+  [data] = data.allExampleGqlJson.nodes.filter((tutorial: ITutorial) => tutorial.tutorial_title === selectedTutorial);
 
   const tutorialData = data.instructions[step - 1].content.map(
-    (element: any, index: number) => {
+    (element: IContent, index: number) => {
       if (element.type === "text") return <p key={index}>{element.value}</p>;
       if (element.type === "code")
         return (
