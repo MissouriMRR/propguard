@@ -42,7 +42,7 @@ const Column: AnyStyledComponent = styled.div`
 `;
 
 const TutorialApp: React.FC = (): JSX.Element => {
-  const [step, setStep] = useGlobal("step");
+  const [tutorialStep, setTutorialStep] = useGlobal("tutorialStep");
 
   return (
     <StyledTutorialPage>
@@ -58,9 +58,11 @@ const TutorialApp: React.FC = (): JSX.Element => {
           <h3 className="text-center">Output will go here</h3>
           <button
             type="button"
-            onClick={(): Promise<{ step: number }> => setStep(step + 1)}
+            onClick={(): Promise<{ tutorialStep: number }> =>
+              setTutorialStep(tutorialStep + 1)
+            }
           >
-            {step}: Click to increase
+            {tutorialStep}: Click to increase
           </button>
         </Column>
       </MainWrapper>
