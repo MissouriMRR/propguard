@@ -44,22 +44,22 @@ interface ButtonProps {
   next: boolean;
 }
 
-interface IContent {
-  type: String;
-  value: String;
+interface Content {
+  type: string;
+  value: string;
 }
 
-interface IInstruction {
-  step: Number;
-  title: String;
-  type: String;
-  content: Array<IContent>
+interface Instruction {
+  step: number;
+  title: string;
+  type: string;
+  content: Array<Content>;
 }
 
-interface ITutorial {
-  id: String;
-  tutorial_title: String;
-  instructions: Array<IInstruction>;
+interface Tutorial {
+  id: string;
+  tutorial_title: string;
+  instructions: Array<Instruction>;
 }
 
 const Button: AnyStyledComponent = styled.button`
@@ -95,7 +95,7 @@ const ButtonGroup: AnyStyledComponent = styled.div`
 
 const TutorialDisplay: React.FC = (): JSX.Element => {
   const [step, setStep] = useState(1);
-  let selectedTutorial: string = "Hello Data";
+  const selectedTutorial = "Hello Data";
 
   // TODO: Add a filter here to select a tutorial. Bonus if you can use
   // a varible to do so
@@ -121,10 +121,12 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
   // We destructure the data since this query returns an array, and when
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
   // it just picks the first element
-  [data] = data.allExampleGqlJson.nodes.filter((tutorial: ITutorial) => tutorial.tutorial_title === selectedTutorial);
+  [data] = data.allExampleGqlJson.nodes.filter(
+    (tutorial: Tutorial) => tutorial.tutorial_title === selectedTutorial
+  );
 
   const tutorialData = data.instructions[step - 1].content.map(
-    (element: IContent, index: number) => {
+    (element: Content, index: number) => {
       if (element.type === "text") return <p key={index}>{element.value}</p>;
       if (element.type === "code")
         return (
