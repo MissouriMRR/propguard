@@ -1,7 +1,7 @@
 /* eslint react/no-array-index-key: 0 */
 // NOTE: We use the index for the the array.map function simply because
 // we don't modify the array afterwords, so the index will always be correct
-import React, { useState } from "react";
+import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
 
@@ -94,8 +94,8 @@ const ButtonGroup: AnyStyledComponent = styled.div`
 `;
 
 const TutorialDisplay: React.FC = (): JSX.Element => {
-  const [step, setStep] = useState(1);
-  const selectedTutorial = "Hello Data";
+  const [tutorialStep, setTutorialStep] = useGlobal("tutorialStep");
+  const [tutorialName] = useGlobal("tutorialName");
 
   // TODO: Add a filter here to select a tutorial. Bonus if you can use
   // a varible to do so
@@ -122,10 +122,10 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
   // it just picks the first element
   [data] = data.allExampleGqlJson.nodes.filter(
-    (tutorial: Tutorial) => tutorial.tutorial_title === selectedTutorial
+    (tutorial: Tutorial) => tutorial.tutorial_title === tutorialName
   );
 
-  const tutorialData = data.instructions[step - 1].content.map(
+  const tutorialData = data.instructions[tutorialStep - 1].content.map(
     (element: Content, index: number) => {
       if (element.type === "text") return <p key={index}>{element.value}</p>;
       if (element.type === "code")
@@ -144,19 +144,29 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
   return (
     <TutorialBG>
       <ContentWrapper>
-        <Title>{data.instructions[step - 1].title}</Title>
+        <Title>{data.instructions[tutorialStep - 1].title}</Title>
         <StepContentWrapper>{tutorialData}</StepContentWrapper>
       </ContentWrapper>
       <ButtonGroup>
-        {step === 1 ? (
+        {tutorialStep === 1 ? (
           <div />
         ) : (
-          <Button onClick={(): void => setStep(step - 1)} next={false}>
+          <Button
+            onClick={(): Promise<{ tutorialStep: number }> =>
+              setTutorialStep(tutorialStep - 1)
+            }
+            next={false}
+          >
             Back
           </Button>
         )}
-        {step === data.instructions.length ? null : (
-          <Button onClick={(): void => setStep(step + 1)} next>
+        {tutorialStep === data.instructions.length ? null : (
+          <Button
+            onClick={(): Promise<{ tutorialStep: number }> =>
+              setTutorialStep(tutorialStep + 1)
+            }
+            next
+          >
             Next
           </Button>
         )}
