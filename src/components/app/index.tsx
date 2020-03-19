@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint react/jsx-one-expression-per-line: 0 */
+import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import "./normalize.css"; // Normalize CSS styles across all browsers
 
@@ -41,6 +42,8 @@ const Column: AnyStyledComponent = styled.div`
 `;
 
 const TutorialApp: React.FC = (): JSX.Element => {
+  const [step, setStep] = useGlobal("step");
+
   return (
     <StyledTutorialPage>
       <Navbar />
@@ -53,6 +56,12 @@ const TutorialApp: React.FC = (): JSX.Element => {
         </Column>
         <Column>
           <h3 className="text-center">Output will go here</h3>
+          <button
+            type="button"
+            onClick={(): Promise<{ step: number }> => setStep(step + 1)}
+          >
+            {step}: Click to increase
+          </button>
         </Column>
       </MainWrapper>
     </StyledTutorialPage>
