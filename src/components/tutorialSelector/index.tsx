@@ -13,6 +13,21 @@ const TutorialMain: AnyStyledComponent = styled.div`
   width: 100%;
 `;
 
+const Title: AnyStyledComponent = styled.h1`
+  color: #fff;
+  font-size: 18px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 100;
+  padding: 20px;
+`;
+
+const ThinLine: AnyStyledComponent = styled.hr`
+  height: 1px;
+  width: 100%;
+  background: #727272;
+  border: none;
+`;
+
 const TutorialSelector: React.FC = (): JSX.Element => {
   //   const [tutorialStep, setTutorialStep] = useGlobal("tutorialStep");
   //   const [tutorialName] = useGlobal("tutorialName");
@@ -39,7 +54,12 @@ const TutorialSelector: React.FC = (): JSX.Element => {
   return (
     <TutorialMain>
       {data.allExampleGqlJson.nodes.map((value: Tutorial, index: number) => {
-        return <div key={index}>{value.tutorial_title}</div>;
+        return (
+          <div key={index}>
+            <Title key={index}>{value.tutorial_title}</Title>
+            <ThinLine key={index} />
+          </div>
+        );
       })}
     </TutorialMain>
   );
