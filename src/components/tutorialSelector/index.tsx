@@ -4,6 +4,7 @@
 import React from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
+import { Tutorial } from "../interfaces";
 
 const TutorialMain: AnyStyledComponent = styled.div`
   background-color: #262626;
@@ -11,24 +12,6 @@ const TutorialMain: AnyStyledComponent = styled.div`
   height: 100%;
   width: 100%;
 `;
-
-interface Content {
-  type: string;
-  value: string;
-}
-
-interface Instruction {
-  step: number;
-  title: string;
-  type: string;
-  content: Array<Content>;
-}
-
-interface Tutorial {
-  id: string;
-  tutorial_title: string;
-  instructions: Array<Instruction>;
-}
 
 const TutorialSelector: React.FC = (): JSX.Element => {
   //   const [tutorialStep, setTutorialStep] = useGlobal("tutorialStep");

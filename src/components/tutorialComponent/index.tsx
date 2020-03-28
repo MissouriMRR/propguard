@@ -4,6 +4,7 @@
 import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
+import { Tutorial } from "../interfaces";
 
 const TutorialBG: AnyStyledComponent = styled.div`
   background-color: #fff;
@@ -42,24 +43,6 @@ const ContentWrapper: AnyStyledComponent = styled.div`
 
 interface ButtonProps {
   next: boolean;
-}
-
-interface Content {
-  type: string;
-  value: string;
-}
-
-interface Instruction {
-  step: number;
-  title: string;
-  type: string;
-  content: Array<Content>;
-}
-
-interface Tutorial {
-  id: string;
-  tutorial_title: string;
-  instructions: Array<Instruction>;
 }
 
 const Button: AnyStyledComponent = styled.button`
