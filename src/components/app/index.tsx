@@ -5,7 +5,8 @@ import "./normalize.css"; // Normalize CSS styles across all browsers
 
 import { Navbar } from "../navbar";
 import { TextEditor } from "../textEditor";
-import { TutorialDisplay } from "../tutorialComponent";
+// import { TutorialDisplay } from "../tutorialComponent";
+import { TutorialSelector } from "../tutorialSelector";
 
 const StyledTutorialPage: AnyStyledComponent = styled.div`
   height: 100vh;
@@ -49,7 +50,8 @@ const TutorialApp: React.FC = (): JSX.Element => {
       <Navbar />
       <MainWrapper>
         <Column>
-          <TutorialDisplay />
+          {/* <TutorialDisplay /> */}
+          <TutorialSelector />
         </Column>
         <Column>
           <TextEditor />
