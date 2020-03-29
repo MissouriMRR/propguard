@@ -1,5 +1,6 @@
 {
   "tutorial_title": "Example Gatsby Tutorial",
+  "description": "A sample Gatsby tutorial!",
   "instructions": [
     {
       "type": "frame",
