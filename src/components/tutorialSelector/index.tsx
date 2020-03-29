@@ -11,7 +11,6 @@ const TutorialSelector: React.FC = (): JSX.Element => {
   const [tutorialName, setTutorialName] = useGlobal("tutorialName");
   const [selectorDisplay, setSelectorDisplay] = useGlobal("selectorDisplay");
   const [tutorialDisplay, setTutorialDisplay] = useGlobal("tutorialDisplay");
-  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const data = useStaticQuery(graphql`
     query {
@@ -31,14 +30,6 @@ const TutorialSelector: React.FC = (): JSX.Element => {
       }
     }
   `);
-
-  const setTutorial: () => void = (): void => {
-    setTutorialStep(1);
-    console.log(selectedIndex);
-    setTutorialName(data.allExampleGqlJson.nodes[selectedIndex].tutorial_title);
-    setSelectorDisplay("none");
-    setTutorialDisplay("flex");
-  };
 
   interface SelectorProps {
     display: string;
@@ -80,8 +71,12 @@ const TutorialSelector: React.FC = (): JSX.Element => {
           <SingleTutorial
             key={index}
             onClick={() => {
-              setSelectedIndex(index);
-              setTutorial();
+              setTutorialStep(1);
+              setTutorialName(
+                data.allExampleGqlJson.nodes[index].tutorial_title
+              );
+              setSelectorDisplay("none");
+              setTutorialDisplay("flex");
             }}
           >
             <Title key={index}>{value.tutorial_title}</Title>
