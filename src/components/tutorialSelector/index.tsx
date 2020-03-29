@@ -1,16 +1,16 @@
 /* eslint react/no-array-index-key: 0 */
 // NOTE: We use the index for the the array.map function simply because
 // we don't modify the array afterwords, so the index will always be correct
-import React, { useGlobal, useState, useEffect } from "reactn";
+import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
 import { Tutorial } from "../interfaces";
 
 const TutorialSelector: React.FC = (): JSX.Element => {
-  const [tutorialStep, setTutorialStep] = useGlobal("tutorialStep");
-  const [tutorialName, setTutorialName] = useGlobal("tutorialName");
+  const [, setTutorialStep] = useGlobal("tutorialStep");
+  const [, setTutorialName] = useGlobal("tutorialName");
   const [selectorDisplay, setSelectorDisplay] = useGlobal("selectorDisplay");
-  const [tutorialDisplay, setTutorialDisplay] = useGlobal("tutorialDisplay");
+  const [, setTutorialDisplay] = useGlobal("tutorialDisplay");
 
   const data = useStaticQuery(graphql`
     query {
@@ -70,7 +70,7 @@ const TutorialSelector: React.FC = (): JSX.Element => {
         return (
           <SingleTutorial
             key={index}
-            onClick={() => {
+            onClick={(): void => {
               setTutorialStep(1);
               setTutorialName(
                 data.allExampleGqlJson.nodes[index].tutorial_title
