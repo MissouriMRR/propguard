@@ -11,3 +11,10 @@ declare module "reactn/default" {
     tutorialStep: number;
   }
 }
+
+declare module "reactn/default" {
+  export interface Tutorial {
+    selectorDisplay: string;
+    tutorialDisplay: string;
+  }
+}

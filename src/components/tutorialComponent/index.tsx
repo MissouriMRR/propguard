@@ -4,81 +4,86 @@
 import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
-import { Tutorial } from "../interfaces";
-
-const TutorialBG: AnyStyledComponent = styled.div`
-  background-color: #fff;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 90%;
-  width: 70%;
-
-  h1 {
-    font-size: 32px;
-  }
-`;
-
-const Title: AnyStyledComponent = styled.h1`
-  text-align: left;
-  font-size: 32px;
-  font-weight: normal;
-  margin: 20px 0 0 0;
-  width: 80%;
-`;
-
-const StepContentWrapper: AnyStyledComponent = styled.div`
-  height: 100%;
-  max-height: 55vh;
-  overflow-y: auto;
-`;
-
-const ContentWrapper: AnyStyledComponent = styled.div`
-  width: 80%;
-  height: 100%;
-  font-size: 16px;
-`;
-
-interface ButtonProps {
-  next: boolean;
-}
-
-const Button: AnyStyledComponent = styled.button`
-  height: 2.5rem;
-  width: 6rem;
-
-  background-color: ${(props: ButtonProps): string =>
-    props.next ? "#87C5FF" : "#C5C5C5"};
-  border: none;
-  border-radius: 5px;
-
-  font-size: 18px;
-`;
-
-const CodeBlock: AnyStyledComponent = styled.div`
-  padding: 0.5rem 1rem;
-  font-family: "Source Code Pro";
-  background-color: #e8e8e8;
-  border-radius: 5px;
-
-  span {
-    white-space: pre;
-  }
-`;
-
-const ButtonGroup: AnyStyledComponent = styled.div`
-  width: 80%;
-  margin: 2rem 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
+import { Tutorial, Content } from "../interfaces";
 
 const TutorialDisplay: React.FC = (): JSX.Element => {
   const [tutorialStep, setTutorialStep] = useGlobal("tutorialStep");
   const [tutorialName] = useGlobal("tutorialName");
+  const [tutorialDisplay] = useGlobal("tutorialDisplay");
+
+  interface TutorialProps {
+    display: string;
+  }
+
+  const TutorialBG: AnyStyledComponent = styled.div`
+    background-color: #fff;
+    border-radius: 5px;
+    display: ${(props: TutorialProps): string => props.display};
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 90%;
+    width: 70%;
+
+    h1 {
+      font-size: 32px;
+    }
+  `;
+
+  const Title: AnyStyledComponent = styled.h1`
+    text-align: left;
+    font-size: 32px;
+    font-weight: normal;
+    margin: 20px 0 0 0;
+    width: 80%;
+  `;
+
+  const StepContentWrapper: AnyStyledComponent = styled.div`
+    height: 100%;
+    max-height: 55vh;
+    overflow-y: auto;
+  `;
+
+  const ContentWrapper: AnyStyledComponent = styled.div`
+    width: 80%;
+    height: 100%;
+    font-size: 16px;
+  `;
+
+  interface ButtonProps {
+    next: boolean;
+  }
+
+  const Button: AnyStyledComponent = styled.button`
+    height: 2.5rem;
+    width: 6rem;
+
+    background-color: ${(props: ButtonProps): string =>
+      props.next ? "#87C5FF" : "#C5C5C5"};
+    border: none;
+    border-radius: 5px;
+
+    font-size: 18px;
+  `;
+
+  const CodeBlock: AnyStyledComponent = styled.div`
+    padding: 0.5rem 1rem;
+    font-family: "Source Code Pro";
+    background-color: #e8e8e8;
+    border-radius: 5px;
+
+    span {
+      white-space: pre;
+    }
+  `;
+
+  const ButtonGroup: AnyStyledComponent = styled.div`
+    width: 80%;
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  `;
 
   // TODO: Add a filter here to select a tutorial. Bonus if you can use
   // a varible to do so
@@ -125,7 +130,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
   // the next button stays in the same place, and the next button is
   // removed on the final step
   return (
-    <TutorialBG>
+    <TutorialBG display={tutorialDisplay}>
       <ContentWrapper>
         <Title>{data.instructions[tutorialStep - 1].title}</Title>
         <StepContentWrapper>{tutorialData}</StepContentWrapper>
