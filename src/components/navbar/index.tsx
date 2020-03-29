@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 
 const NavWrapper: AnyStyledComponent = styled.nav`
@@ -22,9 +22,20 @@ const NavLogo: AnyStyledComponent = styled.a`
 `;
 
 const Navbar: React.FC = (): JSX.Element => {
+  const [selectorDisplay, setSelectorDisplay] = useGlobal("selectorDisplay");
+  const [tutorialDisplay, setTutorialDisplay] = useGlobal("tutorialDisplay");
+
   return (
     <NavWrapper>
-      <NavLogo to="/">Propguard</NavLogo>
+      <NavLogo
+        to="/"
+        onClick={() => {
+          setTutorialDisplay("none");
+          setSelectorDisplay("block");
+        }}
+      >
+        Propguard
+      </NavLogo>
     </NavWrapper>
   );
 };
