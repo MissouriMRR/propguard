@@ -17,6 +17,7 @@ const TutorialSelector: React.FC = (): JSX.Element => {
       allExampleGqlJson {
         nodes {
           tutorial_title
+          description
           instructions {
             step
             title
@@ -44,17 +45,27 @@ const TutorialSelector: React.FC = (): JSX.Element => {
   `;
 
   const SingleTutorial: AnyStyledComponent = styled.div`
+    color: #fff;
+
     &:hover {
       cursor: pointer;
     }
   `;
 
   const Title: AnyStyledComponent = styled.h1`
-    color: #fff;
-    font-size: 18px;
+    font-size: 24px;
     font-family: "Open Sans", sans-serif;
     font-weight: 100;
-    padding: 20px;
+    padding-left: 20px;
+    padding-top: 20px;
+  `;
+
+  const Description: AnyStyledComponent = styled.div`
+    font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 100;
+    padding-left: 20px;
+    padding-bottom: 20px;
   `;
 
   const ThinLine: AnyStyledComponent = styled.hr`
@@ -80,6 +91,7 @@ const TutorialSelector: React.FC = (): JSX.Element => {
             }}
           >
             <Title key={index}>{value.tutorial_title}</Title>
+            <Description key={index}>{value.description}</Description>
             <ThinLine key={index} />
           </SingleTutorial>
         );
