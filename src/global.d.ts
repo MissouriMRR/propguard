@@ -9,11 +9,6 @@ declare module "reactn/default" {
   export interface State {
     tutorialName: string;
     tutorialStep: number;
-  }
-}
-
-declare module "reactn/default" {
-  export interface Tutorial {
     selectorDisplay: string;
     tutorialDisplay: string;
   }

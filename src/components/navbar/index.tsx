@@ -22,14 +22,14 @@ const NavLogo: AnyStyledComponent = styled.a`
 `;
 
 const Navbar: React.FC = (): JSX.Element => {
-  const [selectorDisplay, setSelectorDisplay] = useGlobal("selectorDisplay");
-  const [tutorialDisplay, setTutorialDisplay] = useGlobal("tutorialDisplay");
+  const [, setSelectorDisplay] = useGlobal("selectorDisplay");
+  const [, setTutorialDisplay] = useGlobal("tutorialDisplay");
 
   return (
     <NavWrapper>
       <NavLogo
         to="/"
-        onClick={() => {
+        onClick={(): void => {
           setTutorialDisplay("none");
           setSelectorDisplay("block");
         }}
