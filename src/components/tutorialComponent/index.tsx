@@ -5,39 +5,40 @@ import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
 
+import { grey, codeColor } from "../../constants";
+
 const TutorialBG: AnyStyledComponent = styled.div`
-  background-color: #fff;
+  height: 100%;
+  width: 100%;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 90%;
-  width: 70%;
+`;
+
+const TutorialHeader: AnyStyledComponent = styled.div`
+  width: 100%;
+  height: 4rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid ${grey};
+  border-left: none;
+  border-right: none;
 
   h1 {
-    font-size: 32px;
+    font-size: 24px;
   }
 `;
 
-const Title: AnyStyledComponent = styled.h1`
-  text-align: left;
-  font-size: 32px;
-  font-weight: normal;
-  margin: 20px 0 0 0;
-  width: 80%;
-`;
-
-const StepContentWrapper: AnyStyledComponent = styled.div`
-  height: 100%;
-  max-height: 55vh;
-  overflow-y: auto;
-`;
-
 const ContentWrapper: AnyStyledComponent = styled.div`
-  width: 80%;
   height: 100%;
+  padding: 0 2rem;
   font-size: 16px;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
 `;
 
 interface ButtonProps {
@@ -75,9 +76,9 @@ const Button: AnyStyledComponent = styled.button`
 `;
 
 const CodeBlock: AnyStyledComponent = styled.div`
-  padding: 0.5rem 1rem;
+  padding: 1.5rem;
   font-family: "Source Code Pro";
-  background-color: #e8e8e8;
+  background-color: ${codeColor};
   border-radius: 5px;
 
   span {
@@ -85,20 +86,10 @@ const CodeBlock: AnyStyledComponent = styled.div`
   }
 `;
 
-const ButtonGroup: AnyStyledComponent = styled.div`
-  width: 80%;
-  margin: 2rem 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
 const TutorialDisplay: React.FC = (): JSX.Element => {
   const [tutorialStep, setTutorialStep] = useGlobal("tutorialStep");
   const [tutorialName] = useGlobal("tutorialName");
 
-  // TODO: Add a filter here to select a tutorial. Bonus if you can use
-  // a varible to do so
   let data = useStaticQuery(graphql`
     query {
       allExampleGqlJson {
@@ -143,11 +134,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
   // removed on the final step
   return (
     <TutorialBG>
-      <ContentWrapper>
-        <Title>{data.instructions[tutorialStep - 1].title}</Title>
-        <StepContentWrapper>{tutorialData}</StepContentWrapper>
-      </ContentWrapper>
-      <ButtonGroup>
+      <TutorialHeader>
         {tutorialStep === 1 ? (
           <div />
         ) : (
@@ -160,6 +147,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
             Back
           </Button>
         )}
+        <h1>{data.instructions[tutorialStep - 1].title}</h1>
         {tutorialStep === data.instructions.length ? null : (
           <Button
             onClick={(): Promise<{ tutorialStep: number }> =>
@@ -170,7 +158,8 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
             Next
           </Button>
         )}
-      </ButtonGroup>
+      </TutorialHeader>
+      <ContentWrapper>{tutorialData}</ContentWrapper>
     </TutorialBG>
   );
 };

@@ -4,27 +4,62 @@
 import React, { useState, useEffect } from "react";
 import styled, { AnyStyledComponent } from "styled-components";
 
+import { accent, background, textPrimary, grey } from "../../constants";
+
 const TerminalWrapper: AnyStyledComponent = styled.div`
-  background-color: #fff;
+  height: 100%;
+  width: 100%;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  height: 90%;
-  width: 70%;
+`;
+
+const TerminalHeader: AnyStyledComponent = styled.div`
+  height: 4rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid ${grey};
+  border-left: none;
+  border-right: none;
+`;
+
+const Editor: AnyStyledComponent = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-items: stretch;
+`;
+
+const NumberStrip: AnyStyledComponent = styled.div`
+  height: calc(100vh - 8rem);
+  width: 2rem;
+  padding: 1rem 0;
+
+  p {
+    margin: 0;
+    color: ${grey};
+    line-height: 1.5;
+    text-align: right;
+    width: 1.5rem;
+  }
 `;
 
 const Terminal: AnyStyledComponent = styled.textarea`
-  margin: 0;
-  padding: 2rem;
-  border-radius: 5px;
-  border-style: none;
-  height: 75%;
-  margin: 0 0 10px 0;
-  resize: none;
-  width: 80%;
+  height: calc(100vh - 8rem);
+  width: 100%;
+  padding: 1rem 2rem 2rem 0;
+  background: ${background};
+  border: none;
+  color: ${textPrimary};
+  font-family: "Source Code Pro";
   font-size: 16px;
+  line-height: 1.5;
+  resize: none;
 
   :focus {
     outline: none;
@@ -32,23 +67,20 @@ const Terminal: AnyStyledComponent = styled.textarea`
 `;
 
 const Button: AnyStyledComponent = styled.button`
-  background-color: #90c577;
+  height: 2.5rem;
+  width: 6rem;
+  background-color: ${accent};
   border-radius: 5px;
   border-style: none;
-  height: 43px;
-  width: 98px;
   font-size: 18px;
-  margin: 0 0 2rem 0;
-
-  @media only screen and (max-width: 800px) {
-    bottom: 60px;
-  }
 `;
 
 const SuggestBox: AnyStyledComponent = styled.div`
-  height: 50px;
-  margin: 0 0 10px 0;
-  max-width: 80%;
+  width: 100%;
+  height: 4rem;
+  border: 1px solid ${grey};
+  border-left: none;
+  border-right: none;
 
   h1 {
     font-size: 18px;
@@ -112,6 +144,12 @@ const TextEditor: React.FC = (): JSX.Element => {
     }
   }, [userInput, cursorPos, words]);
 
+  // TODO: Make number generation based off of the amount of lines in
+  // the final answer.
+  const numberIndicators = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(element => {
+    return <p key={element}>{element}</p>;
+  });
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
@@ -124,18 +162,23 @@ const TextEditor: React.FC = (): JSX.Element => {
 
   return (
     <TerminalWrapper>
-      <Terminal
-        type="text"
-        onBlur={removeSuggestion}
-        onChange={handleChange}
-        spellCheck="false"
-        placeholder="Type in anything you want to your heart’s content. Text wrapping is included too!"
-        value={userInput}
-      />
-      <SuggestBox>
+      <TerminalHeader>
+        <Button onClick={handleSubmit}>Run</Button>
+      </TerminalHeader>
+      <Editor>
+        <NumberStrip>{numberIndicators}</NumberStrip>
+        <Terminal
+          type="text"
+          onBlur={removeSuggestion}
+          onChange={handleChange}
+          spellCheck="false"
+          placeholder="Type in anything you want to your heart’s content. Text wrapping is included too!"
+          value={userInput}
+        />
+      </Editor>
+      <SuggestBox suggestion={suggestion}>
         <h1>{suggestion}</h1>
       </SuggestBox>
-      <Button onClick={handleSubmit}>Run</Button>
     </TerminalWrapper>
   );
 };

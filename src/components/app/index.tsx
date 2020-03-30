@@ -6,13 +6,15 @@ import "./normalize.css"; // Normalize CSS styles across all browsers
 import { Navbar } from "../navbar";
 import { TextEditor } from "../textEditor";
 import { TutorialDisplay } from "../tutorialComponent";
+import { background, textPrimary, grey } from "../../constants";
 
 const StyledTutorialPage: AnyStyledComponent = styled.div`
   height: 100vh;
   width: 100vw;
-  background: #dce1ee;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-items: stretch;
+  background: ${background};
 `;
 
 const MainWrapper: AnyStyledComponent = styled.main`
@@ -28,12 +30,15 @@ const MainWrapper: AnyStyledComponent = styled.main`
 `;
 
 const Column: AnyStyledComponent = styled.div`
+  border: 1px solid ${grey};
+  border-left: none;
+  border-collapse: collapse;
+  height: 100%;
+  width: 33.3%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  width: 33%;
-  color: black;
-  height: 100%;
+  color: ${textPrimary};
 
   @media only screen and (max-width: 800px) {
     width: 100%;
@@ -56,14 +61,6 @@ const TutorialApp: React.FC = (): JSX.Element => {
         </Column>
         <Column>
           <h3 className="text-center">Output will go here</h3>
-          <button
-            type="button"
-            onClick={(): Promise<{ tutorialStep: number }> =>
-              setTutorialStep(tutorialStep + 1)
-            }
-          >
-            {tutorialStep}: Click to increase
-          </button>
         </Column>
       </MainWrapper>
     </StyledTutorialPage>
