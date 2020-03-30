@@ -83,9 +83,7 @@ const TutorialSelector: React.FC = (): JSX.Element => {
             key={index}
             onClick={(): void => {
               setTutorialStep(1);
-              setTutorialName(
-                data.allExampleGqlJson.nodes[index].tutorial_title
-              );
+              setTutorialName(value.tutorial_title);
               setSelectorDisplay("none");
               setTutorialDisplay("flex");
             }}
