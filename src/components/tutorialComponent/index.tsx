@@ -6,6 +6,7 @@ import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
 
 import { grey, codeColor } from "../../constants";
+import { StepButton } from "./stepButton";
 
 const TutorialBG: AnyStyledComponent = styled.div`
   height: 100%;
@@ -20,6 +21,7 @@ const TutorialBG: AnyStyledComponent = styled.div`
 const TutorialHeader: AnyStyledComponent = styled.div`
   width: 100%;
   height: 4rem;
+  padding: 1rem 1rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -42,10 +44,6 @@ const ContentWrapper: AnyStyledComponent = styled.div`
   overflow-y: auto;
 `;
 
-interface ButtonProps {
-  next: boolean;
-}
-
 interface Content {
   type: string;
   value: string;
@@ -63,18 +61,6 @@ interface Tutorial {
   tutorial_title: string;
   instructions: Array<Instruction>;
 }
-
-const Button: AnyStyledComponent = styled.button`
-  height: 2.5rem;
-  width: 6rem;
-
-  background-color: ${(props: ButtonProps): string =>
-    props.next ? "#87C5FF" : "#C5C5C5"};
-  border: none;
-  border-radius: 5px;
-
-  font-size: 18px;
-`;
 
 const CodeBlock: AnyStyledComponent = styled.div`
   padding: 1.5rem;
@@ -136,31 +122,23 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
   return (
     <TutorialBG>
       <TutorialHeader>
-        {tutorialStep === 1 ? (
-          <div />
-        ) : (
-          <Button
-            onClick={(): Promise<{ tutorialStep: number }> =>
-              setTutorialStep(tutorialStep - 1)
-            }
-            next={false}
-          >
-            Back
-          </Button>
-        )}
+        <StepButton
+          clickFunction={(): Promise<{ tutorialStep: number }> =>
+            setTutorialStep(tutorialStep - 1)
+          }
+          next={false}
+          tutorialStep={tutorialStep}
+          totalSteps={data.instructions.length}
+        />
         <h1>{data.instructions[tutorialStep - 1].title}</h1>
-        {tutorialStep === data.instructions.length ? (
-          <div />
-        ) : (
-          <Button
-            onClick={(): Promise<{ tutorialStep: number }> =>
-              setTutorialStep(tutorialStep + 1)
-            }
-            next
-          >
-            Next
-          </Button>
-        )}
+        <StepButton
+          clickFunction={(): Promise<{ tutorialStep: number }> =>
+            setTutorialStep(tutorialStep + 1)
+          }
+          next
+          tutorialStep={tutorialStep}
+          totalSteps={data.instructions.length}
+        />
       </TutorialHeader>
       <ContentWrapper>{tutorialData}</ContentWrapper>
     </TutorialBG>

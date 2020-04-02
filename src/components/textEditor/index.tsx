@@ -19,9 +19,9 @@ const TerminalWrapper: AnyStyledComponent = styled.div`
 `;
 
 const TerminalHeader: AnyStyledComponent = styled.div`
-  height: calc(4rem - 2px);
+  height: 4rem;
   width: 100%;
-  padding: 0 1rem;
+  padding: 1rem 1rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -33,11 +33,12 @@ const TerminalHeader: AnyStyledComponent = styled.div`
 `;
 
 const Editor: AnyStyledComponent = styled.div`
+  height: calc(100vh-8rem);
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-items: stretch;
-  align-items: stretch;
+  justify-items: flex-start;
+  align-items: flex-start;
   overflow: auto;
 `;
 
@@ -51,11 +52,6 @@ const Terminal: AnyStyledComponent = styled.textarea`
     `${(props.lineCount * 30).toString()}px`};
   width: 100%;
   padding: 1rem 2rem 2rem 0;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-
   background: ${background};
   border: none;
   color: ${textPrimary};
@@ -77,6 +73,7 @@ const Terminal: AnyStyledComponent = styled.textarea`
 const SuggestBox: AnyStyledComponent = styled.div`
   width: 100%;
   height: 4rem;
+  padding: 1rem;
   border: 1px solid ${grey};
   border-left: none;
   border-right: none;
