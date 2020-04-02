@@ -27,6 +27,7 @@ const TutorialHeader: AnyStyledComponent = styled.div`
   border: 1px solid ${grey};
   border-left: none;
   border-right: none;
+  border-top: none;
 
   h1 {
     font-size: 24px;
@@ -148,7 +149,9 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
           </Button>
         )}
         <h1>{data.instructions[tutorialStep - 1].title}</h1>
-        {tutorialStep === data.instructions.length ? null : (
+        {tutorialStep === data.instructions.length ? (
+          <div />
+        ) : (
           <Button
             onClick={(): Promise<{ tutorialStep: number }> =>
               setTutorialStep(tutorialStep + 1)
