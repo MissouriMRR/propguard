@@ -32,10 +32,6 @@ const Button: AnyStyledComponent = styled.button`
 const TextEditor: React.FC = (): JSX.Element => {
   const [userInput, setUserInput] = useState<string>("");
 
-  // TODO: Import external array containing the actual keywords
-  // These are the words that we want to suggest to the user
-  // const words: string[] = ["drone", "python", "code"];
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
