@@ -13,6 +13,7 @@ const TerminalWrapper: AnyStyledComponent = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100%;
 `;
 
 const Button: AnyStyledComponent = styled.button`
@@ -22,7 +23,7 @@ const Button: AnyStyledComponent = styled.button`
   height: 43px;
   width: 98px;
   font-size: 18px;
-  margin: 0 0 2rem 0;
+  margin: 10px 0 2rem 0;
 
   @media only screen and (max-width: 800px) {
     bottom: 60px;
@@ -49,6 +50,7 @@ const TextEditor: React.FC = (): JSX.Element => {
   return (
     <TerminalWrapper>
       <AceEditor
+        style={{ height: "100%" }}
         mode="python"
         theme="monokai"
         placeholder="Type in anything you want to your heart’s content. Text wrapping is included too!"
@@ -59,7 +61,8 @@ const TextEditor: React.FC = (): JSX.Element => {
         setOptions={{
           enableBasicAutocompletion: true,
           enableLiveAutocompletion: true,
-          enableSnippets: true
+          enableSnippets: true,
+          tabSize: 2
         }}
       />
       <Button onClick={handleSubmit}>Run</Button>
