@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled, { AnyStyledComponent } from "styled-components";
+import { Icon } from "@iconify/react";
+import arrowLeft from "@iconify/icons-dashicons/arrow-left-alt2";
+import arrowRight from "@iconify/icons-dashicons/arrow-right-alt2";
 
 interface StyledProps {
-  next: boolean;
   hide: boolean;
 }
 
-const StyledButton: AnyStyledComponent = styled.button<StyledProps>`
-  height: 2.5rem;
-  width: 6rem;
-  background-color: ${(props): string => (props.next ? "#87C5FF" : "#C5C5C5")};
-  border: none;
-  border-radius: 5px;
-  font-size: 18px;
+const StyledButton: AnyStyledComponent = styled(Icon)<StyledProps>`
   visibility: ${(props): string => (props.hide ? "hidden" : "visible")};
 `;
 
@@ -26,6 +22,7 @@ interface ButtonProps {
 const StepButton: React.FC<ButtonProps> = (props): JSX.Element => {
   const { next, tutorialStep, clickFunction, totalSteps } = props;
   const [hidden, setHidden] = useState(true);
+  const icon = next ? arrowRight : arrowLeft;
 
   useEffect(() => {
     if (next && tutorialStep === totalSteps) setHidden(true);
@@ -34,7 +31,12 @@ const StepButton: React.FC<ButtonProps> = (props): JSX.Element => {
   });
 
   return (
-    <StyledButton onClick={clickFunction} next={next} hide={hidden}>
+    <StyledButton
+      onClick={clickFunction}
+      hide={hidden}
+      icon={icon}
+      width="2.5rem"
+    >
       {next ? "Next" : "Back"}
     </StyledButton>
   );

@@ -42,6 +42,10 @@ const ContentWrapper: AnyStyledComponent = styled.div`
   font-size: 16px;
   max-height: calc(100vh - 4rem);
   overflow-y: auto;
+
+  p {
+    margin: 2rem 0;
+  }
 `;
 
 interface Content {

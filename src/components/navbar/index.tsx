@@ -1,21 +1,19 @@
 import React from "react";
 import styled, { AnyStyledComponent } from "styled-components";
+import { Icon } from "@iconify/react";
+import listIcon from "@iconify/icons-ic/round-format-list-bulleted";
 
 import { textPrimary, grey } from "../../constants";
+import Logo from "../../assets/logo.svg";
 
 const NavWrapper: AnyStyledComponent = styled.nav`
-  border: 1px solid ${grey};
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  align-items: center;
-`;
-
-const SelectionGroup: AnyStyledComponent = styled.div`
-  display: flex;
-  flex-direction: column;
+  border: 1px solid ${grey};
+  color: ${textPrimary};
 `;
 
 const NavLogo: AnyStyledComponent = styled.a`
@@ -25,7 +23,7 @@ const NavLogo: AnyStyledComponent = styled.a`
   justify-content: center;
   align-items: center;
 
-  color: ${textPrimary};
+  color: blue;
   font-size: 32px;
   text-decoration: none;
 
@@ -35,16 +33,21 @@ const NavLogo: AnyStyledComponent = styled.a`
   }
 `;
 
+const NavIcon: AnyStyledComponent = styled(Icon)`
+  height: 4rem;
+  width: 4rem;
+  padding: 0.5rem;
+  color: ${textPrimary};
+`;
+
 // TODO: Add tutorial selector icon
 const Navbar: React.FC = (): JSX.Element => {
   return (
     <NavWrapper>
-      <SelectionGroup>
-        {" "}
-        <NavLogo to="/">P</NavLogo>
-        <NavLogo to="/">T</NavLogo>
-      </SelectionGroup>
-      <NavLogo to="/">S</NavLogo>
+      <NavLogo to="/">
+        <Logo />
+      </NavLogo>
+      <NavIcon icon={listIcon} width="2.5rem" />
     </NavWrapper>
   );
 };
