@@ -1,9 +1,8 @@
 import React from "react";
 import styled, { AnyStyledComponent } from "styled-components";
-import AceEditor from "react-ace";
-import "ace-builds/src-noconflict/mode-python";
+
 import { Navbar } from "../navbar/Navbar";
-// import { TextEditor } from "../text-editor/TextEditor";
+import { TextEditor } from "../text-editor/TextEditor";
 import { TutorialDisplay } from "../tutorial-display/TutorialDisplay";
 
 const TutorialPage: AnyStyledComponent = styled.div`
@@ -47,8 +46,7 @@ const TutorialApp: React.FC = (): JSX.Element => {
           <TutorialDisplay />
         </Column>
         <Column>
-          {/* <TextEditor /> */}
-          <AceEditor mode="python" theme="monokai" />
+          <TextEditor />
         </Column>
         <Column>
           <h3 className="text-center">Output will go here</h3>
