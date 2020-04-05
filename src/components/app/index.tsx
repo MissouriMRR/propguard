@@ -24,7 +24,7 @@ const MainWrapper: AnyStyledComponent = styled.main`
   flex-wrap: none;
   flex: 1;
 
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 768px) {
     flex-direction: column;
   }
 `;
@@ -40,9 +40,8 @@ const Column: AnyStyledComponent = styled.div`
   align-items: flex-start;
   color: ${textPrimary};
 
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 768px) {
     width: 100%;
-    height: 33%;
   }
 `;
 
@@ -60,7 +59,7 @@ const TutorialApp: React.FC = (): JSX.Element => {
           <TextEditor />
         </Column>
         <Column>
-          <h3 className="text-center">Output will go here</h3>
+          <Output />
         </Column>
       </MainWrapper>
     </StyledTutorialPage>
