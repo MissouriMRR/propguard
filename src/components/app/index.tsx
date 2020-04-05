@@ -4,6 +4,7 @@ import styled, { AnyStyledComponent } from "styled-components";
 import "./normalize.css"; // Normalize CSS styles across all browsers
 
 import { Navbar } from "../navbar";
+import { Output } from "../output";
 import { TextEditor } from "../textEditor";
 import { TutorialDisplay } from "../tutorialComponent";
 import { background, textPrimary, grey } from "../../constants";
