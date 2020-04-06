@@ -58,6 +58,7 @@ const Terminal: AnyStyledComponent = styled.textarea`
   font-family: "Source Code Pro";
   font-size: 16px;
   line-height: 1.5;
+  overflow-x: auto;
   overflow-y: hidden;
   resize: none;
   white-space: pre;
@@ -67,13 +68,10 @@ const Terminal: AnyStyledComponent = styled.textarea`
   }
 `;
 
-// TODO: Refactor suggestbox to array in the text position instead
-// FIXME: Prevent current suggestbox from shrinking when a lot
-// of code is being written
 const SuggestBox: AnyStyledComponent = styled.div`
   width: 100%;
   height: 4rem;
-  padding: 1rem;
+  padding: 1rem 1rem;
   border: 1px solid ${grey};
   border-left: none;
   border-right: none;
@@ -82,17 +80,16 @@ const SuggestBox: AnyStyledComponent = styled.div`
   h1 {
     font-size: 18px;
     font-weight: normal;
+    margin: 0;
   }
 `;
 
 const TextEditor: React.FC = (): JSX.Element => {
   const [userInput, setUserInput] = useState<string>("");
-  const [suggestion, setSuggestion] = useState<string>("");
+  const [suggestion, setSuggestion] = useState<string>(" ");
   const [cursorPos, setCursorPos] = useState<number>(0);
   const [lineCount, setLineCount] = useState<number>(0);
 
-  // TODO: Import external array containing the actual keywords
-  // These are the words that we want to suggest to the user
   const words: string[] = ["drone", "python", "code"];
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
