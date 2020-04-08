@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "propguard",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Propguard is a webapp that teaches people how to start writing basic flight code with technologies like PX4, MAVSDK, and Python.",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Multirotor Design Team",
   "dependencies": {
     "@iconify/icons-dashicons": "^1.0.4",
     "@iconify/icons-ic": "^1.0.9",
