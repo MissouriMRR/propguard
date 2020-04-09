@@ -9,7 +9,7 @@ declare module "reactn/default" {
   export interface State {
     tutorialName: string;
     tutorialStep: number;
-    selectorDisplay: string;
-    tutorialDisplay: string;
+    selectorDisplay: boolean;
+    tutorialDisplay: boolean;
   }
 }

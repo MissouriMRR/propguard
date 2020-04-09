@@ -30,8 +30,8 @@ const Navbar: React.FC = (): JSX.Element => {
       <NavLogo
         to="/"
         onClick={(): void => {
-          setTutorialDisplay("none");
-          setSelectorDisplay("block");
+          setTutorialDisplay(false);
+          setSelectorDisplay(true);
         }}
       >
         Propguard

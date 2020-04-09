@@ -1,13 +1,10 @@
-/* eslint react/no-array-index-key: 0 */
-// NOTE: We use the index for the the array.map function simply because
-// we don't modify the array afterwords, so the index will always be correct
 import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
-import { Tutorial } from "../interfaces";
+import { Tutorial } from "../types";
 
 interface SelectorProps {
-  display: string;
+  display: boolean;
 }
 
 const TutorialMain: AnyStyledComponent = styled.div`
@@ -15,7 +12,8 @@ const TutorialMain: AnyStyledComponent = styled.div`
   color: #fff;
   height: 100%;
   width: 100%;
-  display: ${(props: SelectorProps): string => props.display};
+  display: ${(props: SelectorProps): string =>
+    props.display ? "block" : "none"};
 `;
 
 const SingleTutorial: AnyStyledComponent = styled.div`
@@ -51,7 +49,7 @@ const ThinLine: AnyStyledComponent = styled.hr`
 
 const TutorialSelector: React.FC = (): JSX.Element => {
   const [, setTutorialStep] = useGlobal("tutorialStep");
-  const [, setTutorialName] = useGlobal("tutorialName");
+  const [tutorialName, setTutorialName] = useGlobal("tutorialName");
   const [selectorDisplay, setSelectorDisplay] = useGlobal("selectorDisplay");
   const [, setTutorialDisplay] = useGlobal("tutorialDisplay");
 
@@ -80,17 +78,17 @@ const TutorialSelector: React.FC = (): JSX.Element => {
       {data.allExampleGqlJson.nodes.map((value: Tutorial, index: number) => {
         return (
           <SingleTutorial
-            key={index}
+            key={tutorialName + index.toString()}
             onClick={(): void => {
               setTutorialStep(1);
               setTutorialName(value.tutorial_title);
-              setSelectorDisplay("none");
-              setTutorialDisplay("flex");
+              setSelectorDisplay(false);
+              setTutorialDisplay(true);
             }}
           >
-            <Title key={index}>{value.tutorial_title}</Title>
-            <Description key={index}>{value.description}</Description>
-            <ThinLine key={index} />
+            <Title>{value.tutorial_title}</Title>
+            <Description>{value.description}</Description>
+            <ThinLine />
           </SingleTutorial>
         );
       })}

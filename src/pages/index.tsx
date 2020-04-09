@@ -10,8 +10,8 @@ import { TutorialApp } from "../components/app";
 setGlobal({
   tutorialName: "Hello Data",
   tutorialStep: 1,
-  selectorDisplay: "block",
-  tutorialDisplay: "none"
+  selectorDisplay: true,
+  tutorialDisplay: false
 });
 
 const IndexPage = (): JSX.Element => <TutorialApp />;
