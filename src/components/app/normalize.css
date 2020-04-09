@@ -2,8 +2,10 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap");
 
+/* Custom CSS.
+   ========================================================================== */
 /**
- * NOTE: Custom CSS. Border-box sizing to make me not hate borders.
+ * Border-box sizing
  */
 *,
 *:before,
@@ -11,6 +13,28 @@
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box; /* Firefox, other Gecko */
   box-sizing: border-box; /* Opera/IE 8+ */
+}
+
+/**
+ * Firefox scrollbar settings
+ */
+body {
+  scrollbar-color: #727272 #262626;
+  scrollbar-width: auto;
+}
+
+/**
+ * Safari and chrome scrollbar settings
+ */
+div::-webkit-scrollbar {
+  width: 1rem;
+}
+div::-webkit-scrollbar-track {
+  background-color: #262626;
+  border: solid 1px #727272;
+}
+div::-webkit-scrollbar-thumb {
+  background-color: #727272;
 }
 
 /* Document

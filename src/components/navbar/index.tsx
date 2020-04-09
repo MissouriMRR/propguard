@@ -19,11 +19,11 @@ const NavWrapper: AnyStyledComponent = styled.nav`
 const NavLogo: AnyStyledComponent = styled.a`
   height: 4rem;
   width: 4rem;
+  padding: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  color: blue;
   font-size: 32px;
   text-decoration: none;
 
@@ -36,11 +36,10 @@ const NavLogo: AnyStyledComponent = styled.a`
 const NavIcon: AnyStyledComponent = styled(Icon)`
   height: 4rem;
   width: 4rem;
-  padding: 0.5rem;
+  padding: 0.75rem;
   color: ${textPrimary};
 `;
 
-// TODO: Add tutorial selector icon
 const Navbar: React.FC = (): JSX.Element => {
   return (
     <NavWrapper>

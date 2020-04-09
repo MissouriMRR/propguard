@@ -5,11 +5,11 @@ import arrowLeft from "@iconify/icons-dashicons/arrow-left-alt2";
 import arrowRight from "@iconify/icons-dashicons/arrow-right-alt2";
 
 interface StyledProps {
-  hide: boolean;
+  hidden: boolean;
 }
 
 const StyledButton: AnyStyledComponent = styled(Icon)<StyledProps>`
-  visibility: ${(props): string => (props.hide ? "hidden" : "visible")};
+  visibility: ${(props): string => (props.hidden ? "hidden" : "visible")};
 `;
 
 interface ButtonProps {
@@ -33,7 +33,7 @@ const StepButton: React.FC<ButtonProps> = (props): JSX.Element => {
   return (
     <StyledButton
       onClick={clickFunction}
-      hide={hidden}
+      hidden={hidden}
       icon={icon}
       width="2.5rem"
     >
