@@ -4,7 +4,7 @@ import { useStaticQuery, graphql } from "gatsby";
 import { Tutorial } from "../types";
 
 interface SelectorProps {
-  display: boolean;
+  disp: boolean;
 }
 
 const TutorialMain: AnyStyledComponent = styled.div`
@@ -12,8 +12,7 @@ const TutorialMain: AnyStyledComponent = styled.div`
   color: #fff;
   height: 100%;
   width: 100%;
-  display: ${(props: SelectorProps): string =>
-    props.display ? "block" : "none"};
+  display: ${(props: SelectorProps): string => (props.disp ? "block" : "none")};
 `;
 
 const SingleTutorial: AnyStyledComponent = styled.div`
@@ -74,7 +73,7 @@ const TutorialSelector: React.FC = (): JSX.Element => {
   `);
 
   return (
-    <TutorialMain display={selectorDisplay}>
+    <TutorialMain disp={selectorDisplay}>
       {data.allExampleGqlJson.nodes.map((value: Tutorial, index: number) => {
         return (
           <SingleTutorial

@@ -4,14 +4,13 @@ import { useStaticQuery, graphql } from "gatsby";
 import { Tutorial, Content } from "../types";
 
 interface TutorialProps {
-  display: boolean;
+  disp: boolean;
 }
 
 const TutorialBG: AnyStyledComponent = styled.div`
   background-color: #fff;
   border-radius: 5px;
-  display: ${(props: TutorialProps): string =>
-    props.display ? "flex" : "none"};
+  display: ${(props: TutorialProps): string => (props.disp ? "flex" : "none")};
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -129,7 +128,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
   // the next button stays in the same place, and the next button is
   // removed on the final step
   return (
-    <TutorialBG display={tutorialDisplay}>
+    <TutorialBG disp={tutorialDisplay}>
       <ContentWrapper>
         <Title>{data.instructions[tutorialStep - 1].title}</Title>
         <StepContentWrapper>{tutorialData}</StepContentWrapper>
