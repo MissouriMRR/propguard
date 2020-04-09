@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled, { AnyStyledComponent } from "styled-components";
-import turtle from "./images/turtle.png";
 
 import { background, grey } from "../../constants";
 
@@ -54,18 +53,6 @@ const StatusVisualization: AnyStyledComponent = styled.section`
   }
 `;
 
-const Turtle: AnyStyledComponent = styled.img`
-  margin-top: 20px;
-  width: 150px;
-  height: auto;
-  border-radius: 30px;
-  display: inline-block;
-
-  @media screen and (max-width: 577px) {
-    display: none;
-  }
-`;
-
 // TODO: Work on drone vector graphics
 // TODO: Replace the local state stuff to react from global state
 const Output: React.FC = (): JSX.Element => {
@@ -74,12 +61,6 @@ const Output: React.FC = (): JSX.Element => {
   const [velocity, setVelocity] = useState(0);
   const altitudeText = `Altitude: ${altitude} m`;
   const velocityText = `Velocity: ${velocity} m/s`;
-
-  const resetDroneState = (): void => {
-    setArmed(false);
-    setAltitude(0);
-    setVelocity(0);
-  };
 
   return (
     <OutputWrapper>
@@ -93,7 +74,6 @@ const Output: React.FC = (): JSX.Element => {
         <h1>{armed ? <span>Armed</span> : <span>Unarmed</span>}</h1>
         <p>{altitudeText}</p>
         <p>{velocityText}</p>
-        <Turtle src={turtle} alt="Turtle Drone" />
       </StatusVisualization>
     </OutputWrapper>
   );
