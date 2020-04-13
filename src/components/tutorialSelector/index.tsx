@@ -7,7 +7,7 @@ interface SelectorProps {
   disp: boolean;
 }
 
-const TutorialMain: AnyStyledComponent = styled.div`
+const Selector: AnyStyledComponent = styled.div`
   background-color: #262626;
   color: #fff;
   height: 100%;
@@ -73,7 +73,7 @@ const TutorialSelector: React.FC = (): JSX.Element => {
   `);
 
   return (
-    <TutorialMain disp={selectorDisplay}>
+    <Selector disp={selectorDisplay}>
       {data.allExampleGqlJson.nodes.map((value: Tutorial, index: number) => {
         return (
           <SingleTutorial
@@ -91,7 +91,7 @@ const TutorialSelector: React.FC = (): JSX.Element => {
           </SingleTutorial>
         );
       })}
-    </TutorialMain>
+    </Selector>
   );
 };
 

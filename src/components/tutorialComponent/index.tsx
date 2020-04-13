@@ -101,14 +101,12 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
     }
   `);
 
-  const checkTutorial = (tutorial: Tutorial): boolean => {
-    return tutorial.tutorial_title === tutorialName;
-  };
-
   // We destructure the data since this query returns an array, and when
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
   // it just picks the first element
-  data = data.allExampleGqlJson.nodes.find(checkTutorial);
+  data = data.allExampleGqlJson.nodes.find((tutorial: Tutorial): boolean => {
+    return tutorial.tutorial_title === tutorialName;
+  });
 
   const tutorialData = data.instructions[tutorialStep - 1].content.map(
     (element: Content, index: number) => {
