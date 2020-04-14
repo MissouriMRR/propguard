@@ -1,14 +1,19 @@
-import React from "react";
+/* eslint react/jsx-one-expression-per-line: 0 */
+import React from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
+import "./normalize.css"; // Normalize CSS styles across all browsers
 
-import { Navbar } from "../navbar/Navbar";
-import { TextEditor } from "../text-editor/TextEditor";
-import { TutorialDisplay } from "../tutorial-display/TutorialDisplay";
+import { Navbar } from "../navbar";
+import { TextEditor } from "../textEditor";
+import { TutorialDisplay } from "../tutorialComponent";
+import { TutorialSelector } from "../tutorialSelector";
 
-const TutorialPage: AnyStyledComponent = styled.div`
+const StyledTutorialPage: AnyStyledComponent = styled.div`
+  height: 100vh;
+  width: 100vw;
+  background: #dce1ee;
   display: flex;
   flex-direction: column;
-  height: 100%;
 `;
 
 const MainWrapper: AnyStyledComponent = styled.main`
@@ -39,11 +44,12 @@ const Column: AnyStyledComponent = styled.div`
 
 const TutorialApp: React.FC = (): JSX.Element => {
   return (
-    <TutorialPage>
+    <StyledTutorialPage>
       <Navbar />
       <MainWrapper>
         <Column>
           <TutorialDisplay />
+          <TutorialSelector />
         </Column>
         <Column>
           <TextEditor />
@@ -52,7 +58,7 @@ const TutorialApp: React.FC = (): JSX.Element => {
           <h3 className="text-center">Output will go here</h3>
         </Column>
       </MainWrapper>
-    </TutorialPage>
+    </StyledTutorialPage>
   );
 };
 

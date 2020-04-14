@@ -1,5 +1,4 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 
 const NavWrapper: AnyStyledComponent = styled.nav`
@@ -11,7 +10,7 @@ const NavWrapper: AnyStyledComponent = styled.nav`
   height: 15%;
 `;
 
-const NavLogo: AnyStyledComponent = styled(Link)`
+const NavLogo: AnyStyledComponent = styled.a`
   color: black;
   font-size: 32px;
   text-decoration: none;
@@ -22,22 +21,21 @@ const NavLogo: AnyStyledComponent = styled(Link)`
   }
 `;
 
-const NavLink: AnyStyledComponent = styled(Link)`
-  color: black;
-  font-size: 24px;
-  text-decoration: none;
-
-  &:hover {
-    color: grey;
-    text-decoration: none;
-  }
-`;
-
 const Navbar: React.FC = (): JSX.Element => {
+  const [, setSelectorDisplay] = useGlobal("selectorDisplay");
+  const [, setTutorialDisplay] = useGlobal("tutorialDisplay");
+
   return (
     <NavWrapper>
-      <NavLogo to="/">Propguard</NavLogo>
-      <NavLink to="/tutorial">Tutorial</NavLink>
+      <NavLogo
+        to="/"
+        onClick={(): void => {
+          setTutorialDisplay(false);
+          setSelectorDisplay(true);
+        }}
+      >
+        Propguard
+      </NavLogo>
     </NavWrapper>
   );
 };
