@@ -8,6 +8,7 @@ interface StyledProps {
   hidden: boolean;
 }
 
+// TODO: Make stepbutton still take up space
 const StyledButton: AnyStyledComponent = styled(Icon)<StyledProps>`
   visibility: ${(props): string => (props.hidden ? "hidden" : "visible")};
 `;

@@ -1,11 +1,12 @@
 /* eslint react/jsx-one-expression-per-line: 0 */
-import React, { useGlobal } from "reactn";
+import React from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import "./normalize.css"; // Normalize CSS styles across all browsers
 
 import { Navbar } from "../navbar";
 import { TextEditor } from "../textEditor";
 import { TutorialDisplay } from "../tutorialComponent";
+import { TutorialSelector } from "../tutorialSelector";
 import { background, textPrimary, grey } from "../../constants";
 
 const StyledTutorialPage: AnyStyledComponent = styled.div`
@@ -47,14 +48,13 @@ const Column: AnyStyledComponent = styled.div`
 `;
 
 const TutorialApp: React.FC = (): JSX.Element => {
-  const [tutorialStep, setTutorialStep] = useGlobal("tutorialStep");
-
   return (
     <StyledTutorialPage>
       <Navbar />
       <MainWrapper>
         <Column>
           <TutorialDisplay />
+          <TutorialSelector />
         </Column>
         <Column>
           <TextEditor />

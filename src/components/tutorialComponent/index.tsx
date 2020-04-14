@@ -1,18 +1,20 @@
-/* eslint react/no-array-index-key: 0 */
-// NOTE: We use the index for the the array.map function simply because
-// we don't modify the array afterwords, so the index will always be correct
 import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
+import { Tutorial, Content } from "../types";
 
 import { grey, codeColor } from "../../constants";
 import { StepButton } from "./stepButton";
+
+interface TutorialProps {
+  disp: boolean;
+}
 
 const TutorialBG: AnyStyledComponent = styled.div`
   height: 100%;
   width: 100%;
   border-radius: 5px;
-  display: flex;
+  display: ${(props: TutorialProps): string => (props.disp ? "flex" : "none")};
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -48,24 +50,6 @@ const ContentWrapper: AnyStyledComponent = styled.div`
   }
 `;
 
-interface Content {
-  type: string;
-  value: string;
-}
-
-interface Instruction {
-  step: number;
-  title: string;
-  type: string;
-  content: Array<Content>;
-}
-
-interface Tutorial {
-  id: string;
-  tutorial_title: string;
-  instructions: Array<Instruction>;
-}
-
 const CodeBlock: AnyStyledComponent = styled.div`
   padding: 1.5rem;
   font-family: "Source Code Pro";
@@ -80,6 +64,7 @@ const CodeBlock: AnyStyledComponent = styled.div`
 const TutorialDisplay: React.FC = (): JSX.Element => {
   const [tutorialStep, setTutorialStep] = useGlobal("tutorialStep");
   const [tutorialName] = useGlobal("tutorialName");
+  const [tutorialDisplay] = useGlobal("tutorialDisplay");
 
   let data = useStaticQuery(graphql`
     query {
@@ -103,16 +88,17 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
   // We destructure the data since this query returns an array, and when
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
   // it just picks the first element
-  [data] = data.allExampleGqlJson.nodes.filter(
-    (tutorial: Tutorial) => tutorial.tutorial_title === tutorialName
-  );
+  data = data.allExampleGqlJson.nodes.find((tutorial: Tutorial): boolean => {
+    return tutorial.tutorial_title === tutorialName;
+  });
 
   const tutorialData = data.instructions[tutorialStep - 1].content.map(
     (element: Content, index: number) => {
-      if (element.type === "text") return <p key={index}>{element.value}</p>;
+      if (element.type === "text")
+        return <p key={tutorialName + index.toString()}>{element.value}</p>;
       if (element.type === "code")
         return (
-          <CodeBlock key={index}>
+          <CodeBlock key={tutorialName + index.toString()}>
             <span>{element.value}</span>
           </CodeBlock>
         );
@@ -124,7 +110,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
   // the next button stays in the same place, and the next button is
   // removed on the final step
   return (
-    <TutorialBG>
+    <TutorialBG disp={tutorialDisplay}>
       <TutorialHeader>
         <StepButton
           clickFunction={(): Promise<{ tutorialStep: number }> =>

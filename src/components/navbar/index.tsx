@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { Icon } from "@iconify/react";
 import listIcon from "@iconify/icons-ic/round-format-list-bulleted";
@@ -16,6 +16,7 @@ const NavWrapper: AnyStyledComponent = styled.nav`
   color: ${textPrimary};
 `;
 
+// FIXME: Hover and click effect
 const NavLogo: AnyStyledComponent = styled.a`
   height: 4rem;
   width: 4rem;
@@ -33,6 +34,7 @@ const NavLogo: AnyStyledComponent = styled.a`
   }
 `;
 
+// FIXME: Hover and click effect
 const NavIcon: AnyStyledComponent = styled(Icon)`
   height: 4rem;
   width: 4rem;
@@ -41,12 +43,28 @@ const NavIcon: AnyStyledComponent = styled(Icon)`
 `;
 
 const Navbar: React.FC = (): JSX.Element => {
+  const [, setSelectorDisplay] = useGlobal("selectorDisplay");
+  const [, setTutorialDisplay] = useGlobal("tutorialDisplay");
+
   return (
     <NavWrapper>
-      <NavLogo to="/">
+      <NavLogo
+        to="/"
+        onClick={(): void => {
+          setTutorialDisplay(true);
+          setSelectorDisplay(false);
+        }}
+      >
         <Logo />
       </NavLogo>
-      <NavIcon icon={listIcon} width="2.5rem" />
+      <NavIcon
+        icon={listIcon}
+        width="2.5rem"
+        onClick={(): void => {
+          setTutorialDisplay(false);
+          setSelectorDisplay(true);
+        }}
+      />
     </NavWrapper>
   );
 };
