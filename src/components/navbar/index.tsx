@@ -16,7 +16,6 @@ const NavWrapper: AnyStyledComponent = styled.nav`
   color: ${textPrimary};
 `;
 
-// FIXME: Hover and click effect
 const NavLogo: AnyStyledComponent = styled.a`
   height: 4rem;
   width: 4rem;
@@ -29,17 +28,29 @@ const NavLogo: AnyStyledComponent = styled.a`
   text-decoration: none;
 
   &:hover {
-    color: grey;
-    text-decoration: none;
+    filter: invert(58%) sepia(81%) saturate(2820%) hue-rotate(173deg)
+      brightness(90%) contrast(90%);
+  }
+
+  &:active {
+    padding: 1.25rem;
   }
 `;
 
-// FIXME: Hover and click effect
 const NavIcon: AnyStyledComponent = styled(Icon)`
   height: 4rem;
   width: 4rem;
   padding: 0.75rem;
   color: ${textPrimary};
+
+  &:hover {
+    filter: invert(58%) sepia(81%) saturate(2820%) hue-rotate(173deg)
+      brightness(90%) contrast(90%);
+  }
+
+  &:active {
+    padding: 1rem;
+  }
 `;
 
 const Navbar: React.FC = (): JSX.Element => {

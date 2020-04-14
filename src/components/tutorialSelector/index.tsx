@@ -3,6 +3,8 @@ import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
 import { Tutorial } from "../types";
 
+import { accent, textPrimary } from "../../constants";
+
 interface SelectorProps {
   disp: boolean;
 }
@@ -16,10 +18,16 @@ const Selector: AnyStyledComponent = styled.div`
 `;
 
 const SingleTutorial: AnyStyledComponent = styled.div`
-  color: #fff;
+  color: ${textPrimary};
 
   &:hover {
-    cursor: pointer;
+    background: rgba(256, 256, 256, 0.1);
+    color: ${accent};
+  }
+
+  &:active {
+    background: rgba(256, 256, 256, 0.4);
+    color: ${accent};
   }
 `;
 
@@ -46,6 +54,7 @@ const ThinLine: AnyStyledComponent = styled.hr`
   border: none;
 `;
 
+// TODO: Add header for tutorial selector
 const TutorialSelector: React.FC = (): JSX.Element => {
   const [, setTutorialStep] = useGlobal("tutorialStep");
   const [tutorialName, setTutorialName] = useGlobal("tutorialName");

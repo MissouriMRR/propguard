@@ -8,9 +8,18 @@ interface StyledProps {
   hidden: boolean;
 }
 
-// TODO: Make stepbutton still take up space
 const StyledButton: AnyStyledComponent = styled(Icon)<StyledProps>`
+  display: block;
   visibility: ${(props): string => (props.hidden ? "hidden" : "visible")};
+
+  &:hover {
+    filter: invert(58%) sepia(81%) saturate(2820%) hue-rotate(173deg)
+      brightness(90%) contrast(90%);
+  }
+
+  &:active {
+    padding: 0.25rem;
+  }
 `;
 
 interface ButtonProps {
@@ -37,9 +46,7 @@ const StepButton: React.FC<ButtonProps> = (props): JSX.Element => {
       hidden={hidden}
       icon={icon}
       width="2.5rem"
-    >
-      {next ? "Next" : "Back"}
-    </StyledButton>
+    />
   );
 };
 

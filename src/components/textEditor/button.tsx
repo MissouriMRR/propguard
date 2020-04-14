@@ -17,6 +17,14 @@ const StyledButton: AnyStyledComponent = styled.button`
   color: ${textPrimary};
   font-size: 20px;
   font-weight: 600;
+
+  &:hover {
+    background-color: rgba(256, 256, 256, 0.2);
+  }
+
+  &:active {
+    height: 2rem;
+  }
 `;
 
 interface ButtonProps {
