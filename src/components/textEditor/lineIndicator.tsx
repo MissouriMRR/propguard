@@ -4,7 +4,7 @@ import styled, { AnyStyledComponent } from "styled-components";
 import { grey } from "../../constants";
 
 const NumberStrip: AnyStyledComponent = styled.div`
-  height: calc(100vh - 8rem);
+  height: calc(100vh - 9rem);
   width: 2rem;
   padding: 1rem 0;
 

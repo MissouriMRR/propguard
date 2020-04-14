@@ -24,10 +24,6 @@ const MainWrapper: AnyStyledComponent = styled.main`
   flex-direction: row;
   flex-wrap: none;
   flex: 1;
-
-  @media only screen and (max-width: 768px) {
-    flex-direction: column;
-  }
 `;
 
 const Column: AnyStyledComponent = styled.div`

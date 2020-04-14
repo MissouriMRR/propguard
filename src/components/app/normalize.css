@@ -37,6 +37,13 @@ div::-webkit-scrollbar-thumb {
   background-color: #727272;
 }
 
+/**
+ * Force background color
+ */
+body {
+  background: #262626;
+}
+
 /* Document
    ========================================================================== */
 
