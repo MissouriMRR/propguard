@@ -19,7 +19,7 @@ module.exports = {
         background_color: `#727272`,
         theme_color: `#727272`,
         display: `minimal-ui`,
-        icon: `src/assets/logo.png` // This path is relative to the root of the site.
+        icon: `src/assets/favicon.png` // This path is relative to the root of the site.
       }
     },
     `gatsby-plugin-typescript`,
