@@ -17,6 +17,7 @@ const StyledButton: AnyStyledComponent = styled.button`
   color: ${textPrimary};
   font-size: 20px;
   font-weight: 600;
+  outline: none;
 
   &:hover {
     background-color: rgba(256, 256, 256, 0.2);
