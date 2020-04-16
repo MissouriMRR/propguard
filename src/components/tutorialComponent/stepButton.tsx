@@ -15,6 +15,7 @@ const StyledButton: AnyStyledComponent = styled(Icon)<StyledProps>`
   &:hover {
     filter: invert(58%) sepia(81%) saturate(2820%) hue-rotate(173deg)
       brightness(90%) contrast(90%);
+    cursor: pointer;
   }
 
   &:active {

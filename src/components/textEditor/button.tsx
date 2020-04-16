@@ -21,6 +21,7 @@ const StyledButton: AnyStyledComponent = styled.button`
 
   &:hover {
     background-color: rgba(256, 256, 256, 0.2);
+    cursor: pointer;
   }
 
   &:active {

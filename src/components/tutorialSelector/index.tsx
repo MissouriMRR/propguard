@@ -47,6 +47,7 @@ const SingleTutorial: AnyStyledComponent = styled.div`
   &:hover {
     background: rgba(256, 256, 256, 0.1);
     color: ${accent};
+    cursor: pointer;
   }
 
   &:active {
