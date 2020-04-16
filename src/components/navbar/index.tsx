@@ -49,28 +49,20 @@ const NavIcon: AnyStyledComponent = styled(Icon)`
 `;
 
 const Navbar: React.FC = (): JSX.Element => {
-  const [, setSelectorDisplay] = useGlobal("selectorDisplay");
-  const [, setTutorialDisplay] = useGlobal("tutorialDisplay");
+  const [selectorDisplay, setSelectorDisplay] = useGlobal("selectorDisplay");
+  const [tutorialDisplay, setTutorialDisplay] = useGlobal("tutorialDisplay");
+
+  const toggleDisplay = (): void => {
+    setSelectorDisplay(!selectorDisplay);
+    setTutorialDisplay(!tutorialDisplay);
+  };
 
   return (
     <NavWrapper>
-      <NavLogo
-        to="/"
-        onClick={(): void => {
-          setTutorialDisplay(true);
-          setSelectorDisplay(false);
-        }}
-      >
+      <NavLogo to="/" onClick={toggleDisplay}>
         <Logo />
       </NavLogo>
-      <NavIcon
-        icon={listIcon}
-        width="2.5rem"
-        onClick={(): void => {
-          setTutorialDisplay(false);
-          setSelectorDisplay(true);
-        }}
-      />
+      <NavIcon icon={listIcon} width="2.5rem" onClick={toggleDisplay} />
     </NavWrapper>
   );
 };
