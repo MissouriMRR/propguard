@@ -89,14 +89,21 @@ const DroneVisual: AnyStyledComponent = styled.div`
   svg {
     max-width: 12rem;
   }
+
+  p {
+    margin: 0;
+  }
 `;
 
-// TODO: Replace the local state stuff to react from global state
-// and make UI respond to global state
+// TODO: Write external functions to run drone routines.
+// TODO: Use Global state to determine what drone routine to run.
 const Output: React.FC = (): JSX.Element => {
   const [armed, setArmed] = useState(false);
   const [altitude, setAltitude] = useState(0);
   const [velocity, setVelocity] = useState(0);
+  const [yaw, setRaw] = useState(0);
+  const [pitch, setPitch] = useState(0);
+  const [roll, setRoll] = useState(0);
   const altitudeText = `Altitude: ${altitude} m`;
   const velocityText = `Velocity: ${velocity} m/s`;
 
@@ -117,16 +124,16 @@ const Output: React.FC = (): JSX.Element => {
         <VisualGroup>
           <DroneVisual>
             <DroneOff />
-            <p>Yaw</p>
+            <p>Yaw: {yaw}°</p>
           </DroneVisual>
           <div>
             <DroneVisual>
               <DronePitch />
-              <p>Pitch</p>
+              <p>Pitch: {pitch}°</p>
             </DroneVisual>
             <DroneVisual>
               <DroneRoll />
-              <p>Roll</p>
+              <p>Roll: {roll}°</p>
             </DroneVisual>
           </div>
         </VisualGroup>
