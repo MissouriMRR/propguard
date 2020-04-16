@@ -1,4 +1,41 @@
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap");
+
+/* Custom CSS.
+   ========================================================================== */
+/**
+ * Border-box sizing
+ */
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box; /* Firefox, other Gecko */
+  box-sizing: border-box; /* Opera/IE 8+ */
+}
+
+/**
+ * Firefox scrollbar settings
+ */
+body {
+  scrollbar-color: #727272 #262626;
+  scrollbar-width: auto;
+}
+
+/**
+ * Safari and chrome scrollbar settings
+ */
+div::-webkit-scrollbar {
+  width: 1rem;
+}
+div::-webkit-scrollbar-track {
+  background-color: #262626;
+  border: solid 1px #727272;
+}
+div::-webkit-scrollbar-thumb {
+  background-color: #727272;
+}
 
 /* Document
    ========================================================================== */
@@ -11,6 +48,7 @@
 html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
+  font-family: "Open Sans", Arial, sans-serif;
 }
 
 /* Sections

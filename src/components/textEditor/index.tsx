@@ -4,65 +4,92 @@
 import React, { useState, useEffect } from "react";
 import styled, { AnyStyledComponent } from "styled-components";
 
+import { background, textPrimary, grey } from "../../constants";
+import { Button } from "./button";
+import { LineIndicator } from "./lineIndicator";
+
 const TerminalWrapper: AnyStyledComponent = styled.div`
-  background-color: #fff;
+  height: 100%;
+  width: 100%;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  height: 90%;
-  width: 70%;
 `;
 
+const TerminalHeader: AnyStyledComponent = styled.div`
+  height: 4rem;
+  width: 100%;
+  padding: 1rem 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid ${grey};
+  border-left: none;
+  border-right: none;
+  border-top: none;
+`;
+
+const Editor: AnyStyledComponent = styled.div`
+  height: calc(100vh-8rem);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-items: flex-start;
+  align-items: flex-start;
+  overflow: auto;
+`;
+
+interface TerminalProps {
+  lineCount: number;
+}
+
 const Terminal: AnyStyledComponent = styled.textarea`
-  margin: 0;
-  padding: 2rem;
-  border-radius: 5px;
-  border-style: none;
-  height: 75%;
-  margin: 0 0 10px 0;
-  resize: none;
-  width: 80%;
+  min-height: 25rem;
+  height: ${(props: TerminalProps): string =>
+    `${(props.lineCount * 30).toString()}px`};
+  width: 100%;
+  padding: 1rem 2rem 2rem 0;
+  background: ${background};
+  border: none;
+  color: ${textPrimary};
+  font-family: "Source Code Pro";
   font-size: 16px;
+  line-height: 1.5;
+  overflow-x: auto;
+  overflow-y: hidden;
+  resize: none;
+  white-space: pre;
 
   :focus {
     outline: none;
   }
 `;
 
-const Button: AnyStyledComponent = styled.button`
-  background-color: #90c577;
-  border-radius: 5px;
-  border-style: none;
-  height: 43px;
-  width: 98px;
-  font-size: 18px;
-  margin: 0 0 2rem 0;
-
-  @media only screen and (max-width: 800px) {
-    bottom: 60px;
-  }
-`;
-
 const SuggestBox: AnyStyledComponent = styled.div`
-  height: 50px;
-  margin: 0 0 10px 0;
-  max-width: 80%;
+  width: 100%;
+  height: 4rem;
+  padding: 1rem 1rem;
+  border: 1px solid ${grey};
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
 
   h1 {
     font-size: 18px;
     font-weight: normal;
+    margin: 0;
   }
 `;
 
 const TextEditor: React.FC = (): JSX.Element => {
   const [userInput, setUserInput] = useState<string>("");
-  const [suggestion, setSuggestion] = useState<string>("");
+  const [suggestion, setSuggestion] = useState<string>(" ");
   const [cursorPos, setCursorPos] = useState<number>(0);
+  const [lineCount, setLineCount] = useState<number>(0);
 
-  // TODO: Import external array containing the actual keywords
-  // These are the words that we want to suggest to the user
   const words: string[] = ["drone", "python", "code"];
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -81,6 +108,7 @@ const TextEditor: React.FC = (): JSX.Element => {
     let startIndex = 0;
     let tempIndex = 0;
 
+    // Find the word that the user is currently on
     if (text.includes(" ") || text.includes("\n")) {
       startIndex = text.lastIndexOf(" ");
       tempIndex = text.lastIndexOf("\n");
@@ -110,6 +138,9 @@ const TextEditor: React.FC = (): JSX.Element => {
         break;
       }
     }
+
+    // Update the line count
+    setLineCount(userInput.split("\n").length - 1);
   }, [userInput, cursorPos, words]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
@@ -124,18 +155,25 @@ const TextEditor: React.FC = (): JSX.Element => {
 
   return (
     <TerminalWrapper>
-      <Terminal
-        type="text"
-        onBlur={removeSuggestion}
-        onChange={handleChange}
-        spellCheck="false"
-        placeholder="Type in anything you want to your heart’s content. Text wrapping is included too!"
-        value={userInput}
-      />
-      <SuggestBox>
+      <TerminalHeader>
+        <Button submitFunction={handleSubmit} text="Hint" />
+        <Button submitFunction={handleSubmit} text="Run" />
+      </TerminalHeader>
+      <Editor>
+        <LineIndicator lineCount={lineCount} />
+        <Terminal
+          type="text"
+          onBlur={removeSuggestion}
+          onChange={handleChange}
+          spellCheck="false"
+          placeholder="Write your code here."
+          value={userInput}
+          lineCount={lineCount}
+        />
+      </Editor>
+      <SuggestBox suggestion={suggestion}>
         <h1>{suggestion}</h1>
       </SuggestBox>
-      <Button onClick={handleSubmit}>Run</Button>
     </TerminalWrapper>
   );
 };

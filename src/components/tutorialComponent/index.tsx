@@ -3,78 +3,62 @@ import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
 import { Tutorial, Content } from "../types";
 
+import { grey, codeColor } from "../../constants";
+import { StepButton } from "./stepButton";
+
 interface TutorialProps {
   disp: boolean;
 }
 
 const TutorialBG: AnyStyledComponent = styled.div`
-  background-color: #fff;
+  height: 100%;
+  width: 100%;
   border-radius: 5px;
   display: ${(props: TutorialProps): string => (props.disp ? "flex" : "none")};
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 90%;
-  width: 70%;
+`;
+
+const TutorialHeader: AnyStyledComponent = styled.div`
+  width: 100%;
+  height: 4rem;
+  padding: 1rem 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid ${grey};
+  border-left: none;
+  border-right: none;
+  border-top: none;
 
   h1 {
-    font-size: 32px;
+    font-size: 24px;
   }
 `;
 
-const Title: AnyStyledComponent = styled.h1`
-  text-align: left;
-  font-size: 32px;
-  font-weight: normal;
-  margin: 20px 0 0 0;
-  width: 80%;
-`;
-
-const StepContentWrapper: AnyStyledComponent = styled.div`
-  height: 100%;
-  max-height: 55vh;
-  overflow-y: auto;
-`;
-
 const ContentWrapper: AnyStyledComponent = styled.div`
-  width: 80%;
   height: 100%;
+  padding: 0 2rem;
   font-size: 16px;
-`;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
 
-interface ButtonProps {
-  next: boolean;
-}
-
-const Button: AnyStyledComponent = styled.button`
-  height: 2.5rem;
-  width: 6rem;
-
-  background-color: ${(props: ButtonProps): string =>
-    props.next ? "#87C5FF" : "#C5C5C5"};
-  border: none;
-  border-radius: 5px;
-
-  font-size: 18px;
+  p {
+    margin: 2rem 0;
+  }
 `;
 
 const CodeBlock: AnyStyledComponent = styled.div`
-  padding: 0.5rem 1rem;
+  padding: 1.5rem;
   font-family: "Source Code Pro";
-  background-color: #e8e8e8;
+  background-color: ${codeColor};
   border-radius: 5px;
 
   span {
     white-space: pre;
   }
-`;
-
-const ButtonGroup: AnyStyledComponent = styled.div`
-  width: 80%;
-  margin: 2rem 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 `;
 
 const TutorialDisplay: React.FC = (): JSX.Element => {
@@ -127,34 +111,26 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
   // removed on the final step
   return (
     <TutorialBG disp={tutorialDisplay}>
-      <ContentWrapper>
-        <Title>{data.instructions[tutorialStep - 1].title}</Title>
-        <StepContentWrapper>{tutorialData}</StepContentWrapper>
-      </ContentWrapper>
-      <ButtonGroup>
-        {tutorialStep === 1 ? (
-          <div />
-        ) : (
-          <Button
-            onClick={(): Promise<{ tutorialStep: number }> =>
-              setTutorialStep(tutorialStep - 1)
-            }
-            next={false}
-          >
-            Back
-          </Button>
-        )}
-        {tutorialStep === data.instructions.length ? null : (
-          <Button
-            onClick={(): Promise<{ tutorialStep: number }> =>
-              setTutorialStep(tutorialStep + 1)
-            }
-            next
-          >
-            Next
-          </Button>
-        )}
-      </ButtonGroup>
+      <TutorialHeader>
+        <StepButton
+          clickFunction={(): Promise<{ tutorialStep: number }> =>
+            setTutorialStep(tutorialStep - 1)
+          }
+          next={false}
+          tutorialStep={tutorialStep}
+          totalSteps={data.instructions.length}
+        />
+        <h1>{data.instructions[tutorialStep - 1].title}</h1>
+        <StepButton
+          clickFunction={(): Promise<{ tutorialStep: number }> =>
+            setTutorialStep(tutorialStep + 1)
+          }
+          next
+          tutorialStep={tutorialStep}
+          totalSteps={data.instructions.length}
+        />
+      </TutorialHeader>
+      <ContentWrapper>{tutorialData}</ContentWrapper>
     </TutorialBG>
   );
 };

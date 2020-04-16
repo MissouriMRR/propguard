@@ -7,13 +7,15 @@ import { Navbar } from "../navbar";
 import { TextEditor } from "../textEditor";
 import { TutorialDisplay } from "../tutorialComponent";
 import { TutorialSelector } from "../tutorialSelector";
+import { background, textPrimary, grey } from "../../constants";
 
 const StyledTutorialPage: AnyStyledComponent = styled.div`
   height: 100vh;
   width: 100vw;
-  background: #dce1ee;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-items: stretch;
+  background: ${background};
 `;
 
 const MainWrapper: AnyStyledComponent = styled.main`
@@ -29,12 +31,15 @@ const MainWrapper: AnyStyledComponent = styled.main`
 `;
 
 const Column: AnyStyledComponent = styled.div`
+  border: 1px solid ${grey};
+  border-left: none;
+  border-collapse: collapse;
+  height: 100%;
+  width: 33.3%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  width: 33%;
-  color: black;
-  height: 100%;
+  color: ${textPrimary};
 
   @media only screen and (max-width: 800px) {
     width: 100%;

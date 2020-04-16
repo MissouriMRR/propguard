@@ -30,5 +30,6 @@
     "noEmit": true,
     "jsx": "react"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "files": ["src/custom.d.ts"]
 }
