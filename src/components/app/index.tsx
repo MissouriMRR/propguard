@@ -17,6 +17,7 @@ const StyledTutorialPage: AnyStyledComponent = styled.div`
   flex-direction: row;
   justify-items: stretch;
   background: ${background};
+  overflow: auto;
 `;
 
 const MainWrapper: AnyStyledComponent = styled.main`
