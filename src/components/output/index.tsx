@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { AnyStyledComponent } from "styled-components";
 
 import { background, grey } from "../../constants";
 import DroneOff from "../../assets/drone_status/drone_off.svg";
 import DronePitch from "../../assets/drone_status/drone_pitch.svg";
 import DroneRoll from "../../assets/drone_status/drone_roll.svg";
+import { droneLiftOff, droneLand } from "../../data/routines";
 
 const OutputWrapper: AnyStyledComponent = styled.div`
   width: 100%;
@@ -95,17 +96,40 @@ const DroneVisual: AnyStyledComponent = styled.div`
   }
 `;
 
-// TODO: Write external functions to run drone routines.
 // TODO: Use Global state to determine what drone routine to run.
+// TODO: Simplify the states into an object or use a custom
+// React hook.
+// TODO: Allow state to gradually change by using custom hook
+// instead of external function with a return
 const Output: React.FC = (): JSX.Element => {
+  const [routine, setRoutine] = useState("land");
   const [armed, setArmed] = useState(false);
   const [altitude, setAltitude] = useState(0);
   const [velocity, setVelocity] = useState(0);
-  const [yaw, setRaw] = useState(0);
+  const [yaw, setYaw] = useState(0);
   const [pitch, setPitch] = useState(0);
   const [roll, setRoll] = useState(0);
   const altitudeText = `Altitude: ${altitude} m`;
   const velocityText = `Velocity: ${velocity} m/s`;
+
+  useEffect(() => {
+    let droneData = { armed, altitude, velocity, yaw, pitch, roll };
+
+    if (routine === "liftoff") {
+      droneData = droneLiftOff(droneData, 4);
+    }
+
+    if (routine === "land") {
+      droneData = droneLand();
+    }
+
+    setArmed(droneData.armed);
+    setAltitude(droneData.altitude);
+    setVelocity(droneData.velocity);
+    setYaw(droneData.yaw);
+    setPitch(droneData.pitch);
+    setRoll(droneData.roll);
+  }, [routine]);
 
   return (
     <OutputWrapper>

@@ -7,7 +7,10 @@ interface DroneDataInterface {
   roll: number;
 }
 
-const droneLiftOff = (droneData: DroneDataInterface, altitude: number): any => {
+const droneLiftOff = (
+  droneData: DroneDataInterface,
+  altitude: number
+): DroneDataInterface => {
   const newDroneData = droneData;
 
   newDroneData.armed = true;
@@ -21,4 +24,17 @@ const droneLiftOff = (droneData: DroneDataInterface, altitude: number): any => {
   return newDroneData;
 };
 
-export { droneLiftOff };
+const droneLand = (): DroneDataInterface => {
+  const newDroneData = {
+    armed: false,
+    altitude: 0,
+    velocity: 0,
+    yaw: 0,
+    pitch: 0,
+    roll: 0
+  };
+
+  return newDroneData;
+};
+
+export { droneLiftOff, droneLand };
