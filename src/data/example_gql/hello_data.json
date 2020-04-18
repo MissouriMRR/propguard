@@ -1,5 +1,6 @@
 {
   "tutorial_title": "Hello Data",
+  "description": "A sample tutorial for testing purposes only.",
   "instructions": [
     {
       "type": "frame",
