@@ -85,12 +85,12 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
     }
   `);
 
-  const tutName =
+  const tutName: string =
     localStorage.getItem("tutName") ||
     data.allExampleGqlJson.nodes[0].tutorial_name;
 
-  const tutStep = parseInt(localStorage.getItem(tutName), 10) || 1;
-
+  const tutStepString: string = localStorage.getItem(tutName) || "1";
+  const tutStep: number = parseInt(tutStepString, 10);
   // We destructure the data since this query returns an array, and when
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
   // it just picks the first element

@@ -95,11 +95,12 @@ const TutorialSelector: React.FC = (): JSX.Element => {
     }
   `);
 
-  const tutName =
+  const tutName: string =
     localStorage.getItem("tutName") ||
     data.allExampleGqlJson.nodes[0].tutorial_name;
 
-  const tutStep = parseInt(localStorage.getItem(tutName), 10) || 1;
+  const tutStepString: string = localStorage.getItem(tutName) || "1";
+  const tutStep: number = parseInt(tutStepString, 10);
 
   return (
     <Selector disp={selectorDisplay}>
