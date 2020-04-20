@@ -95,6 +95,12 @@ const TutorialSelector: React.FC = (): JSX.Element => {
     }
   `);
 
+  const tutName =
+    localStorage.getItem("tutName") ||
+    data.allExampleGqlJson.nodes[0].tutorial_name;
+
+  const tutStep = parseInt(localStorage.getItem(tutName), 10) || 1;
+
   return (
     <Selector disp={selectorDisplay}>
       <SelectorHeader>
@@ -105,7 +111,8 @@ const TutorialSelector: React.FC = (): JSX.Element => {
           <SingleTutorial
             key={tutorialName + index.toString()}
             onClick={(): void => {
-              setTutorialStep(1);
+              setTutorialStep(tutStep);
+              localStorage.setItem("tutName", value.tutorial_title);
               setTutorialName(value.tutorial_title);
               setSelectorDisplay(false);
               setTutorialDisplay(true);

@@ -85,6 +85,12 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
     }
   `);
 
+  const tutName =
+    localStorage.getItem("tutName") ||
+    data.allExampleGqlJson.nodes[0].tutorial_name;
+
+  const tutStep = parseInt(localStorage.getItem(tutName), 10) || 1;
+
   // We destructure the data since this query returns an array, and when
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
   // it just picks the first element
@@ -113,20 +119,22 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
     <TutorialBG disp={tutorialDisplay}>
       <TutorialHeader>
         <StepButton
-          clickFunction={(): Promise<{ tutorialStep: number }> =>
-            setTutorialStep(tutorialStep - 1)
-          }
+          clickFunction={(): Promise<{ tutorialStep: number }> => {
+            localStorage.setItem(tutName, (tutStep - 1).toString());
+            return setTutorialStep(tutorialStep - 1);
+          }}
           next={false}
-          tutorialStep={tutorialStep}
+          tutorialStep={tutStep}
           totalSteps={data.instructions.length}
         />
-        <h1>{data.instructions[tutorialStep - 1].title}</h1>
+        <h1>{data.instructions[tutStep - 1].title}</h1>
         <StepButton
-          clickFunction={(): Promise<{ tutorialStep: number }> =>
-            setTutorialStep(tutorialStep + 1)
-          }
+          clickFunction={(): Promise<{ tutorialStep: number }> => {
+            localStorage.setItem(tutName, (tutStep + 1).toString());
+            return setTutorialStep(tutorialStep + 1);
+          }}
           next
-          tutorialStep={tutorialStep}
+          tutorialStep={tutStep}
           totalSteps={data.instructions.length}
         />
       </TutorialHeader>
