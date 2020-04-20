@@ -98,7 +98,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
     return tutorial.tutorial_title === tutorialName;
   });
 
-  const tutorialData = data.instructions[tutorialStep - 1].content.map(
+  const tutorialData = data.instructions[tutStep - 1].content.map(
     (element: Content, index: number) => {
       if (element.type === "text")
         return <p key={tutorialName + index.toString()}>{element.value}</p>;
