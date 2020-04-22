@@ -84,7 +84,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
     }
   `);
 
-  const [tutName, tutStep] = useLocalStorage(data);
+  const [tutName, tutStep, , setStep] = useLocalStorage(data);
 
   // We destructure the data since this query returns an array, and when
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
@@ -115,7 +115,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
       <TutorialHeader>
         <StepButton
           clickFunction={(): Promise<{ tutorialStep: number }> => {
-            localStorage.setItem(tutName, (tutStep - 1).toString());
+            setStep(tutName, tutStep - 1);
             return setTutorialStep(tutorialStep - 1);
           }}
           next={false}
@@ -125,7 +125,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
         <h1>{data.instructions[tutStep - 1].title}</h1>
         <StepButton
           clickFunction={(): Promise<{ tutorialStep: number }> => {
-            localStorage.setItem(tutName, (tutStep + 1).toString());
+            setStep(tutName, tutStep + 1);
             return setTutorialStep(tutorialStep + 1);
           }}
           next

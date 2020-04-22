@@ -87,7 +87,7 @@ const TutorialSelector: React.FC = (): JSX.Element => {
     }
   `);
 
-  const [, tutStep] = useLocalStorage(data);
+  const [, tutStep, setCurrentTutorial] = useLocalStorage(data);
 
   return (
     <Selector disp={selectorDisplay}>
@@ -100,7 +100,7 @@ const TutorialSelector: React.FC = (): JSX.Element => {
             key={tutorialName + index.toString()}
             onClick={(): void => {
               setTutorialStep(tutStep);
-              localStorage.setItem("tutName", value.tutorial_title);
+              setCurrentTutorial(value.tutorial_title);
               setTutorialName(value.tutorial_title);
               setSelectorDisplay(false);
               setTutorialDisplay(true);
