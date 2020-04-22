@@ -2,6 +2,7 @@ import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
 import { Tutorial } from "../types";
+import { useLocalStorage } from "../useLocalStorage";
 
 import { accent, background, grey, textPrimary } from "../../constants";
 
@@ -86,12 +87,7 @@ const TutorialSelector: React.FC = (): JSX.Element => {
     }
   `);
 
-  const tutName: string =
-    localStorage.getItem("tutName") ||
-    data.allExampleGqlJson.nodes[0].tutorial_name;
-
-  const tutStepString: string = localStorage.getItem(tutName) || "1";
-  const tutStep: number = parseInt(tutStepString, 10);
+  const [tutName, tutStep] = useLocalStorage(data);
 
   return (
     <Selector disp={selectorDisplay}>

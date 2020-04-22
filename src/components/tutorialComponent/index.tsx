@@ -2,6 +2,7 @@ import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
 import { Tutorial, Content } from "../types";
+import { useLocalStorage } from "../useLocalStorage";
 
 import { grey, codeColor } from "../../constants";
 import { StepButton } from "./stepButton";
@@ -83,17 +84,14 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
     }
   `);
 
+  const [tutName, tutStep] = useLocalStorage(data);
+
   // We destructure the data since this query returns an array, and when
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
   // it just picks the first element
   data = data.allExampleGqlJson.nodes.find((tutorial: Tutorial): boolean => {
     return tutorial.tutorial_title === tutorialName;
   });
-
-  const tutName: string = localStorage.getItem("tutName") || data.tutorial_name;
-
-  const tutStepString: string = localStorage.getItem(tutName) || "1";
-  const tutStep: number = parseInt(tutStepString, 10);
 
   const tutorialData = data.instructions[tutStep - 1].content.map(
     (element: Content, index: number) => {
