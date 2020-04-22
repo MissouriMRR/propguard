@@ -2,6 +2,7 @@ import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { Icon } from "@iconify/react";
 import listIcon from "@iconify/icons-ic/round-format-list-bulleted";
+import { useLocalStorageView } from "../hooks/index";
 
 import { textPrimary, grey } from "../../constants";
 import Logo from "../../assets/logo.svg";
@@ -51,8 +52,14 @@ const NavIcon: AnyStyledComponent = styled(Icon)`
 const Navbar: React.FC = (): JSX.Element => {
   const [selectorDisplay, setSelectorDisplay] = useGlobal("selectorDisplay");
   const [tutorialDisplay, setTutorialDisplay] = useGlobal("tutorialDisplay");
+  const [, setSelectorView] = useLocalStorageView();
 
   const toggleDisplay = (): void => {
+    if (selectorDisplay) {
+      setSelectorView("true");
+    } else {
+      setSelectorView("false");
+    }
     setSelectorDisplay(!selectorDisplay);
     setTutorialDisplay(!tutorialDisplay);
   };

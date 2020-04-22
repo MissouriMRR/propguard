@@ -1,4 +1,4 @@
-import { Data } from "./types/index";
+import { Data } from "../types/index";
 
 export const useLocalStorage = (
   data: Data
@@ -19,4 +19,14 @@ export const useLocalStorage = (
   };
 
   return [tutName, tutStep, setCurrentTutorial, setStep];
+};
+
+export const useLocalStorageView = (): [string, Function] => {
+  const selectorView = localStorage.getItem("selectorView") || "true";
+
+  const setSelectorView = (value: string): void => {
+    localStorage.setItem("selectorView", value);
+  };
+
+  return [selectorView, setSelectorView];
 };

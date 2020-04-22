@@ -1,5 +1,8 @@
 import React, { setGlobal } from "reactn";
 import { TutorialApp } from "../components/app";
+import { useLocalStorageView } from "../components/hooks/index";
+
+const [selectorView] = useLocalStorageView();
 
 /*
   Initialize global state here. If you change the object's structure, such
@@ -10,8 +13,8 @@ import { TutorialApp } from "../components/app";
 setGlobal({
   tutorialName: "Hello Data",
   tutorialStep: 1,
-  selectorDisplay: true,
-  tutorialDisplay: false
+  selectorDisplay: selectorView === "true",
+  tutorialDisplay: selectorView === "false"
 });
 
 const IndexPage = (): JSX.Element => <TutorialApp />;

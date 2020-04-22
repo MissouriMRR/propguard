@@ -2,7 +2,7 @@ import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
 import { Tutorial, Content } from "../types";
-import { useLocalStorage } from "../useLocalStorage";
+import { useLocalStorage } from "../hooks/index";
 
 import { grey, codeColor } from "../../constants";
 import { StepButton } from "./stepButton";

@@ -2,7 +2,7 @@ import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
 import { Tutorial } from "../types";
-import { useLocalStorage } from "../useLocalStorage";
+import { useLocalStorage, useLocalStorageView } from "../hooks/index";
 
 import { accent, background, grey, textPrimary } from "../../constants";
 
@@ -88,6 +88,7 @@ const TutorialSelector: React.FC = (): JSX.Element => {
   `);
 
   const [, tutStep, setCurrentTutorial] = useLocalStorage(data);
+  const [, setSelectorView] = useLocalStorageView();
 
   return (
     <Selector disp={selectorDisplay}>
@@ -104,6 +105,7 @@ const TutorialSelector: React.FC = (): JSX.Element => {
               setTutorialName(value.tutorial_title);
               setSelectorDisplay(false);
               setTutorialDisplay(true);
+              setSelectorView("false");
             }}
           >
             <Title>{value.tutorial_title}</Title>
