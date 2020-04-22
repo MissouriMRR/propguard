@@ -87,7 +87,7 @@ const TutorialSelector: React.FC = (): JSX.Element => {
     }
   `);
 
-  const [tutName, tutStep] = useLocalStorage(data);
+  const [, tutStep] = useLocalStorage(data);
 
   return (
     <Selector disp={selectorDisplay}>

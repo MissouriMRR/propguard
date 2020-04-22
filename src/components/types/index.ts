@@ -16,3 +16,22 @@ export interface Tutorial {
   description: string;
   instructions: Array<Instruction>;
 }
+
+export interface Instructions {
+  title: string;
+  content: Array<Content>;
+}
+
+export interface Node {
+  tutorial_title: string;
+  description: string;
+  instructions?: Array<Instructions>;
+}
+
+export interface AllExampleGqlJson {
+  nodes: Array<Node>;
+}
+
+export interface Data {
+  allExampleGqlJson: AllExampleGqlJson;
+}
