@@ -72,9 +72,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
         nodes {
           tutorial_title
           instructions {
-            step
             title
-            type
             content {
               type
               value

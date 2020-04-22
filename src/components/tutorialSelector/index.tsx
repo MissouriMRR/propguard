@@ -81,15 +81,6 @@ const TutorialSelector: React.FC = (): JSX.Element => {
         nodes {
           tutorial_title
           description
-          instructions {
-            step
-            title
-            type
-            content {
-              type
-              value
-            }
-          }
         }
       }
     }
