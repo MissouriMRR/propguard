@@ -56,9 +56,9 @@ const Navbar: React.FC = (): JSX.Element => {
 
   const toggleDisplay = (): void => {
     if (selectorDisplay) {
-      setSelectorView("true");
-    } else {
       setSelectorView("false");
+    } else {
+      setSelectorView("true");
     }
     setSelectorDisplay(!selectorDisplay);
     setTutorialDisplay(!tutorialDisplay);

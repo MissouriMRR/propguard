@@ -11,7 +11,7 @@ const [selectorView] = useLocalStorageView();
   reflect the global state object you have here.
 */
 setGlobal({
-  tutorialName: "Hello Data",
+  tutorialName: localStorage.getItem("tutName") || "Hello Data",
   tutorialStep: 1,
   selectorDisplay: selectorView === "true",
   tutorialDisplay: selectorView === "false"

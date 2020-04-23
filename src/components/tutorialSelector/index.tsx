@@ -90,6 +90,21 @@ const TutorialSelector: React.FC = (): JSX.Element => {
   const [, tutStep, setCurrentTutorial] = useLocalStorage(data);
   const [, setSelectorView] = useLocalStorageView();
 
+  const handleTutorialStep = (step: number): void => {
+    setTutorialStep(step);
+  };
+
+  const handleCurrentTutorial = (title: string): void => {
+    setCurrentTutorial(title);
+    setTutorialName(title);
+  };
+
+  const handleDisplays = (): void => {
+    setSelectorDisplay(false);
+    setTutorialDisplay(true);
+    setSelectorView("false");
+  };
+
   return (
     <Selector disp={selectorDisplay}>
       <SelectorHeader>
@@ -100,12 +115,9 @@ const TutorialSelector: React.FC = (): JSX.Element => {
           <SingleTutorial
             key={tutorialName + index.toString()}
             onClick={(): void => {
-              setTutorialStep(tutStep);
-              setCurrentTutorial(value.tutorial_title);
-              setTutorialName(value.tutorial_title);
-              setSelectorDisplay(false);
-              setTutorialDisplay(true);
-              setSelectorView("false");
+              handleTutorialStep(tutStep);
+              handleCurrentTutorial(value.tutorial_title);
+              handleDisplays();
             }}
           >
             <Title>{value.tutorial_title}</Title>
