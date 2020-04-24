@@ -2,6 +2,7 @@ import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
 import { Tutorial, Content } from "../types";
+import { useLocalStorage } from "../hooks/index";
 
 import { grey, codeColor } from "../../constants";
 import { StepButton } from "./stepButton";
@@ -72,9 +73,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
         nodes {
           tutorial_title
           instructions {
-            step
             title
-            type
             content {
               type
               value
@@ -85,6 +84,13 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
     }
   `);
 
+  const [tutName, tutStep, , setStep] = useLocalStorage(data);
+
+  const handleStep = (next: boolean): Promise<{ tutorialStep: number }> => {
+    setStep(tutName, next ? tutStep + 1 : tutStep - 1);
+    return setTutorialStep(next ? tutorialStep + 1 : tutorialStep - 1);
+  };
+
   // We destructure the data since this query returns an array, and when
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
   // it just picks the first element
@@ -92,7 +98,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
     return tutorial.tutorial_title === tutorialName;
   });
 
-  const tutorialData = data.instructions[tutorialStep - 1].content.map(
+  const tutorialData = data.instructions[tutStep - 1].content.map(
     (element: Content, index: number) => {
       if (element.type === "text")
         return <p key={tutorialName + index.toString()}>{element.value}</p>;
@@ -114,19 +120,19 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
       <TutorialHeader>
         <StepButton
           clickFunction={(): Promise<{ tutorialStep: number }> =>
-            setTutorialStep(tutorialStep - 1)
+            handleStep(false)
           }
           next={false}
-          tutorialStep={tutorialStep}
+          tutorialStep={tutStep}
           totalSteps={data.instructions.length}
         />
-        <h1>{data.instructions[tutorialStep - 1].title}</h1>
+        <h1>{data.instructions[tutStep - 1].title}</h1>
         <StepButton
           clickFunction={(): Promise<{ tutorialStep: number }> =>
-            setTutorialStep(tutorialStep + 1)
+            handleStep(true)
           }
           next
-          tutorialStep={tutorialStep}
+          tutorialStep={tutStep}
           totalSteps={data.instructions.length}
         />
       </TutorialHeader>
