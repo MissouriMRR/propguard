@@ -11,9 +11,8 @@ import "ace-builds/src-noconflict/theme-monokai";
 const TerminalWrapper: AnyStyledComponent = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  height: 100%;
 `;
 
 const Button: AnyStyledComponent = styled.button`

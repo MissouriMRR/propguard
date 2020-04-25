@@ -1,14 +1,21 @@
-import React from "react";
+/* eslint react/jsx-one-expression-per-line: 0 */
+import React from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
+import "./normalize.css"; // Normalize CSS styles across all browsers
 
-import { Navbar } from "../navbar/Navbar";
-import { TextEditor } from "../text-editor/TextEditor";
-import { TutorialDisplay } from "../tutorial-display/TutorialDisplay";
+import { Navbar } from "../navbar";
+import { TextEditor } from "../textEditor";
+import { TutorialDisplay } from "../tutorialComponent";
+import { TutorialSelector } from "../tutorialSelector";
+import { background, textPrimary, grey } from "../../constants";
 
-const TutorialPage: AnyStyledComponent = styled.div`
+const StyledTutorialPage: AnyStyledComponent = styled.div`
+  height: 100vh;
+  width: 100vw;
   display: flex;
-  flex-direction: column;
-  height: 100%;
+  flex-direction: row;
+  justify-items: stretch;
+  background: ${background};
 `;
 
 const MainWrapper: AnyStyledComponent = styled.main`
@@ -24,12 +31,15 @@ const MainWrapper: AnyStyledComponent = styled.main`
 `;
 
 const Column: AnyStyledComponent = styled.div`
+  border: 1px solid ${grey};
+  border-left: none;
+  border-collapse: collapse;
+  height: 100%;
+  width: 33.3%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  width: 33%;
-  color: black;
-  height: 100%;
+  color: ${textPrimary};
 
   @media only screen and (max-width: 800px) {
     width: 100%;
@@ -39,11 +49,12 @@ const Column: AnyStyledComponent = styled.div`
 
 const TutorialApp: React.FC = (): JSX.Element => {
   return (
-    <TutorialPage>
+    <StyledTutorialPage>
       <Navbar />
       <MainWrapper>
         <Column>
           <TutorialDisplay />
+          <TutorialSelector />
         </Column>
         <Column>
           <TextEditor />
@@ -52,7 +63,7 @@ const TutorialApp: React.FC = (): JSX.Element => {
           <h3 className="text-center">Output will go here</h3>
         </Column>
       </MainWrapper>
-    </TutorialPage>
+    </StyledTutorialPage>
   );
 };
 

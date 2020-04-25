@@ -1,10 +1,8 @@
 {
   "compilerOptions": {
-    "incremental": true,
     "target": "ESNEXT",
     "module": "esnext",
     "outDir": "./build",
-    "tsBuildInfoFile": "./build/.tsbuildinfo",
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -32,5 +30,6 @@
     "noEmit": true,
     "jsx": "react"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "files": ["src/custom.d.ts"]
 }

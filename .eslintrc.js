@@ -1,41 +1,56 @@
 module.exports = {
-  env: {
-    browser: true,
-    es6: true
+  "env": {
+      "browser": true,
+      "es6": true
   },
-  extends: [
-    'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
-    'plugin:prettier/recommended',
-    'airbnb',
-    'airbnb-typescript',
-    'prettier',
+  "extends": [
+      "airbnb",
+      "prettier",
+      "prettier/react",
+      "plugin:prettier/recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:react/recommended"
   ],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module',
+  "globals": {
+      "Atomics": "readonly",
+      "SharedArrayBuffer": "readonly"
   },
-  plugins: [
-    'prettier',
-    '@typescript-eslint'
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+      "ecmaFeatures": {
+          "jsx": true
+      },
+      "ecmaVersion": 2018,
+      "sourceType": "module"
+  },
+  "plugins": [
+      "react",
+      "@typescript-eslint",
+      "prettier"
   ],
-  rules: {
-    "import/prefer-default-export": 0,
-    "class-methods-use-this": 0,
-    "max-classes-per-file": 0,
-    "no-param-reassign": 1,
+  "rules": {
     "prettier/prettier": "error",
-    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
-    "@typescript-eslint/indent": ["error", 2],
-    "react/jsx-curly-newline": 0,
-    },
-  settings: {
+    "react/jsx-filename-extension": [
+        1, { "extensions": [".js", ".jsx", ".ts", ".tsx"]}
+    ],
+    "import/prefer-default-export": 0,
+    "react/prop-types": 0,
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        js: "never",
+        jsx: "never",
+        ts: "never",
+        tsx: "never"
+      }
+    ],
+  },
+  "settings": {
     "import/resolver": {
       "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     }
   }
-};
+}
