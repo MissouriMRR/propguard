@@ -16,6 +16,7 @@ const TerminalWrapper: AnyStyledComponent = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+  height: 100%;
 `;
 
 const TerminalHeader: AnyStyledComponent = styled.div`
@@ -54,15 +55,15 @@ const TextEditor: React.FC = (): JSX.Element => {
       <AceEditor
         style={{
           position: "relative",
-          marginTop: "1vh",
-          height: "90vh",
-          width: "100%",
+          marginTop: "1%",
+          height: "90%",
+          width: "99.9%",
           backgroundColor: background
         }}
         fontSize="18px"
         mode="python"
         theme="tomorrow_night_eighties"
-        placeholder="Type in anything you want to your heart’s content."
+        placeholder="Write your code here."
         value={userInput}
         onChange={(value: string): void => {
           setUserInput(value);
