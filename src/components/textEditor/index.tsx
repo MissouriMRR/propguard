@@ -8,7 +8,7 @@ import { background, grey } from "../../constants";
 import { Button } from "./button";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/ext-language_tools";
-import "ace-builds/src-noconflict/theme-kr_theme";
+import "ace-builds/src-noconflict/theme-tomorrow_night_eighties";
 
 const TerminalWrapper: AnyStyledComponent = styled.div`
   display: flex;
@@ -61,8 +61,8 @@ const TextEditor: React.FC = (): JSX.Element => {
         }}
         fontSize="18px"
         mode="python"
-        theme="kr_theme"
-        placeholder="Type in anything you want to your heart’s content. Text wrapping is included too!"
+        theme="tomorrow_night_eighties"
+        placeholder="Type in anything you want to your heart’s content."
         value={userInput}
         onChange={(value: string): void => {
           setUserInput(value);
