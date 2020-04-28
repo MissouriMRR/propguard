@@ -45,7 +45,12 @@ const TextEditor: React.FC = (): JSX.Element => {
   return (
     <TerminalWrapper>
       <AceEditor
-        style={{ height: "100%" }}
+        style={{
+          position: "relative",
+          marginTop: 20,
+          height: "80vh",
+          width: "30vw"
+        }}
         mode="python"
         theme="monokai"
         placeholder="Type in anything you want to your heart’s content. Text wrapping is included too!"
