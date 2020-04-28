@@ -6,6 +6,9 @@ import styled, { AnyStyledComponent } from "styled-components";
 import AceEditor from "react-ace";
 import { background, grey } from "../../constants";
 import { Button } from "./button";
+
+import "ace-builds";
+import "ace-builds/webpack-resolver";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/theme-tomorrow_night_eighties";
