@@ -61,9 +61,10 @@ const TextEditor: React.FC = (): JSX.Element => {
           marginTop: "1%",
           height: "90%",
           width: "99.9%",
-          backgroundColor: background
+          backgroundColor: background,
+          fontFamily: "Source Code Pro"
         }}
-        fontSize="18px"
+        fontSize="16px"
         mode="python"
         theme="tomorrow_night_eighties"
         placeholder="Write your code here."
