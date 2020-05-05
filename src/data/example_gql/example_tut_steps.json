@@ -6,7 +6,7 @@
       "type": "frame",
       "step": 1,
       "title": "Introduction",
-      "hint": "This is a sample hint!",
+      "hint": "This is a sample hint for the Introduction!",
       "content": [
         {
           "type": "text",
@@ -26,7 +26,7 @@
       "type": "frame",
       "step": 2,
       "title": "Step 2",
-      "hint": "",
+      "hint": "This is a sample hint for the second step!",
       "content": [
         {
           "type": "text",
@@ -54,7 +54,7 @@
       "type": "frame",
       "step": 3,
       "title": "Step 3",
-      "hint": "",
+      "hint": "This is a sample hint for the third step!",
       "content": [
         {
           "type": "text",
