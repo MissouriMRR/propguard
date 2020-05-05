@@ -6,6 +6,7 @@ export interface Content {
 export interface Instruction {
   step: number;
   title: string;
+  hint: string;
   type: string;
   content: Array<Content>;
 }

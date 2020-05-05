@@ -1,10 +1,13 @@
 // Custon ESlint rule overide fixes a conflict between ESlint and Prettier
 // rules on a certain weird indentation edge case on line 74-76. on var input
 /* eslint @typescript-eslint/indent: 0 */
-import React, { useState } from "react";
+import React, { useState, useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
+import { useStaticQuery, graphql } from "gatsby";
 import AceEditor from "react-ace";
+import { useLocalStorage } from "../hooks/index";
 import { background, grey } from "../../constants";
+import { Tutorial } from "../types";
 import { Button } from "./button";
 
 import "ace-builds";
@@ -38,6 +41,30 @@ const TerminalHeader: AnyStyledComponent = styled.div`
 
 const TextEditor: React.FC = (): JSX.Element => {
   const [userInput, setUserInput] = useState<string>("");
+  const [tutorialName] = useGlobal("tutorialName");
+  const [tutorialStep] = useGlobal("tutorialStep");
+
+  let data = useStaticQuery(graphql`
+    query {
+      allExampleGqlJson {
+        nodes {
+          tutorial_title
+          instructions {
+            hint
+          }
+        }
+      }
+    }
+  `);
+
+  const [, tutStep, ,] = useLocalStorage(data);
+
+  // We destructure the data since this query returns an array, and when
+  // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
+  // it just picks the first element
+  data = data.allExampleGqlJson.nodes.find((tutorial: Tutorial): boolean => {
+    return tutorial.tutorial_title === tutorialName;
+  });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -49,10 +76,16 @@ const TextEditor: React.FC = (): JSX.Element => {
     alert(`Hi, you submitted: ${userInput}`);
   };
 
+  const handleHint = (): void => {
+    if (data.instructions[tutStep - 1].hint) {
+      alert(data.instructions[tutStep - 1].hint);
+    }
+  };
+
   return (
     <TerminalWrapper>
       <TerminalHeader>
-        <Button submitFunction={handleSubmit} text="Hint" />
+        <Button submitFunction={handleHint} text="Hint" />
         <Button submitFunction={handleSubmit} text="Run" />
       </TerminalHeader>
       <AceEditor

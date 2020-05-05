@@ -6,6 +6,7 @@
       "type": "frame",
       "step": 1,
       "title": "Hello",
+      "hint": "",
       "content": [
         {
           "type": "text",
@@ -25,6 +26,7 @@
       "type": "frame",
       "step": 2,
       "title": "I",
+      "hint": "",
       "content": [
         {
           "type": "text",
@@ -48,6 +50,7 @@
       "type": "frame",
       "step": 3,
       "title": "am",
+      "hint": "",
       "content": [
         {
           "type": "text",
@@ -63,6 +66,7 @@
       "type": "frame",
       "step": 4,
       "title": "evil",
+      "hint": "",
       "content": [
         {
           "type": "text",

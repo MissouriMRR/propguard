@@ -6,6 +6,7 @@
       "type": "frame",
       "step": 1,
       "title": "Introduction",
+      "hint": "This is a sample hint!",
       "content": [
         {
           "type": "text",
@@ -25,6 +26,7 @@
       "type": "frame",
       "step": 2,
       "title": "Step 2",
+      "hint": "",
       "content": [
         {
           "type": "text",
@@ -52,6 +54,7 @@
       "type": "frame",
       "step": 3,
       "title": "Step 3",
+      "hint": "",
       "content": [
         {
           "type": "text",
@@ -79,6 +82,7 @@
       "type": "frame",
       "step": 4,
       "title": "Step 4",
+      "hint": "",
       "content": [
         {
           "type": "text",
