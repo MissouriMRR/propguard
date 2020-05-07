@@ -102,7 +102,7 @@ const DroneVisual: AnyStyledComponent = styled.div`
 // TODO: Allow state to gradually change by using custom hook
 // instead of external function with a return
 const Output: React.FC = (): JSX.Element => {
-  const [routine, setRoutine] = useState("land");
+  const [routine, setRoutine] = useState("");
   const [armed, setArmed] = useState(false);
   const [altitude, setAltitude] = useState(0);
   const [velocity, setVelocity] = useState(0);
@@ -117,18 +117,19 @@ const Output: React.FC = (): JSX.Element => {
 
     if (routine === "liftoff") {
       droneData = droneLiftOff(droneData, 4);
-    }
-
-    if (routine === "land") {
+    } else if (routine === "land") {
       droneData = droneLand();
     }
 
-    setArmed(droneData.armed);
-    setAltitude(droneData.altitude);
-    setVelocity(droneData.velocity);
-    setYaw(droneData.yaw);
-    setPitch(droneData.pitch);
-    setRoll(droneData.roll);
+    // One second delay before displaying drone results.
+    setTimeout(() => {
+      setArmed(droneData.armed);
+      setAltitude(droneData.altitude);
+      setVelocity(droneData.velocity);
+      setYaw(droneData.yaw);
+      setPitch(droneData.pitch);
+      setRoll(droneData.roll);
+    }, 1000);
   }, [routine]);
 
   return (

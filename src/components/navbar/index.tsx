@@ -52,6 +52,7 @@ const Navbar: React.FC = (): JSX.Element => {
   const [selectorDisplay, setSelectorDisplay] = useGlobal("selectorDisplay");
   const [tutorialDisplay, setTutorialDisplay] = useGlobal("tutorialDisplay");
 
+  // FIXME: Buttons act as a toggle rather than a setter
   const toggleDisplay = (): void => {
     setSelectorDisplay(!selectorDisplay);
     setTutorialDisplay(!tutorialDisplay);
