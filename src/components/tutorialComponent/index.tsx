@@ -62,6 +62,8 @@ const CodeBlock: AnyStyledComponent = styled.div`
   }
 `;
 
+// FIXME: Sentences render in the middle when they aren't long enough.
+// Make sure everything is left aligned.
 const TutorialDisplay: React.FC = (): JSX.Element => {
   const [tutorialStep, setTutorialStep] = useGlobal("tutorialStep");
   const [tutorialName] = useGlobal("tutorialName");
