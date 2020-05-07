@@ -2,6 +2,7 @@ import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
 import { Tutorial } from "../types";
+import { useLocalStorage, useLocalStorageView } from "../hooks/index";
 
 import { accent, background, grey, textPrimary } from "../../constants";
 
@@ -81,19 +82,25 @@ const TutorialSelector: React.FC = (): JSX.Element => {
         nodes {
           tutorial_title
           description
-          instructions {
-            step
-            title
-            type
-            content {
-              type
-              value
-            }
-          }
         }
       }
     }
   `);
+
+  const [, tutStep, setCurrentTutorial] = useLocalStorage(data);
+  const [, setSelectorView] = useLocalStorageView();
+
+  const handleClick = (title: string): void => {
+    // Setting Global States
+    setTutorialStep(tutStep);
+    setTutorialName(title);
+    setSelectorDisplay(false);
+    setTutorialDisplay(true);
+
+    // Setting Local Storage
+    setCurrentTutorial(title);
+    setSelectorView("false");
+  };
 
   return (
     <Selector disp={selectorDisplay}>
@@ -104,12 +111,7 @@ const TutorialSelector: React.FC = (): JSX.Element => {
         return (
           <SingleTutorial
             key={tutorialName + index.toString()}
-            onClick={(): void => {
-              setTutorialStep(1);
-              setTutorialName(value.tutorial_title);
-              setSelectorDisplay(false);
-              setTutorialDisplay(true);
-            }}
+            onClick={(): void => handleClick(value.tutorial_title)}
           >
             <Title>{value.tutorial_title}</Title>
             <Description>{value.description}</Description>
