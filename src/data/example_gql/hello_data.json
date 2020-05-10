@@ -20,6 +20,11 @@
           "type": "text",
           "value": "Migas green juice wolf hoodie, mlkshk semiotics disrupt."
         }
+      ],
+      "answer": [
+        "def print_world():",
+        "    print(\"Hello World!\")",
+        "print_world()"
       ]
     },
     {
@@ -44,6 +49,13 @@
           "type": "code",
           "value": "let t = True\nif (t)\n  console.log(\"Hi\")"
         }
+      ],
+      "answer": [
+        "happy = True",
+        "if happy:",
+        "    print(\"I am happy!\")",
+        "else:",
+        "    print(\"I am sad. :(\")"
       ]
     },
     {
@@ -84,7 +96,8 @@
           "type": "text",
           "value": "Featherback \"slipmouth\" taimen tiger shark eulachon hillstream loach sixgill ray featherfin knifefish kissing gourami moray eel yellowtail kingfish. Dory yellowhead jawfish searobin zebra danio dusky grouper. Longnose lancetfish panga; jewfish blue shark, flat loach round stingray bigscale ghost pipefish tiger barb Bitterling Pacific salmon. Chubsucker nase, woody sculpin sailfish ling cod large-eye bream Atlantic trout deepwater cardinalfish yellowmargin triggerfish driftfish grunion, northern squawfish. Straptail stickleback Old World rivuline, \"mullet dab cornetfish,\" ghost pipefish. Flat loach kanyu pipefish northern sea robin merluccid hake, damselfish armoured catfish, mako shark herring smelt menhaden Razorback sucker bowfin straptail guppy zebra bullhead shark."
         }
-      ]
+      ],
+      "answer": []
     }
   ]
 }
