@@ -5,10 +5,10 @@ import { useLocalStorageView } from "../components/hooks/index";
 const [selectorView] = useLocalStorageView();
 
 /*
-  Initialize global state here. If you change the object's structure, such
-  as adding new key value pairs pairs in the object, you will also have to
-  modify the types/shape for the global object in src/global.d.ts to 
-  reflect the global state object you have here.
+  Initialize global state here. Define types/shape for global state in
+  src/global.d.ts
+
+  TODO: Parameters documentation
 */
 setGlobal({
   tutorialName: localStorage.getItem("tutName") || "Hello Data",

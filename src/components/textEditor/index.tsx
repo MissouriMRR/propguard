@@ -83,16 +83,19 @@ const TextEditor: React.FC = (): JSX.Element => {
       data.instructions[tutStep - 1].answer
     );
 
-    if (result.correct) {
-      setOutput({
-        correct: result.correct,
-        message: data.instructions[tutStep - 1].output.successMessage,
-        droneTask: data.instructions[tutStep - 1].output.droneRoutine
-      });
-    } else {
-      setOutput({ ...result, droneTask: "" });
-    }
-    setRunOutput(true);
+    setTimeout(() => {
+      if (result.correct) {
+        setOutput({
+          correct: result.correct,
+          message: data.instructions[tutStep - 1].output.successMessage,
+          droneTask: data.instructions[tutStep - 1].output.droneRoutine
+        });
+      } else {
+        setOutput({ ...result, droneTask: "" });
+      }
+
+      setRunOutput(true);
+    }, 1000);
   };
 
   const handleHint = (): void => {

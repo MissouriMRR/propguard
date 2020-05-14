@@ -95,40 +95,25 @@ const DroneVisual: AnyStyledComponent = styled.div`
   }
 `;
 
-// TODO: Use Global state to determine what drone routine to run.
-// TODO: Simplify the states into an object or use a custom
-// React hook.
-// TODO: Allow state to gradually change by using custom hook
-// instead of external function with a return
 const Output: React.FC = (): JSX.Element => {
-  // Custom drone state hooks
-  // TODO: Package as one object
-  const [armed, setArmed] = useState(false);
-  const [altitude, setAltitude] = useState(0);
-  const [velocity, setVelocity] = useState(0);
-  const [yaw, setYaw] = useState(0);
-  const [pitch, setPitch] = useState(0);
-  const [roll, setRoll] = useState(0);
+  // State for drone state visualization
+  const [droneState, setDroneState] = useState({
+    armed: false,
+    altitude: 0,
+    velocity: 0,
+    yaw: 0,
+    pitch: 0,
+    roll: 0
+  });
   // Global output state variables
   const [runOutput, setRunOutput] = useGlobal("runOutput");
   const [output] = useGlobal("output");
 
-  // TODO: Allow changing drone routines
   useEffect(() => {
     if (!runOutput) return;
-    let droneData = { armed, altitude, velocity, yaw, pitch, roll };
-    droneData = performDroneRoutine(droneData, output.droneTask);
+    const newDroneState = performDroneRoutine(droneState, output.droneTask);
 
-    // One second delay before displaying drone results.
-    setTimeout(() => {
-      setArmed(droneData.armed);
-      setAltitude(droneData.altitude);
-      setVelocity(droneData.velocity);
-      setYaw(droneData.yaw);
-      setPitch(droneData.pitch);
-      setRoll(droneData.roll);
-    }, 1000);
-
+    setDroneState(newDroneState);
     setRunOutput(false);
   }, [runOutput]);
 
@@ -143,23 +128,25 @@ const Output: React.FC = (): JSX.Element => {
       </OutputConsole>
       <StatusVisualization>
         <StatusTextGroup>
-          <h1>{armed ? <span>Armed</span> : <span>Unarmed</span>}</h1>
-          <p>Altitude: {altitude} m</p>
-          <p>Velocity: {velocity} m/s</p>
+          <h1>
+            {droneState.armed ? <span>Armed</span> : <span>Unarmed</span>}
+          </h1>
+          <p>Altitude: {droneState.altitude} m</p>
+          <p>Velocity: {droneState.velocity} m/s</p>
         </StatusTextGroup>
         <VisualGroup>
           <DroneVisual>
             <DroneOff />
-            <p>Yaw: {yaw}°</p>
+            <p>Yaw: {droneState.yaw}°</p>
           </DroneVisual>
           <div>
             <DroneVisual>
               <DronePitch />
-              <p>Pitch: {pitch}°</p>
+              <p>Pitch: {droneState.pitch}°</p>
             </DroneVisual>
             <DroneVisual>
               <DroneRoll />
-              <p>Roll: {roll}°</p>
+              <p>Roll: {droneState.roll}°</p>
             </DroneVisual>
           </div>
         </VisualGroup>

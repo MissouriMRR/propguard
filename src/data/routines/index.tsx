@@ -49,17 +49,22 @@ const droneConstMove = (
   return newDroneData;
 };
 
-// TODO: Support multiple parameters
+// TODO: Add comments
 const performDroneRoutine = (
   droneData: DroneDataInterface,
-  routine: string
+  task: string
 ): DroneDataInterface => {
   let newDroneData = droneData;
 
-  if (routine === "liftoff") {
-    newDroneData = droneLiftOff(droneData, 4);
-  } else if (routine === "land") {
+  if (task.includes("droneLiftOff")) {
+    // Use regex to grab altitude parameters in the task string
+    const altitude = task.search(/[0-9]+/);
+    newDroneData = droneLiftOff(newDroneData, altitude);
+  } else if (task.includes("droneLand")) {
     newDroneData = droneLand();
+  } else if (task.includes("droneConstMove")) {
+    const velocity = task.search(/[0-9]+/);
+    newDroneData = droneConstMove(newDroneData, velocity);
   }
 
   return newDroneData;
