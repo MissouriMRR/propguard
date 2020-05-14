@@ -11,5 +11,11 @@ declare module "reactn/default" {
     tutorialStep: number;
     selectorDisplay: boolean;
     tutorialDisplay: boolean;
+    runOutput: boolean;
+    output: {
+      correct: boolean;
+      message: string;
+      droneTask: string;
+    };
   }
 }

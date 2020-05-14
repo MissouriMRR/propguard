@@ -1,0 +1,69 @@
+{
+  "tutorial_title": "Drone Liftoff",
+  "description": "Let's fly!",
+  "instructions": [
+    {
+      "type": "frame",
+      "step": 1,
+      "title": "Drone Liftoff",
+      "hint": "Read the code block and copy it.",
+      "content": [
+        {
+          "type": "text",
+          "value": "Type the code below to test out the output."
+        },
+        {
+          "type": "code",
+          "value": "from droneLib import droneLiftOff\n\ndroneLiftOff(2)"
+        }
+      ],
+      "answer": ["from droneLib import droneLiftOff", "droneLiftOff(2)"],
+      "output": {
+        "successMessage": "Drone arming...\nDrone lifting off to 2 meters!",
+        "droneRoutine": "droneLiftOff(droneData, 2)"
+      }
+    },
+    {
+      "type": "frame",
+      "step": 2,
+      "title": "Drone Move",
+      "hint": "Type the code in the code block please.",
+      "content": [
+        {
+          "type": "text",
+          "value": "Let's make the drone fly at a 0.5 m/s."
+        },
+        {
+          "type": "code",
+          "value": "from droneLib import droneMove\ndroneMove(0.5)"
+        }
+      ],
+      "answer": ["from droneLib import droneMove", "droneMove(0.5)"],
+      "output": {
+        "successMessage": "Drone moving at 0.5 m/s!",
+        "droneRoutine": "droneConstMove(droneData, 0.5)"
+      }
+    },
+    {
+      "type": "frame",
+      "step": 3,
+      "title": "Drone Landing",
+      "hint": "Please type the code in the code block.",
+      "content": [
+        {
+          "type": "text",
+          "value": "Type the code below and press run to land the drone."
+        },
+        {
+          "type": "code",
+          "value": "from droneLib import droneLand\ndroneLand()"
+        }
+      ],
+      "answer": ["from droneLib import droneLand", "droneLand()"],
+      "output": {
+        "successMessage": "Drone landing and disarming!",
+        "droneRoutine": "droneLand()"
+      }
+    }
+  ]
+}

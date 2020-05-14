@@ -15,7 +15,6 @@ const droneLiftOff = (
 
   newDroneData.armed = true;
   newDroneData.altitude = altitude;
-  // TODO: Simulate velocity
   newDroneData.velocity = 0;
   newDroneData.yaw = 0;
   newDroneData.pitch = 0;
@@ -37,4 +36,33 @@ const droneLand = (): DroneDataInterface => {
   return newDroneData;
 };
 
-export { droneLiftOff, droneLand };
+const droneConstMove = (
+  droneData: DroneDataInterface,
+  droneSpeed: number
+): DroneDataInterface => {
+  const newDroneData = droneData;
+
+  newDroneData.armed = true;
+  newDroneData.velocity = droneSpeed;
+  newDroneData.pitch = 30;
+
+  return newDroneData;
+};
+
+// TODO: Support multiple parameters
+const performDroneRoutine = (
+  droneData: DroneDataInterface,
+  routine: string
+): DroneDataInterface => {
+  let newDroneData = droneData;
+
+  if (routine === "liftoff") {
+    newDroneData = droneLiftOff(droneData, 4);
+  } else if (routine === "land") {
+    newDroneData = droneLand();
+  }
+
+  return newDroneData;
+};
+
+export { performDroneRoutine };

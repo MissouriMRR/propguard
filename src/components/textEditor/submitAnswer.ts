@@ -1,4 +1,13 @@
-const checkInput = (userInput: string, solutionList: Array<string>): string => {
+interface ResultType {
+  message: string;
+  correct: boolean;
+}
+
+// TODO: Documentation
+const submitAnswer = (
+  userInput: string,
+  solutionList: Array<string>
+): ResultType => {
   let index = 0;
   let line = 1;
   let col = 1;
@@ -18,7 +27,11 @@ const checkInput = (userInput: string, solutionList: Array<string>): string => {
     // In the case that the the user is correct line wise but doesn't have
     // the entire block of code finished
     if (i >= userInputList.length && i < solutionList.length) {
-      return "Your code looks good so far but you need a few more lines to complete it.";
+      return {
+        message:
+          "Your code looks good so far but you need a few more lines to complete it.",
+        correct: false
+      };
     }
 
     index = 0;
@@ -28,14 +41,10 @@ const checkInput = (userInput: string, solutionList: Array<string>): string => {
     while (index < solutionList[i].length) {
       // If we see a mismatch between the our input and the solution
       if (userInputList[i][index] !== solutionList[i][index]) {
-        return `You have an error on line ${line} and column ${col}.\nSolution Hint: '${solutionList[
-          i
-        ].slice(
-          index,
-          index + 10 > solutionList[i].length
-            ? solutionList[i].length
-            : index + 10
-        )}'`;
+        return {
+          message: `You have an error on line ${line} and column ${col}.\nSolution Hint: '${solutionList[i]}'`,
+          correct: false
+        };
       }
 
       index += 1;
@@ -43,7 +52,10 @@ const checkInput = (userInput: string, solutionList: Array<string>): string => {
     }
   }
 
-  return `Your code is correct!`;
+  return {
+    message: "",
+    correct: true
+  };
 };
 
-export { checkInput };
+export { submitAnswer };

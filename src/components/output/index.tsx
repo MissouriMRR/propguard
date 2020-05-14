@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 
 import { background, grey } from "../../constants";
 import DroneOff from "../../assets/drone_status/drone_off.svg";
 import DronePitch from "../../assets/drone_status/drone_pitch.svg";
 import DroneRoll from "../../assets/drone_status/drone_roll.svg";
-import { droneLiftOff, droneLand } from "../../data/routines";
+import { performDroneRoutine } from "../../data/routines";
 
 const OutputWrapper: AnyStyledComponent = styled.div`
   width: 100%;
@@ -36,12 +36,11 @@ const OutputHeader: AnyStyledComponent = styled.div`
   }
 `;
 
-const OutputTerminal: AnyStyledComponent = styled.div`
+const OutputConsole: AnyStyledComponent = styled.div`
   min-height: 15rem;
   padding: 0 1rem;
   border-bottom: 1px solid ${grey};
   font-family: "Source Code Pro";
-  white-space: pre;
 `;
 
 const StatusVisualization: AnyStyledComponent = styled.section`
@@ -102,24 +101,23 @@ const DroneVisual: AnyStyledComponent = styled.div`
 // TODO: Allow state to gradually change by using custom hook
 // instead of external function with a return
 const Output: React.FC = (): JSX.Element => {
-  const [routine, setRoutine] = useState("");
+  // Custom drone state hooks
+  // TODO: Package as one object
   const [armed, setArmed] = useState(false);
   const [altitude, setAltitude] = useState(0);
   const [velocity, setVelocity] = useState(0);
   const [yaw, setYaw] = useState(0);
   const [pitch, setPitch] = useState(0);
   const [roll, setRoll] = useState(0);
-  const altitudeText = `Altitude: ${altitude} m`;
-  const velocityText = `Velocity: ${velocity} m/s`;
+  // Global output state variables
+  const [runOutput, setRunOutput] = useGlobal("runOutput");
+  const [output] = useGlobal("output");
 
+  // TODO: Allow changing drone routines
   useEffect(() => {
+    if (!runOutput) return;
     let droneData = { armed, altitude, velocity, yaw, pitch, roll };
-
-    if (routine === "liftoff") {
-      droneData = droneLiftOff(droneData, 4);
-    } else if (routine === "land") {
-      droneData = droneLand();
-    }
+    droneData = performDroneRoutine(droneData, output.droneTask);
 
     // One second delay before displaying drone results.
     setTimeout(() => {
@@ -130,21 +128,24 @@ const Output: React.FC = (): JSX.Element => {
       setPitch(droneData.pitch);
       setRoll(droneData.roll);
     }, 1000);
-  }, [routine]);
 
+    setRunOutput(false);
+  }, [runOutput]);
+
+  // TODO: 3-way output success message
   return (
     <OutputWrapper>
       <OutputHeader>
-        <h1>Output Result: </h1>
+        <h1>Output Result:</h1>
       </OutputHeader>
-      <OutputTerminal>
-        <p>See your code output here.</p>
-      </OutputTerminal>
+      <OutputConsole>
+        <p>{output.message}</p>
+      </OutputConsole>
       <StatusVisualization>
         <StatusTextGroup>
           <h1>{armed ? <span>Armed</span> : <span>Unarmed</span>}</h1>
-          <p>{altitudeText}</p>
-          <p>{velocityText}</p>
+          <p>Altitude: {altitude} m</p>
+          <p>Velocity: {velocity} m/s</p>
         </StatusTextGroup>
         <VisualGroup>
           <DroneVisual>

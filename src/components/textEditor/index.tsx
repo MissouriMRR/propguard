@@ -5,10 +5,12 @@ import React, { useState, useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
 import AceEditor from "react-ace";
-import { useLocalStorage } from "../hooks/index";
+
+import { Button } from "./button";
 import { background, grey } from "../../constants";
 import { Tutorial } from "../types";
-import { Button } from "./button";
+import { submitAnswer } from "./submitAnswer";
+import { useLocalStorage } from "../hooks/index";
 
 import "ace-builds";
 import "ace-builds/webpack-resolver";
@@ -42,7 +44,8 @@ const TerminalHeader: AnyStyledComponent = styled.div`
 const TextEditor: React.FC = (): JSX.Element => {
   const [userInput, setUserInput] = useState<string>("");
   const [tutorialName] = useGlobal("tutorialName");
-  const [tutorialStep] = useGlobal("tutorialStep");
+  const [, setRunOutput] = useGlobal("runOutput");
+  const [, setOutput] = useGlobal("output");
 
   let data = useStaticQuery(graphql`
     query {
@@ -51,6 +54,11 @@ const TextEditor: React.FC = (): JSX.Element => {
           tutorial_title
           instructions {
             hint
+            answer
+            output {
+              successMessage
+              droneRoutine
+            }
           }
         }
       }
@@ -68,12 +76,23 @@ const TextEditor: React.FC = (): JSX.Element => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-
-    // Don't submit if there's nothing in the terminal
     if (!userInput) return;
 
-    // TODO: Placeholder alert. Replace this when we get global state working
-    alert(`Hi, you submitted: ${userInput}`);
+    const result = submitAnswer(
+      userInput,
+      data.instructions[tutStep - 1].answer
+    );
+
+    if (result.correct) {
+      setOutput({
+        correct: result.correct,
+        message: data.instructions[tutStep - 1].output.successMessage,
+        droneTask: data.instructions[tutStep - 1].output.droneRoutine
+      });
+    } else {
+      setOutput({ ...result, droneTask: "" });
+    }
+    setRunOutput(true);
   };
 
   const handleHint = (): void => {

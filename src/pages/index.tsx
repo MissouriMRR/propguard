@@ -14,7 +14,13 @@ setGlobal({
   tutorialName: localStorage.getItem("tutName") || "Hello Data",
   tutorialStep: 1,
   selectorDisplay: selectorView === "true",
-  tutorialDisplay: selectorView === "false"
+  tutorialDisplay: selectorView === "false",
+  runOutput: false,
+  output: {
+    correct: false,
+    string: "",
+    droneTask: ""
+  }
 });
 
 const IndexPage = (): JSX.Element => <TutorialApp />;
