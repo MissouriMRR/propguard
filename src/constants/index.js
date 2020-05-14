@@ -4,5 +4,8 @@ module.exports = {
   textPrimary: "#ffffff",
   textSecondary: "#f5f5f5",
   grey: "#727272",
-  codeColor: "#46464E"
+  codeColor: "#46464E",
+  outputLoading: "#e8d635",
+  outputError: "#e84135",
+  outputSuccess: "#9be155"
 };

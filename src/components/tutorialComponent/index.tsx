@@ -68,6 +68,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
   const [tutorialStep, setTutorialStep] = useGlobal("tutorialStep");
   const [tutorialName] = useGlobal("tutorialName");
   const [tutorialDisplay] = useGlobal("tutorialDisplay");
+  const [, setOutput] = useGlobal("output");
 
   let data = useStaticQuery(graphql`
     query {
@@ -90,6 +91,8 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
 
   const handleStep = (next: boolean): Promise<{ tutorialStep: number }> => {
     setStep(tutName, next ? tutStep + 1 : tutStep - 1);
+    // Reset output console result
+    setOutput({ status: "", correct: false, message: "", droneTask: "" });
     return setTutorialStep(next ? tutorialStep + 1 : tutorialStep - 1);
   };
 

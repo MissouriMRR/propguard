@@ -5,6 +5,7 @@ import { background, grey } from "../../constants";
 import DroneOff from "../../assets/drone_status/drone_off.svg";
 import DronePitch from "../../assets/drone_status/drone_pitch.svg";
 import DroneRoll from "../../assets/drone_status/drone_roll.svg";
+import { OutputHeader } from "./outputHeader";
 import { performDroneRoutine } from "../../data/routines";
 
 const OutputWrapper: AnyStyledComponent = styled.div`
@@ -16,24 +17,6 @@ const OutputWrapper: AnyStyledComponent = styled.div`
   flex-direction: column;
   align-items: stretch;
   background-color: ${background};
-`;
-
-const OutputHeader: AnyStyledComponent = styled.div`
-  width: 100%;
-  height: 4rem;
-  padding: 1rem 1rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid ${grey};
-  border-left: none;
-  border-right: none;
-  border-top: none;
-
-  h1 {
-    font-size: 24px;
-  }
 `;
 
 const OutputConsole: AnyStyledComponent = styled.div`
@@ -106,23 +89,19 @@ const Output: React.FC = (): JSX.Element => {
     roll: 0
   });
   // Global output state variables
-  const [runOutput, setRunOutput] = useGlobal("runOutput");
   const [output] = useGlobal("output");
 
   useEffect(() => {
-    if (!runOutput) return;
+    if (output.status === "none") return;
     const newDroneState = performDroneRoutine(droneState, output.droneTask);
 
     setDroneState(newDroneState);
-    setRunOutput(false);
-  }, [runOutput]);
+  }, [output.status]);
 
   // TODO: 3-way output success message
   return (
     <OutputWrapper>
-      <OutputHeader>
-        <h1>Output Result:</h1>
-      </OutputHeader>
+      <OutputHeader result={output.status} />
       <OutputConsole>
         <p>{output.message}</p>
       </OutputConsole>

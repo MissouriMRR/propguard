@@ -15,10 +15,10 @@ setGlobal({
   tutorialStep: 1,
   selectorDisplay: selectorView === "true",
   tutorialDisplay: selectorView === "false",
-  runOutput: false,
   output: {
+    status: "",
     correct: false,
-    string: "",
+    message: "",
     droneTask: ""
   }
 });

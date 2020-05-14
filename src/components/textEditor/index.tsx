@@ -44,8 +44,7 @@ const TerminalHeader: AnyStyledComponent = styled.div`
 const TextEditor: React.FC = (): JSX.Element => {
   const [userInput, setUserInput] = useState<string>("");
   const [tutorialName] = useGlobal("tutorialName");
-  const [, setRunOutput] = useGlobal("runOutput");
-  const [, setOutput] = useGlobal("output");
+  const [output, setOutput] = useGlobal("output");
 
   let data = useStaticQuery(graphql`
     query {
@@ -78,6 +77,8 @@ const TextEditor: React.FC = (): JSX.Element => {
     event.preventDefault();
     if (!userInput) return;
 
+    setOutput({ ...output, status: "Loading" });
+
     const result = submitAnswer(
       userInput,
       data.instructions[tutStep - 1].answer
@@ -86,15 +87,14 @@ const TextEditor: React.FC = (): JSX.Element => {
     setTimeout(() => {
       if (result.correct) {
         setOutput({
+          status: "Successful",
           correct: result.correct,
           message: data.instructions[tutStep - 1].output.successMessage,
           droneTask: data.instructions[tutStep - 1].output.droneRoutine
         });
       } else {
-        setOutput({ ...result, droneTask: "" });
+        setOutput({ ...result, status: "Error", droneTask: "" });
       }
-
-      setRunOutput(true);
     }, 1000);
   };
 
