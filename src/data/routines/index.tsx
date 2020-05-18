@@ -49,7 +49,8 @@ const droneConstMove = (
   return newDroneData;
 };
 
-// TODO: Add comments
+// Takes a string of the function that the drone should run
+// and uses regex parsing to get the arguments for that function
 const performDroneRoutine = (
   droneData: DroneDataInterface,
   task: string

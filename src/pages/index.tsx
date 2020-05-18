@@ -2,14 +2,17 @@ import React, { setGlobal } from "reactn";
 import { TutorialApp } from "../components/app";
 import { useLocalStorageView } from "../components/hooks/index";
 
-const [selectorView] = useLocalStorageView();
-
 /*
   Initialize global state here. Define types/shape for global state in
   src/global.d.ts
+  We also use localstorage if the user has already used the webapp before
+  which overrides some of the default global state values
 
-  TODO: Parameters documentation
+  TODO: Add a proper placeholder tutorial
 */
+
+const [selectorView] = useLocalStorageView();
+
 setGlobal({
   tutorialName: localStorage.getItem("tutName") || "Hello Data",
   tutorialStep: 1,

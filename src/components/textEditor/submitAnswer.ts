@@ -3,7 +3,11 @@ interface ResultType {
   correct: boolean;
 }
 
-// TODO: Documentation
+// Checks to see if the user's code matches the solution for a tutorial step
+// Takes in a string representing the user input, and a list of strings
+// containing each line of the answer, and compares them.
+// The function returns an object with the result message and a boolean of
+// whether or not their answer was correct
 const submitAnswer = (
   userInput: string,
   solutionList: Array<string>
@@ -52,6 +56,7 @@ const submitAnswer = (
     }
   }
 
+  // No differences found in code
   return {
     message: "",
     correct: true

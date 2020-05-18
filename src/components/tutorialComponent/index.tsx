@@ -33,6 +33,11 @@ const TutorialHeader: AnyStyledComponent = styled.div`
   border-left: none;
   border-right: none;
   border-top: none;
+  /* Disallow users to accidentally select title text when moving steps */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 
   h1 {
     font-size: 24px;
@@ -41,6 +46,7 @@ const TutorialHeader: AnyStyledComponent = styled.div`
 
 const ContentWrapper: AnyStyledComponent = styled.div`
   height: 100%;
+  width: 100%;
   padding: 0 2rem;
   font-size: 16px;
   max-height: calc(100vh - 4rem);
@@ -62,8 +68,6 @@ const CodeBlock: AnyStyledComponent = styled.div`
   }
 `;
 
-// FIXME: Sentences render in the middle when they aren't long enough.
-// Make sure everything is left aligned.
 const TutorialDisplay: React.FC = (): JSX.Element => {
   const [tutorialStep, setTutorialStep] = useGlobal("tutorialStep");
   const [tutorialName] = useGlobal("tutorialName");
