@@ -64,6 +64,31 @@
         "successMessage": "Drone landing and disarming!",
         "droneRoutine": "droneLand()"
       }
+    },
+    {
+      "type": "frame",
+      "step": 4,
+      "title": "Congrats!",
+      "hint": "Your hint is in that code block to the left",
+      "content": [
+        {
+          "type": "text",
+          "value": "Let's print out your congratulations message!"
+        },
+        {
+          "type": "code",
+          "value": "def congratFunc():\n    print(\"Congratulations!\")\n\ncongratFunc()"
+        }
+      ],
+      "answer": [
+        "def congratFunc():",
+        "    print(\"Congratulations!\")",
+        "congratFunc()"
+      ],
+      "output": {
+        "successMessage": "\"Congratulations!\"",
+        "droneRoutine": ""
+      }
     }
   ]
 }

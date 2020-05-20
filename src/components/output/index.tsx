@@ -24,6 +24,7 @@ const OutputConsole: AnyStyledComponent = styled.div`
   padding: 0 1rem;
   border-bottom: 1px solid ${grey};
   font-family: "Source Code Pro";
+  white-space: pre;
 `;
 
 const StatusVisualization: AnyStyledComponent = styled.section`

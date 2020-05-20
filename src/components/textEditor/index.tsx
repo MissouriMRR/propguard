@@ -10,7 +10,6 @@ import { Button } from "./button";
 import { background, grey } from "../../constants";
 import { Tutorial } from "../types";
 import { submitAnswer } from "./submitAnswer";
-import { useLocalStorage } from "../hooks/index";
 
 import "ace-builds";
 import "ace-builds/webpack-resolver";
@@ -44,6 +43,7 @@ const TerminalHeader: AnyStyledComponent = styled.div`
 const TextEditor: React.FC = (): JSX.Element => {
   const [userInput, setUserInput] = useState<string>("");
   const [tutorialName] = useGlobal("tutorialName");
+  const [tutorialStep] = useGlobal("tutorialStep");
   const [output, setOutput] = useGlobal("output");
 
   let data = useStaticQuery(graphql`
@@ -64,8 +64,6 @@ const TextEditor: React.FC = (): JSX.Element => {
     }
   `);
 
-  const [, tutStep, ,] = useLocalStorage(data);
-
   // We destructure the data since this query returns an array, and when
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
   // it just picks the first element
@@ -81,7 +79,7 @@ const TextEditor: React.FC = (): JSX.Element => {
 
     const result = submitAnswer(
       userInput,
-      data.instructions[tutStep - 1].answer
+      data.instructions[tutorialStep - 1].answer
     );
 
     setTimeout(() => {
@@ -89,8 +87,8 @@ const TextEditor: React.FC = (): JSX.Element => {
         setOutput({
           status: "Successful",
           correct: result.correct,
-          message: data.instructions[tutStep - 1].output.successMessage,
-          droneTask: data.instructions[tutStep - 1].output.droneRoutine
+          message: data.instructions[tutorialStep - 1].output.successMessage,
+          droneTask: data.instructions[tutorialStep - 1].output.droneRoutine
         });
       } else {
         setOutput({ ...result, status: "Error", droneTask: "" });
@@ -99,8 +97,8 @@ const TextEditor: React.FC = (): JSX.Element => {
   };
 
   const handleHint = (): void => {
-    if (data.instructions[tutStep - 1].hint) {
-      alert(data.instructions[tutStep - 1].hint);
+    if (data.instructions[tutorialStep - 1].hint) {
+      alert(data.instructions[tutorialStep - 1].hint);
     }
   };
 

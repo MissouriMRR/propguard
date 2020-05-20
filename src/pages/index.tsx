@@ -13,11 +13,11 @@ import { useLocalStorageView } from "../components/hooks/index";
 
 const [selectorView] = useLocalStorageView();
 
-// TODO: Get tutorial step from localStorage
-// FIXME: Fix the huge redundancy created by using both localstorage and global state
 setGlobal({
   tutorialName: localStorage.getItem("tutName") || "Hello Data",
-  tutorialStep: 1,
+  tutorialStep: localStorage.getItem(
+    localStorage.getItem("tutName") || "Hello Data"
+  ),
   selectorDisplay: selectorView === "true",
   tutorialDisplay: selectorView === "false",
   output: {
