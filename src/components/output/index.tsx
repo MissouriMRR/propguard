@@ -98,7 +98,6 @@ const Output: React.FC = (): JSX.Element => {
     setDroneState(newDroneState);
   }, [output.status]);
 
-  // TODO: 3-way output success message
   return (
     <OutputWrapper>
       <OutputHeader result={output.status} />
