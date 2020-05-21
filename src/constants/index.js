@@ -7,5 +7,6 @@ module.exports = {
   codeColor: "#46464E",
   outputLoading: "#e8d635",
   outputError: "#e84135",
-  outputSuccess: "#9be155"
+  outputSuccess: "#9be155",
+  defaultTutorial: "Drone Liftoff"
 };

@@ -51,26 +51,36 @@ const NavIcon: AnyStyledComponent = styled(Icon)`
 
 const Navbar: React.FC = (): JSX.Element => {
   const [selectorDisplay, setSelectorDisplay] = useGlobal("selectorDisplay");
-  const [tutorialDisplay, setTutorialDisplay] = useGlobal("tutorialDisplay");
+  const [, setTutorialDisplay] = useGlobal("tutorialDisplay");
   const [, setSelectorView] = useLocalStorageView();
 
-  // FIXME: Buttons act as a toggle rather than a setter
-  const toggleDisplay = (): void => {
+  const toggleDisplay = (display: boolean): void => {
+    if (display) {
+      setSelectorDisplay(true);
+      setTutorialDisplay(false);
+    } else {
+      setSelectorDisplay(false);
+      setTutorialDisplay(true);
+    }
+
+    // Save selector display status to localstorage
     if (selectorDisplay) {
       setSelectorView("false");
     } else {
       setSelectorView("true");
     }
-    setSelectorDisplay(!selectorDisplay);
-    setTutorialDisplay(!tutorialDisplay);
   };
 
   return (
     <NavWrapper>
-      <NavLogo to="/" onClick={toggleDisplay}>
+      <NavLogo to="/" onClick={(): void => toggleDisplay(false)}>
         <Logo />
       </NavLogo>
-      <NavIcon icon={listIcon} width="2.5rem" onClick={toggleDisplay} />
+      <NavIcon
+        icon={listIcon}
+        width="2.5rem"
+        onClick={(): void => toggleDisplay(true)}
+      />
     </NavWrapper>
   );
 };

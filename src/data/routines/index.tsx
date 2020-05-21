@@ -7,6 +7,7 @@ interface DroneDataInterface {
   roll: number;
 }
 
+// Arms drone and changes drone altitude
 const droneLiftOff = (
   droneData: DroneDataInterface,
   altitude: number
@@ -23,6 +24,7 @@ const droneLiftOff = (
   return newDroneData;
 };
 
+// Stop and land the drone, then disarm.
 const droneLand = (): DroneDataInterface => {
   const newDroneData = {
     armed: false,
@@ -36,6 +38,7 @@ const droneLand = (): DroneDataInterface => {
   return newDroneData;
 };
 
+// Make the drone move in a constant velocity
 const droneConstMove = (
   droneData: DroneDataInterface,
   droneSpeed: number
@@ -51,6 +54,8 @@ const droneConstMove = (
 
 // Takes a string of the function that the drone should run
 // and uses regex parsing to get the arguments for that function
+// The string comes from the tutorial files specifying what function
+// to run if the user successfully finishes the solution
 const performDroneRoutine = (
   droneData: DroneDataInterface,
   task: string

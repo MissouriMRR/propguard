@@ -3,11 +3,8 @@ interface ResultType {
   correct: boolean;
 }
 
-// Checks to see if the user's code matches the solution for a tutorial step
-// Takes in a string representing the user input, and a list of strings
-// containing each line of the answer, and compares them.
-// The function returns an object with the result message and a boolean of
-// whether or not their answer was correct
+// Checks to see if the user's solution from the TextEditor component matches
+// the actual solution from the tutorial data files
 const submitAnswer = (
   userInput: string,
   solutionList: Array<string>
@@ -16,20 +13,15 @@ const submitAnswer = (
   let line = 1;
   let col = 1;
 
-  // Store user input into an array
   const userInputList = userInput.split("\n");
 
-  // Iterate through each line of the solution and compare it to the user
   for (let i = 0; i < solutionList.length; i += 1) {
-    // Lines that don't have any text in them (like newlines) in the user
-    // input count as a line but do not get checked against the solution
     if (userInputList[i] === "") {
       line += 1;
       userInputList.splice(i, 1);
     }
 
-    // In the case that the the user is correct line wise but doesn't have
-    // the entire block of code finished
+    // Return if the user is correct so far but isn't fully finished
     if (i >= userInputList.length && i < solutionList.length) {
       return {
         message:
@@ -43,7 +35,7 @@ const submitAnswer = (
 
     // Check current line of user input with current line of solution
     while (index < solutionList[i].length) {
-      // If we see a mismatch between the our input and the solution
+      // Return if the user's answer differs from the tutorial file solution
       if (userInputList[i][index] !== solutionList[i][index]) {
         return {
           message: `You have an error on line ${line} and column ${col}.\nSolution Hint: '${solutionList[i]}'`,
@@ -56,7 +48,8 @@ const submitAnswer = (
     }
   }
 
-  // No differences found in code
+  // No differences found in code. The output message will be determined
+  // by the tutorial data files instead of this function.
   return {
     message: "",
     correct: true

@@ -96,6 +96,8 @@ const TextEditor: React.FC = (): JSX.Element => {
     }, 1000);
   };
 
+  // NOTE: This is a work-in-progress feature, please ignore the hint feature
+  // until it gets its own PR.
   const handleHint = (): void => {
     if (data.instructions[tutorialStep - 1].hint) {
       alert(data.instructions[tutorialStep - 1].hint);
