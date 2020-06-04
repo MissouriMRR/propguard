@@ -89,7 +89,9 @@ const Output: React.FC = (): JSX.Element => {
     pitch: 0,
     roll: 0
   });
+
   // Global output state variables
+  // FIXME: Figure out why setting dronestate doesn't cause a re-render
   const [output] = useGlobal("output");
 
   useEffect(() => {

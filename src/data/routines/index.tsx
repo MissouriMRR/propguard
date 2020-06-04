@@ -52,6 +52,13 @@ const droneConstMove = (
   return newDroneData;
 };
 
+// Takes an array of chars which each char representing a digit of a number
+// and returns the integer of the number
+const numArrayReducer = (stringArr: string[]): number => {
+  const result = stringArr.reduce((prev, current) => prev + current);
+  return parseFloat(result);
+};
+
 // Takes a string of the function that the drone should run
 // and uses regex parsing to get the arguments for that function
 // The string comes from the tutorial files specifying what function
@@ -60,17 +67,24 @@ const performDroneRoutine = (
   droneData: DroneDataInterface,
   task: string
 ): DroneDataInterface => {
+  // This regex pattern supports whole numbers, decimals, and negatives
+  const numRegex = /([0-9]+\.[0-9])|([0-9]\.[0-9]+)|(\.[0-9]+)|([-]{0,1}[0-9]+)/g;
+  let regexMatch = [];
   let newDroneData = droneData;
 
   if (task.includes("droneLiftOff")) {
     // Use regex to grab altitude parameters in the task string
-    const altitude = task.search(/[0-9]+/);
-    newDroneData = droneLiftOff(newDroneData, altitude);
+    regexMatch = task.match(numRegex) || [];
+
+    if (regexMatch.length !== 0)
+      newDroneData = droneLiftOff(newDroneData, numArrayReducer(regexMatch));
   } else if (task.includes("droneLand")) {
     newDroneData = droneLand();
   } else if (task.includes("droneConstMove")) {
-    const velocity = task.search(/[0-9]+/);
-    newDroneData = droneConstMove(newDroneData, velocity);
+    regexMatch = task.match(numRegex) || [];
+
+    if (regexMatch.length !== 0)
+      newDroneData = droneConstMove(newDroneData, numArrayReducer(regexMatch));
   }
 
   return newDroneData;

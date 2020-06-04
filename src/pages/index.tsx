@@ -11,14 +11,13 @@ import { defaultTutorial } from "../constants";
 */
 
 const [selectorView] = useLocalStorageView();
+const tutName = localStorage.getItem("tutName") || defaultTutorial;
 
+// Tutorialstep is stored with the key being the name of the tutorial and
+// the value being the step that the user was last on.
 setGlobal({
-  tutorialName: localStorage.getItem("tutName") || defaultTutorial,
-  // Tutorialstep is stored with the key being the name of the tutorial and
-  // the value being the step that the user was last on.
-  tutorialStep:
-    localStorage.getItem(localStorage.getItem("tutName") || defaultTutorial) ||
-    1,
+  tutorialName: tutName,
+  tutorialStep: parseInt(localStorage.getItem(tutName) || "1", 10),
   selectorDisplay: selectorView === "true",
   tutorialDisplay: selectorView === "false",
   output: {

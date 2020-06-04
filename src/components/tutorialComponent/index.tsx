@@ -93,11 +93,11 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
 
   const [tutName, tutStep, , setStep] = useLocalStorage(data);
 
-  const handleStep = (next: boolean): Promise<{ tutorialStep: number }> => {
+  const handleStep = (next: boolean): void => {
     setStep(tutName, next ? tutStep + 1 : tutStep - 1);
     // Reset output console result
     setOutput({ status: "", correct: false, message: "", droneTask: "" });
-    return setTutorialStep(next ? tutorialStep + 1 : tutorialStep - 1);
+    setTutorialStep(next ? tutorialStep + 1 : tutorialStep - 1);
   };
 
   // We destructure the data since this query returns an array, and when
@@ -128,18 +128,14 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
     <TutorialBG disp={tutorialDisplay}>
       <TutorialHeader>
         <StepButton
-          clickFunction={(): Promise<{ tutorialStep: number }> =>
-            handleStep(false)
-          }
+          clickFunction={(): void => handleStep(false)}
           next={false}
           tutorialStep={tutStep}
           totalSteps={data.instructions.length}
         />
         <h1>{data.instructions[tutStep - 1].title}</h1>
         <StepButton
-          clickFunction={(): Promise<{ tutorialStep: number }> =>
-            handleStep(true)
-          }
+          clickFunction={(): void => handleStep(true)}
           next
           tutorialStep={tutStep}
           totalSteps={data.instructions.length}
