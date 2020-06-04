@@ -91,13 +91,13 @@ const Output: React.FC = (): JSX.Element => {
   });
 
   // Global output state variables
-  // FIXME: Figure out why setting dronestate doesn't cause a re-render
   const [output] = useGlobal("output");
 
   useEffect(() => {
-    if (output.status === "none") return;
-    const newDroneState = performDroneRoutine(droneState, output.droneTask);
+    // Don't do anything if we don't have any real output yet
+    if (output.status === "none" || output.status === "Loading") return;
 
+    const newDroneState = performDroneRoutine(droneState, output.droneTask);
     setDroneState(newDroneState);
   }, [output.status]);
 

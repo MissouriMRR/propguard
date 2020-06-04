@@ -8,12 +8,15 @@ interface DroneDataInterface {
 }
 
 // Arms drone and changes drone altitude
-const droneLiftOff = (
-  droneData: DroneDataInterface,
-  altitude: number
-): DroneDataInterface => {
-  const newDroneData = droneData;
-
+const droneLiftOff = (altitude: number): DroneDataInterface => {
+  const newDroneData = {
+    armed: false,
+    altitude: 0,
+    velocity: 0,
+    yaw: 0,
+    pitch: 0,
+    roll: 0
+  };
   newDroneData.armed = true;
   newDroneData.altitude = altitude;
   newDroneData.velocity = 0;
@@ -43,7 +46,8 @@ const droneConstMove = (
   droneData: DroneDataInterface,
   droneSpeed: number
 ): DroneDataInterface => {
-  const newDroneData = droneData;
+  // Creates a copy of the droneData object instead of a reference
+  const newDroneData = { ...droneData };
 
   newDroneData.armed = true;
   newDroneData.velocity = droneSpeed;
@@ -77,7 +81,7 @@ const performDroneRoutine = (
     regexMatch = task.match(numRegex) || [];
 
     if (regexMatch.length !== 0)
-      newDroneData = droneLiftOff(newDroneData, numArrayReducer(regexMatch));
+      newDroneData = droneLiftOff(numArrayReducer(regexMatch));
   } else if (task.includes("droneLand")) {
     newDroneData = droneLand();
   } else if (task.includes("droneConstMove")) {
