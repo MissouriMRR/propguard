@@ -13,7 +13,10 @@ const submitAnswer = (
   let line = 1;
   let col = 1;
 
-  const userInputList = userInput.split("\n");
+  // Splits user input by line using regex for both Windows/Mac line endings
+  const userInputList = userInput
+    .split(/\r\n|\n/g)
+    .filter(element => element !== "");
 
   for (let i = 0; i < solutionList.length; i += 1) {
     if (userInputList[i] === "") {
