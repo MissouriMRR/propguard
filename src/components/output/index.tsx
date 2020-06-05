@@ -21,10 +21,12 @@ const OutputWrapper: AnyStyledComponent = styled.div`
 
 const OutputConsole: AnyStyledComponent = styled.div`
   min-height: 15rem;
+  max-width: 100%;
   padding: 0 1rem;
   border-bottom: 1px solid ${grey};
   font-family: "Source Code Pro";
-  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 `;
 
 const StatusVisualization: AnyStyledComponent = styled.section`
