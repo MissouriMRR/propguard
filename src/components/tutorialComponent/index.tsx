@@ -8,14 +8,15 @@ import { grey, codeColor } from "../../constants";
 import { StepButton } from "./stepButton";
 
 interface TutorialProps {
-  disp: boolean;
+  disp: string;
 }
 
 const TutorialBG: AnyStyledComponent = styled.div`
   height: 100%;
   width: 100%;
   border-radius: 5px;
-  display: ${(props: TutorialProps): string => (props.disp ? "flex" : "none")};
+  display: ${(props: TutorialProps): string =>
+    props.disp === "TutorialComponent" ? "flex" : "none"};
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -71,7 +72,7 @@ const CodeBlock: AnyStyledComponent = styled.div`
 const TutorialDisplay: React.FC = (): JSX.Element => {
   const [tutorialStep, setTutorialStep] = useGlobal("tutorialStep");
   const [tutorialName] = useGlobal("tutorialName");
-  const [tutorialDisplay] = useGlobal("tutorialDisplay");
+  const [componentView] = useGlobal("componentView");
   const [, setOutput] = useGlobal("output");
 
   let data = useStaticQuery(graphql`
@@ -121,11 +122,10 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
     }
   );
 
-  // Empty div shown in place of back button on the first step so
-  // the next button stays in the same place, and the next button is
-  // removed on the final step
+  // Display of tutorial component depends on the global state variable
+  // componentView and whether or not it equals "TutorialComponent"
   return (
-    <TutorialBG disp={tutorialDisplay}>
+    <TutorialBG disp={componentView}>
       <TutorialHeader>
         <StepButton
           clickFunction={(): void => handleStep(false)}

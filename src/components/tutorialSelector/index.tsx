@@ -7,14 +7,15 @@ import { useLocalStorage, useLocalStorageView } from "../hooks/index";
 import { accent, background, grey, textPrimary } from "../../constants";
 
 interface SelectorProps {
-  disp: boolean;
+  disp: string;
 }
 
 const Selector: AnyStyledComponent = styled.div`
   height: 100%;
   width: 100%;
   overflow-y: auto;
-  display: ${(props: SelectorProps): string => (props.disp ? "block" : "none")};
+  display: ${(props: SelectorProps): string =>
+    props.disp === "TutorialSelector" ? "block" : "none"};
   background-color: ${background};
   color: ${textPrimary};
 `;
@@ -73,8 +74,7 @@ const Description: AnyStyledComponent = styled.div`
 const TutorialSelector: React.FC = (): JSX.Element => {
   const [, setTutorialStep] = useGlobal("tutorialStep");
   const [tutorialName, setTutorialName] = useGlobal("tutorialName");
-  const [selectorDisplay, setSelectorDisplay] = useGlobal("selectorDisplay");
-  const [, setTutorialDisplay] = useGlobal("tutorialDisplay");
+  const [componentView, setComponentView] = useGlobal("componentView");
 
   const data = useStaticQuery(graphql`
     query {
@@ -88,22 +88,23 @@ const TutorialSelector: React.FC = (): JSX.Element => {
   `);
 
   const [, tutStep, setCurrentTutorial] = useLocalStorage(data);
-  const [, setSelectorView] = useLocalStorageView();
+  const [, setComponentViewSave] = useLocalStorageView();
 
   const handleClick = (title: string): void => {
     // Setting Global States
     setTutorialStep(tutStep);
     setTutorialName(title);
-    setSelectorDisplay(false);
-    setTutorialDisplay(true);
+    setComponentView("TutorialComponent"); // Changes view to show instructions
 
     // Setting Local Storage
     setCurrentTutorial(title);
-    setSelectorView("false");
+    setComponentViewSave("TutorialComponent"); // Saves the view choice
   };
 
+  // Display of tutorial selector depends on the global state variable
+  // componentView and whether or not it equals "TutorialSelector"
   return (
-    <Selector disp={selectorDisplay}>
+    <Selector disp={componentView}>
       <SelectorHeader>
         <h1>Select a tutorial</h1>
       </SelectorHeader>

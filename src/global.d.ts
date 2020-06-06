@@ -22,8 +22,7 @@ declare module "reactn/default" {
   export interface State {
     tutorialName: string;
     tutorialStep: number;
-    selectorDisplay: boolean;
-    tutorialDisplay: boolean;
+    componentView: string;
     output: {
       status: string;
       correct: boolean;

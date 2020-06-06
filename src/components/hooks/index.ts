@@ -22,11 +22,11 @@ export const useLocalStorage = (
 };
 
 export const useLocalStorageView = (): [string, Function] => {
-  const selectorView = localStorage.getItem("selectorView") || "true";
+  const componentViewSave = localStorage.getItem("componentView") || "true";
 
-  const setSelectorView = (value: string): void => {
-    localStorage.setItem("selectorView", value);
+  const setComponentViewSave = (value: string): void => {
+    localStorage.setItem("componentView", value);
   };
 
-  return [selectorView, setSelectorView];
+  return [componentViewSave, setComponentViewSave];
 };

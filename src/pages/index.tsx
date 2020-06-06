@@ -10,7 +10,7 @@ import { defaultTutorial } from "../constants";
   which overrides some of the default global state values
 */
 
-const [selectorView] = useLocalStorageView();
+const [componentViewSave] = useLocalStorageView();
 const tutName = localStorage.getItem("tutName") || defaultTutorial;
 
 // Tutorialstep is stored with the key being the name of the tutorial and
@@ -18,8 +18,7 @@ const tutName = localStorage.getItem("tutName") || defaultTutorial;
 setGlobal({
   tutorialName: tutName,
   tutorialStep: parseInt(localStorage.getItem(tutName) || "1", 10),
-  selectorDisplay: selectorView === "true",
-  tutorialDisplay: selectorView === "false",
+  componentView: componentViewSave || "TutorialComponent",
   output: {
     status: "",
     correct: false,

@@ -14,9 +14,10 @@ const submitAnswer = (
   let col = 1;
 
   // Splits user input by line using regex for both Windows/Mac line endings
+  // Then we filter out array entries that have empty strings or only whitespace
   const userInputList = userInput
     .split(/\r\n|\n/g)
-    .filter(element => element !== "");
+    .filter(element => element !== "" && !/^(\s)\1*$/.test(element));
 
   for (let i = 0; i < solutionList.length; i += 1) {
     if (userInputList[i] === "") {
