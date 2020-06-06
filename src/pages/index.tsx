@@ -18,7 +18,7 @@ const tutName = localStorage.getItem("tutName") || defaultTutorial;
 setGlobal({
   tutorialName: tutName,
   tutorialStep: parseInt(localStorage.getItem(tutName) || "1", 10),
-  componentView: componentViewSave || "TutorialComponent",
+  componentView: componentViewSave,
   output: {
     status: "",
     correct: false,

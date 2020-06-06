@@ -22,7 +22,8 @@ export const useLocalStorage = (
 };
 
 export const useLocalStorageView = (): [string, Function] => {
-  const componentViewSave = localStorage.getItem("componentView") || "true";
+  const componentViewSave =
+    localStorage.getItem("componentView") || "TutorialSelector";
 
   const setComponentViewSave = (value: string): void => {
     localStorage.setItem("componentView", value);
