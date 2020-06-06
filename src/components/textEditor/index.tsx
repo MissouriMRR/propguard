@@ -131,7 +131,7 @@ const TextEditor: React.FC = (): JSX.Element => {
           enableBasicAutocompletion: true,
           enableLiveAutocompletion: true,
           enableSnippets: true,
-          tabSize: 2
+          tabSize: 4
         }}
       />
     </TerminalWrapper>

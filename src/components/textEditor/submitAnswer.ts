@@ -14,13 +14,12 @@ const submitAnswer = (
   let col = 1;
 
   // Splits user input by line using regex for both Windows/Mac line endings
-  // Then we filter out array entries that have empty strings or only whitespace
-  const userInputList = userInput
-    .split(/\r\n|\n/g)
-    .filter(element => element !== "" && !/^(\s)\1*$/.test(element));
+  const userInputList = userInput.split(/\r\n|\n/g);
 
   for (let i = 0; i < solutionList.length; i += 1) {
-    if (userInputList[i] === "") {
+    // Skips lines that are empty or only contain whitespace, but we
+    // still need to know line in case the user makes a mistake
+    while (userInputList[i] === "" || /^(\s)\1*$/.test(userInputList[i])) {
       line += 1;
       userInputList.splice(i, 1);
     }
@@ -37,12 +36,16 @@ const submitAnswer = (
     index = 0;
     col = 0;
 
+    // Strips whitespace at the end of a string
+    const userInputString = userInputList[i].replace(/\s*$/, "");
+
     // Check current line of user input with current line of solution
     while (index < solutionList[i].length) {
       // Return if the user's answer differs from the tutorial file solution
-      if (userInputList[i][index] !== solutionList[i][index]) {
+      if (userInputString[index] !== solutionList[i][index]) {
         return {
-          message: `You have an error on line ${line} and column ${col}.\nSolution Hint: '${solutionList[i]}'`,
+          message: `You have an error on line ${line +
+            1} and column ${col}.\nSolution Hint: '${solutionList[i]}'`,
           correct: false
         };
       }
