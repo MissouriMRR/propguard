@@ -4,6 +4,7 @@ import styled, { AnyStyledComponent } from "styled-components";
 import "./normalize.css"; // Normalize CSS styles across all browsers
 
 import { Navbar } from "../navbar";
+import { Output } from "../output";
 import { TextEditor } from "../textEditor";
 import { TutorialDisplay } from "../tutorialComponent";
 import { TutorialSelector } from "../tutorialSelector";
@@ -16,6 +17,7 @@ const StyledTutorialPage: AnyStyledComponent = styled.div`
   flex-direction: row;
   justify-items: stretch;
   background: ${background};
+  overflow: auto;
 `;
 
 const MainWrapper: AnyStyledComponent = styled.main`
@@ -24,10 +26,6 @@ const MainWrapper: AnyStyledComponent = styled.main`
   flex-direction: row;
   flex-wrap: none;
   flex: 1;
-
-  @media only screen and (max-width: 800px) {
-    flex-direction: column;
-  }
 `;
 
 const Column: AnyStyledComponent = styled.div`
@@ -41,9 +39,8 @@ const Column: AnyStyledComponent = styled.div`
   align-items: flex-start;
   color: ${textPrimary};
 
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 768px) {
     width: 100%;
-    height: 33%;
   }
 `;
 
@@ -60,7 +57,7 @@ const TutorialApp: React.FC = (): JSX.Element => {
           <TextEditor />
         </Column>
         <Column>
-          <h3 className="text-center">Output will go here</h3>
+          <Output />
         </Column>
       </MainWrapper>
     </StyledTutorialPage>
