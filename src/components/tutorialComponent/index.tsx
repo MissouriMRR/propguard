@@ -94,11 +94,18 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
 
   const [tutName, tutStep, , setStep] = useLocalStorage(data);
 
-  const handleStep = (next: boolean): void => {
-    setStep(tutName, next ? tutStep + 1 : tutStep - 1);
-    // Reset output console result
+  const stepForward = (): void => {
+    setStep(tutName, tutStep + 1);
+    setTutorialStep(tutorialStep + 1);
+    // Reset output
     setOutput({ status: "", correct: false, message: "", droneTask: "" });
-    setTutorialStep(next ? tutorialStep + 1 : tutorialStep - 1);
+  };
+
+  const stepBackward = (): void => {
+    setStep(tutName, tutStep - 1);
+    setTutorialStep(tutorialStep - 1);
+    // Reset output
+    setOutput({ status: "", correct: false, message: "", droneTask: "" });
   };
 
   // We destructure the data since this query returns an array, and when
@@ -128,14 +135,14 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
     <TutorialBG disp={componentView}>
       <TutorialHeader>
         <StepButton
-          clickFunction={(): void => handleStep(false)}
+          clickFunction={stepBackward}
           next={false}
           tutorialStep={tutStep}
           totalSteps={data.instructions.length}
         />
         <h1>{data.instructions[tutStep - 1].title}</h1>
         <StepButton
-          clickFunction={(): void => handleStep(true)}
+          clickFunction={stepForward}
           next
           tutorialStep={tutStep}
           totalSteps={data.instructions.length}
