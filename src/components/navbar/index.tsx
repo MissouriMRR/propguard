@@ -50,26 +50,26 @@ const NavIcon: AnyStyledComponent = styled(Icon)`
 `;
 
 const Navbar: React.FC = (): JSX.Element => {
-  const [selectorDisplay, setSelectorDisplay] = useGlobal("selectorDisplay");
-  const [tutorialDisplay, setTutorialDisplay] = useGlobal("tutorialDisplay");
-  const [, setSelectorView] = useLocalStorageView();
+  const [, setComponentView] = useGlobal("componentView");
+  const [, setComponentViewSave] = useLocalStorageView();
 
-  const toggleDisplay = (): void => {
-    if (selectorDisplay) {
-      setSelectorView("false");
-    } else {
-      setSelectorView("true");
-    }
-    setSelectorDisplay(!selectorDisplay);
-    setTutorialDisplay(!tutorialDisplay);
+  const openTutorialComponent = (): void => {
+    setComponentView("TutorialComponent");
+    // Saves panel choice on localstorage
+    setComponentViewSave("TutorialComponent");
+  };
+
+  const openTutorialSelector = (): void => {
+    setComponentView("TutorialSelector");
+    setComponentViewSave("TutorialSelector");
   };
 
   return (
     <NavWrapper>
-      <NavLogo to="/" onClick={toggleDisplay}>
+      <NavLogo to="/" onClick={openTutorialComponent}>
         <Logo />
       </NavLogo>
-      <NavIcon icon={listIcon} width="2.5rem" onClick={toggleDisplay} />
+      <NavIcon icon={listIcon} width="2.5rem" onClick={openTutorialSelector} />
     </NavWrapper>
   );
 };

@@ -8,14 +8,15 @@ import { grey, codeColor } from "../../constants";
 import { StepButton } from "./stepButton";
 
 interface TutorialProps {
-  disp: boolean;
+  disp: string;
 }
 
 const TutorialBG: AnyStyledComponent = styled.div`
   height: 100%;
   width: 100%;
   border-radius: 5px;
-  display: ${(props: TutorialProps): string => (props.disp ? "flex" : "none")};
+  display: ${(props: TutorialProps): string =>
+    props.disp === "TutorialComponent" ? "flex" : "none"};
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -33,6 +34,11 @@ const TutorialHeader: AnyStyledComponent = styled.div`
   border-left: none;
   border-right: none;
   border-top: none;
+  /* Disallow users to accidentally select title text when moving steps */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 
   h1 {
     font-size: 24px;
@@ -41,6 +47,7 @@ const TutorialHeader: AnyStyledComponent = styled.div`
 
 const ContentWrapper: AnyStyledComponent = styled.div`
   height: 100%;
+  width: 100%;
   padding: 0 2rem;
   font-size: 16px;
   max-height: calc(100vh - 4rem);
@@ -65,7 +72,8 @@ const CodeBlock: AnyStyledComponent = styled.div`
 const TutorialDisplay: React.FC = (): JSX.Element => {
   const [tutorialStep, setTutorialStep] = useGlobal("tutorialStep");
   const [tutorialName] = useGlobal("tutorialName");
-  const [tutorialDisplay] = useGlobal("tutorialDisplay");
+  const [componentView] = useGlobal("componentView");
+  const [, setOutput] = useGlobal("output");
 
   let data = useStaticQuery(graphql`
     query {
@@ -86,9 +94,18 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
 
   const [tutName, tutStep, , setStep] = useLocalStorage(data);
 
-  const handleStep = (next: boolean): Promise<{ tutorialStep: number }> => {
-    setStep(tutName, next ? tutStep + 1 : tutStep - 1);
-    return setTutorialStep(next ? tutorialStep + 1 : tutorialStep - 1);
+  const stepForward = (): void => {
+    setStep(tutName, tutStep + 1);
+    setTutorialStep(tutorialStep + 1);
+    // Reset output
+    setOutput({ status: "", correct: false, message: "", droneTask: "" });
+  };
+
+  const stepBackward = (): void => {
+    setStep(tutName, tutStep - 1);
+    setTutorialStep(tutorialStep - 1);
+    // Reset output
+    setOutput({ status: "", correct: false, message: "", droneTask: "" });
   };
 
   // We destructure the data since this query returns an array, and when
@@ -112,25 +129,20 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
     }
   );
 
-  // Empty div shown in place of back button on the first step so
-  // the next button stays in the same place, and the next button is
-  // removed on the final step
+  // Display of tutorial component depends on the global state variable
+  // componentView and whether or not it equals "TutorialComponent"
   return (
-    <TutorialBG disp={tutorialDisplay}>
+    <TutorialBG disp={componentView}>
       <TutorialHeader>
         <StepButton
-          clickFunction={(): Promise<{ tutorialStep: number }> =>
-            handleStep(false)
-          }
+          clickFunction={stepBackward}
           next={false}
           tutorialStep={tutStep}
           totalSteps={data.instructions.length}
         />
         <h1>{data.instructions[tutStep - 1].title}</h1>
         <StepButton
-          clickFunction={(): Promise<{ tutorialStep: number }> =>
-            handleStep(true)
-          }
+          clickFunction={stepForward}
           next
           tutorialStep={tutStep}
           totalSteps={data.instructions.length}
