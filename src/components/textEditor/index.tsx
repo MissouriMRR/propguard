@@ -5,9 +5,13 @@ import React, { useState, useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
 import AceEditor from "react-ace";
+import Modal from "react-modal";
 
+import { Icon } from "@iconify/react";
+import closeIcon from '@iconify/icons-mdi/close';
+import clipboardCopy from '@iconify/icons-heroicons-solid/clipboard-copy';
 import { Button } from "./button";
-import { background, grey } from "../../constants";
+import { background, grey, textPrimary } from "../../constants";
 import { Tutorial } from "../types";
 import { submitAnswer } from "./submitAnswer";
 
@@ -40,8 +44,68 @@ const TerminalHeader: AnyStyledComponent = styled.div`
   border-top: none;
 `;
 
+const CloseButton: AnyStyledComponent = styled(Icon)`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 24px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const HintBody: AnyStyledComponent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  margin-top: 30px;
+`;
+
+const HintAnswer: AnyStyledComponent = styled.div`
+  display: block;
+  background-color: #eff0f1;
+  color: #262626;
+  padding: 1.5rem;
+  border-radius: 5px;
+  margin-top: 20px;
+`;
+
+const HintAnswerButton: AnyStyledComponent = styled.button`
+  height: 2.5rem;
+  width: 8rem;
+  background: #262626;
+  border: 2px solid #e9e9e9;
+  border-radius: 1px;
+  color: ${textPrimary};
+  font-size: 16px;
+  font-weight: 600;
+  outline: none;
+  margin-top: 20px;
+
+  &:hover {
+    background-color: #727272;
+    cursor: pointer;
+  }
+`;
+
+const Copy: AnyStyledComponent = styled(Icon)`
+  font-size: 30px;
+  position: absolute;
+  top: 150px;
+  right: 23px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 const TextEditor: React.FC = (): JSX.Element => {
   const [userInput, setUserInput] = useState<string>("");
+  const [hintModalOpen, setHintModalOpen] = useState<boolean>(false);
+  const [showHintAnswer, setShowHintAnswer] = useState<boolean>(false);
   const [tutorialName] = useGlobal("tutorialName");
   const [tutorialStep] = useGlobal("tutorialStep");
   const [output, setOutput] = useGlobal("output");
@@ -96,12 +160,34 @@ const TextEditor: React.FC = (): JSX.Element => {
     }, 1000);
   };
 
-  // NOTE: This is a work-in-progress feature, please ignore the hint feature
-  // until it gets its own PR.
+  const toggleHintModal = (): void => {
+    setHintModalOpen(!hintModalOpen);
+    setShowHintAnswer(false);
+  };
+  
   const handleHint = (): void => {
     if (data.instructions[tutorialStep - 1].hint) {
-      alert(data.instructions[tutorialStep - 1].hint);
+      toggleHintModal();
     }
+  };
+
+  const toggleHintAnswer = (): void => {
+    setShowHintAnswer(!showHintAnswer);
+  };
+
+  const copyToClipboard = (arr: string[]): void => {
+    const el = document.createElement('textarea');
+    el.value = "";
+    for(let i = 0; i < arr.length; i++) {
+      el.value += arr[i] + "\n";
+    }
+    el.setAttribute('readonly', '');
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
   };
 
   return (
@@ -134,6 +220,48 @@ const TextEditor: React.FC = (): JSX.Element => {
           tabSize: 4
         }}
       />
+      <Modal
+        isOpen={hintModalOpen}
+        onRequestClose={toggleHintModal}
+        style={
+          {
+            content: {
+              backgroundColor: '#262626',
+              color: '#ffffff',
+              width: 450,
+              height: 350,
+              position: 'relative',
+              left: '50%',
+              transform: 'translateX(-50%)'
+            }, 
+            overlay: {
+              zIndex: 100
+            }}
+          }
+        ariaHideApp={false}
+      >
+        <a onClick={toggleHintModal}>
+          <CloseButton icon={closeIcon} />
+        </a>
+        <HintBody>
+          {data.instructions[tutorialStep - 1].hint}
+          
+        <HintAnswerButton onClick={toggleHintAnswer}>
+          {showHintAnswer ? "Hide Answer" : "Show Answer"}
+        </HintAnswerButton>
+        </HintBody>
+
+        <HintAnswer style={{display: showHintAnswer ? "block" : "none"}}>
+          {data.instructions[tutorialStep - 1].answer.map((value: string) => {
+            return <pre>{value}</pre>
+          })}
+          <div title="Copy to Clipboard">
+            <Copy icon={clipboardCopy} onClick={() => {
+              copyToClipboard(data.instructions[tutorialStep - 1].answer)
+            }} />
+          </div>
+        </HintAnswer>
+      </Modal>
     </TerminalWrapper>
   );
 };
