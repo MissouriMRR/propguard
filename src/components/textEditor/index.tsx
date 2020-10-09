@@ -178,8 +178,8 @@ const TextEditor: React.FC = (): JSX.Element => {
   const copyToClipboard = (arr: string[]): void => {
     const el = document.createElement("textarea");
     el.value = "";
-    for (let i = 0; i < arr.length; i++) {
-      el.value += arr[i] + "\n";
+    for (let i = 0; i < arr.length; i += 1) {
+      el.value += `${arr[i]}\n`;
     }
     el.setAttribute("readonly", "");
     el.style.position = "absolute";
@@ -239,9 +239,14 @@ const TextEditor: React.FC = (): JSX.Element => {
         }}
         ariaHideApp={false}
       >
-        <a onClick={toggleHintModal}>
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={toggleHintModal}
+          onKeyDown={toggleHintModal}
+        >
           <CloseButton icon={closeIcon} />
-        </a>
+        </div>
         <HintBody>
           {data.instructions[tutorialStep - 1].hint}
 
@@ -252,7 +257,7 @@ const TextEditor: React.FC = (): JSX.Element => {
 
         <HintAnswer style={{ display: showHintAnswer ? "block" : "none" }}>
           {data.instructions[tutorialStep - 1].answer.map((value: string) => {
-            return <pre>{value}</pre>;
+            return <pre key={value}>{value}</pre>;
           })}
           <div title="Copy to Clipboard">
             <Copy
