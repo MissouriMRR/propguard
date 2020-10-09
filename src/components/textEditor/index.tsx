@@ -8,8 +8,8 @@ import AceEditor from "react-ace";
 import Modal from "react-modal";
 
 import { Icon } from "@iconify/react";
-import closeIcon from '@iconify/icons-mdi/close';
-import clipboardCopy from '@iconify/icons-heroicons-solid/clipboard-copy';
+import closeIcon from "@iconify/icons-mdi/close";
+import clipboardCopy from "@iconify/icons-heroicons-solid/clipboard-copy";
 import { Button } from "./button";
 import { background, grey, textPrimary } from "../../constants";
 import { Tutorial } from "../types";
@@ -164,7 +164,7 @@ const TextEditor: React.FC = (): JSX.Element => {
     setHintModalOpen(!hintModalOpen);
     setShowHintAnswer(false);
   };
-  
+
   const handleHint = (): void => {
     if (data.instructions[tutorialStep - 1].hint) {
       toggleHintModal();
@@ -176,17 +176,17 @@ const TextEditor: React.FC = (): JSX.Element => {
   };
 
   const copyToClipboard = (arr: string[]): void => {
-    const el = document.createElement('textarea');
+    const el = document.createElement("textarea");
     el.value = "";
-    for(let i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
       el.value += arr[i] + "\n";
     }
-    el.setAttribute('readonly', '');
-    el.style.position = 'absolute';
-    el.style.left = '-9999px';
+    el.setAttribute("readonly", "");
+    el.style.position = "absolute";
+    el.style.left = "-9999px";
     document.body.appendChild(el);
     el.select();
-    document.execCommand('copy');
+    document.execCommand("copy");
     document.body.removeChild(el);
   };
 
@@ -223,21 +223,20 @@ const TextEditor: React.FC = (): JSX.Element => {
       <Modal
         isOpen={hintModalOpen}
         onRequestClose={toggleHintModal}
-        style={
-          {
-            content: {
-              backgroundColor: '#262626',
-              color: '#ffffff',
-              width: 450,
-              height: 350,
-              position: 'relative',
-              left: '50%',
-              transform: 'translateX(-50%)'
-            }, 
-            overlay: {
-              zIndex: 100
-            }}
+        style={{
+          content: {
+            backgroundColor: "#262626",
+            color: "#ffffff",
+            width: 450,
+            height: 350,
+            position: "relative",
+            left: "50%",
+            transform: "translateX(-50%)"
+          },
+          overlay: {
+            zIndex: 100
           }
+        }}
         ariaHideApp={false}
       >
         <a onClick={toggleHintModal}>
@@ -245,20 +244,23 @@ const TextEditor: React.FC = (): JSX.Element => {
         </a>
         <HintBody>
           {data.instructions[tutorialStep - 1].hint}
-          
-        <HintAnswerButton onClick={toggleHintAnswer}>
-          {showHintAnswer ? "Hide Answer" : "Show Answer"}
-        </HintAnswerButton>
+
+          <HintAnswerButton onClick={toggleHintAnswer}>
+            {showHintAnswer ? "Hide Answer" : "Show Answer"}
+          </HintAnswerButton>
         </HintBody>
 
-        <HintAnswer style={{display: showHintAnswer ? "block" : "none"}}>
+        <HintAnswer style={{ display: showHintAnswer ? "block" : "none" }}>
           {data.instructions[tutorialStep - 1].answer.map((value: string) => {
-            return <pre>{value}</pre>
+            return <pre>{value}</pre>;
           })}
           <div title="Copy to Clipboard">
-            <Copy icon={clipboardCopy} onClick={() => {
-              copyToClipboard(data.instructions[tutorialStep - 1].answer)
-            }} />
+            <Copy
+              icon={clipboardCopy}
+              onClick={(): void => {
+                copyToClipboard(data.instructions[tutorialStep - 1].answer);
+              }}
+            />
           </div>
         </HintAnswer>
       </Modal>
