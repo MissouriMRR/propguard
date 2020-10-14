@@ -110,7 +110,7 @@ const HintModal: React.FC<HintModalProps> = (props): JSX.Element => {
     <Modal
       isOpen={hintModalOpen}
       onRequestClose={toggleHintModal}
-      // Inline react-modal styles
+      // Styled Components are difficult/infeasible to implement since the style prop for this modal library doesn't reflect the behavior of a regular style prop
       style={{
         content: {
           backgroundColor: "#262626",
