@@ -9,6 +9,8 @@ export interface Instruction {
   hint: string;
   type: string;
   content: Array<Content>;
+  answer: Array<string>;
+  output: Output;
 }
 
 export interface Tutorial {
@@ -16,6 +18,11 @@ export interface Tutorial {
   tutorial_title: string;
   description: string;
   instructions: Array<Instruction>;
+}
+
+export interface Output {
+  droneRoutine: string;
+  successMessage: string;
 }
 
 export interface Instructions {

@@ -18,8 +18,8 @@ import "reactn";
     message - The text that gets displayed on the output console
     droneTask - String representing a function of what a drone should do
 */
-declare module "reactn/default" {
-  export interface State {
+export declare module "reactn/default" {
+  interface State {
     tutorialName: string;
     tutorialStep: number;
     componentView: string;
@@ -29,5 +29,7 @@ declare module "reactn/default" {
       message: string;
       droneTask: string;
     };
+    hintModalOpen: boolean;
+    showHintAnswer: boolean;
   }
 }
