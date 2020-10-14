@@ -6,6 +6,7 @@ import { Icon } from "@iconify/react";
 import closeIcon from "@iconify/icons-mdi/close";
 import clipboardCopy from "@iconify/icons-heroicons-solid/clipboard-copy";
 import { textPrimary } from "../../constants";
+import { Tutorial } from "../types/index";
 
 const CloseButton: AnyStyledComponent = styled(Icon)`
   position: absolute;
@@ -65,7 +66,11 @@ const Copy: AnyStyledComponent = styled(Icon)`
   }
 `;
 
-const HintModal: React.FC<any> = (props): JSX.Element => {
+interface HintModalProps {
+  data: Tutorial;
+}
+
+const HintModal: React.FC<HintModalProps> = (props): JSX.Element => {
   const [hintModalOpen, setHintModalOpen] = useGlobal("hintModalOpen");
   const [showHintAnswer, setShowHintAnswer] = useGlobal("showHintAnswer");
   const [tutorialStep] = useGlobal("tutorialStep");

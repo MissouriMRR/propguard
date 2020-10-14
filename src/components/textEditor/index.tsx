@@ -49,7 +49,7 @@ const TextEditor: React.FC = (): JSX.Element => {
   const [tutorialStep] = useGlobal("tutorialStep");
   const [output, setOutput] = useGlobal("output");
 
-  let data = useStaticQuery(graphql`
+  const gqlData = useStaticQuery(graphql`
     query {
       allExampleGqlJson {
         nodes {
@@ -70,9 +70,11 @@ const TextEditor: React.FC = (): JSX.Element => {
   // We destructure the data since this query returns an array, and when
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
   // it just picks the first element
-  data = data.allExampleGqlJson.nodes.find((tutorial: Tutorial): boolean => {
-    return tutorial.tutorial_title === tutorialName;
-  });
+  const data: Tutorial = gqlData.allExampleGqlJson.nodes.find(
+    (tutorial: Tutorial): boolean => {
+      return tutorial.tutorial_title === tutorialName;
+    }
+  );
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
