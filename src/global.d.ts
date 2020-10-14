@@ -30,5 +30,6 @@ export declare module "reactn/default" {
       droneTask: string;
     };
     hintModalOpen: boolean;
+    showHintAnswer: boolean;
   }
 }

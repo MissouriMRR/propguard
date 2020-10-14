@@ -44,7 +44,7 @@ const TerminalHeader: AnyStyledComponent = styled.div`
 const TextEditor: React.FC = (): JSX.Element => {
   const [userInput, setUserInput] = useState<string>("");
   const [hintModalOpen, setHintModalOpen] = useGlobal("hintModalOpen");
-  const [, setShowHintAnswer] = useState<boolean>(false);
+  const [, setShowHintAnswer] = useGlobal("showHintAnswer");
   const [tutorialName] = useGlobal("tutorialName");
   const [tutorialStep] = useGlobal("tutorialStep");
   const [output, setOutput] = useGlobal("output");
@@ -140,7 +140,7 @@ const TextEditor: React.FC = (): JSX.Element => {
           tabSize: 4
         }}
       />
-      <HintModal />
+      <HintModal data={data} />
     </TerminalWrapper>
   );
 };

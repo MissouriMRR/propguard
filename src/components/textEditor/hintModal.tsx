@@ -1,13 +1,11 @@
-import React, { useState, useGlobal } from "reactn";
+import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
-import { useStaticQuery, graphql } from "gatsby";
 import Modal from "react-modal";
 
 import { Icon } from "@iconify/react";
 import closeIcon from "@iconify/icons-mdi/close";
 import clipboardCopy from "@iconify/icons-heroicons-solid/clipboard-copy";
 import { textPrimary } from "../../constants";
-import { Tutorial } from "../types";
 
 const CloseButton: AnyStyledComponent = styled(Icon)`
   position: absolute;
@@ -67,36 +65,12 @@ const Copy: AnyStyledComponent = styled(Icon)`
   }
 `;
 
-const HintModal: React.FC = (): JSX.Element => {
+const HintModal: React.FC<any> = (props): JSX.Element => {
   const [hintModalOpen, setHintModalOpen] = useGlobal("hintModalOpen");
-  const [showHintAnswer, setShowHintAnswer] = useState<boolean>(false);
-  const [tutorialName] = useGlobal("tutorialName");
+  const [showHintAnswer, setShowHintAnswer] = useGlobal("showHintAnswer");
   const [tutorialStep] = useGlobal("tutorialStep");
 
-  let data = useStaticQuery(graphql`
-    query {
-      allExampleGqlJson {
-        nodes {
-          tutorial_title
-          instructions {
-            hint
-            answer
-            output {
-              successMessage
-              droneRoutine
-            }
-          }
-        }
-      }
-    }
-  `);
-
-  // We destructure the data since this query returns an array, and when
-  // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
-  // it just picks the first element
-  data = data.allExampleGqlJson.nodes.find((tutorial: Tutorial): boolean => {
-    return tutorial.tutorial_title === tutorialName;
-  });
+  const { data } = props;
 
   const toggleHintModal = (): void => {
     setHintModalOpen(!hintModalOpen);
@@ -108,6 +82,7 @@ const HintModal: React.FC = (): JSX.Element => {
   };
 
   const copyToClipboard = (arr: string[]): void => {
+    // Create invisible textarea element with text from arr
     const el = document.createElement("textarea");
     el.value = "";
     for (let i = 0; i < arr.length; i += 1) {
@@ -117,8 +92,12 @@ const HintModal: React.FC = (): JSX.Element => {
     el.style.position = "absolute";
     el.style.left = "-9999px";
     document.body.appendChild(el);
+
+    // Select and copy text to clipboard
     el.select();
     document.execCommand("copy");
+
+    // Remove textarea element from DOM
     document.body.removeChild(el);
   };
 
@@ -126,6 +105,7 @@ const HintModal: React.FC = (): JSX.Element => {
     <Modal
       isOpen={hintModalOpen}
       onRequestClose={toggleHintModal}
+      // Inline react-modal styles
       style={{
         content: {
           backgroundColor: "#262626",
