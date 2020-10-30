@@ -3,6 +3,7 @@ import styled, { AnyStyledComponent } from "styled-components";
 import { Link } from "gatsby";
 import { Icon } from "@iconify/react";
 import listIcon from "@iconify/icons-ic/round-format-list-bulleted";
+import pencilIcon from "@iconify/icons-mdi/pencil";
 import { useLocalStorageView } from "../hooks/index";
 
 import { textPrimary, grey } from "../../constants";
@@ -70,8 +71,16 @@ const Navbar: React.FC = (): JSX.Element => {
       <NavLogo to="/" onClick={openTutorialComponent}>
         <Logo />
       </NavLogo>
-      <NavIcon icon={listIcon} width="2.5rem" onClick={openTutorialSelector} />
-      <Link to="/editor">Editor</Link>
+      <Link to="/">
+        <NavIcon
+          icon={listIcon}
+          width="2.5rem"
+          onClick={openTutorialSelector}
+        />
+      </Link>
+      <Link to="/editor">
+        <NavIcon icon={pencilIcon} width="2.5rem" />
+      </Link>
     </NavWrapper>
   );
 };

@@ -19,12 +19,6 @@ const EditorPage = (): JSX.Element => {
   return (
     <StyledEditor>
       <Navbar />
-      <div>
-        <h1> daddy </h1>
-        <p>
-          owo whats this
-        </p>
-      </div>
     </StyledEditor>
   );
 };
