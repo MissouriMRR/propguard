@@ -6,6 +6,7 @@ import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
 import AceEditor from "react-ace";
 
+import { HintModal } from "./hintModal";
 import { Button } from "./button";
 import { background, grey } from "../../constants";
 import { Tutorial } from "../types";
@@ -42,11 +43,13 @@ const TerminalHeader: AnyStyledComponent = styled.div`
 
 const TextEditor: React.FC = (): JSX.Element => {
   const [userInput, setUserInput] = useState<string>("");
+  const [hintModalOpen, setHintModalOpen] = useGlobal("hintModalOpen");
+  const [, setShowHintAnswer] = useGlobal("showHintAnswer");
   const [tutorialName] = useGlobal("tutorialName");
   const [tutorialStep] = useGlobal("tutorialStep");
   const [output, setOutput] = useGlobal("output");
 
-  let data = useStaticQuery(graphql`
+  const gqlData = useStaticQuery(graphql`
     query {
       allExampleGqlJson {
         nodes {
@@ -67,9 +70,11 @@ const TextEditor: React.FC = (): JSX.Element => {
   // We destructure the data since this query returns an array, and when
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
   // it just picks the first element
-  data = data.allExampleGqlJson.nodes.find((tutorial: Tutorial): boolean => {
-    return tutorial.tutorial_title === tutorialName;
-  });
+  const data: Tutorial = gqlData.allExampleGqlJson.nodes.find(
+    (tutorial: Tutorial): boolean => {
+      return tutorial.tutorial_title === tutorialName;
+    }
+  );
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -96,11 +101,14 @@ const TextEditor: React.FC = (): JSX.Element => {
     }, 1000);
   };
 
-  // NOTE: This is a work-in-progress feature, please ignore the hint feature
-  // until it gets its own PR.
+  const toggleHintModal = (): void => {
+    setHintModalOpen(!hintModalOpen);
+    setShowHintAnswer(false);
+  };
+
   const handleHint = (): void => {
     if (data.instructions[tutorialStep - 1].hint) {
-      alert(data.instructions[tutorialStep - 1].hint);
+      toggleHintModal();
     }
   };
 
@@ -134,6 +142,7 @@ const TextEditor: React.FC = (): JSX.Element => {
           tabSize: 4
         }}
       />
+      <HintModal data={data} />
     </TerminalWrapper>
   );
 };
