@@ -3,23 +3,94 @@ import styled from "styled-components";
 import { Navbar } from "../components/navbar";
 import "../components/app/normalize.css";
 
-import { background, textPrimary, grey } from "../constants";
+import { background, grey } from "../constants";
 
 const StyledEditor = styled.div`
   height: 100vh;
   width: 100vw;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-items: stretch;
   background: ${background};
   overflow: auto;
 `;
 
+const MainWrapper = styled.main`
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: none;
+  flex: 1;
+`;
+
+const StyledHeader = styled.div`
+  height: 72px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-items: stretch;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: 1px solid ${grey};
+  border-left: none;
+`;
+
+const StyledTitle = styled.div`
+  height: 42px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-items: stretch;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: 1px solid ${grey};
+  border-left: none;
+  border-right: none;
+`;
+
+const StyledLeftHalf = styled.div`
+  height: 100%;
+  width: 50%;
+  color: white;
+  border-right: 1px solid ${grey};
+`;
+
+const StyledRightHalf = styled.div`
+  height: 100%;
+  width: 50%;
+  color: white;
+  border-left: 1px solid ${grey};
+  border-right: 1px solid ${grey};
+`;
+
 const EditorPage = (): JSX.Element => {
   return (
-    <StyledEditor>
+    <MainWrapper>
       <Navbar />
-    </StyledEditor>
+      <StyledEditor>
+        <StyledHeader>
+          <h2>Tutorial Editor</h2>
+        </StyledHeader>
+        <MainWrapper>
+          <StyledLeftHalf>
+            <StyledTitle>
+              <h3>Step</h3>
+            </StyledTitle>
+            <StyledTitle>
+              <h3>Step Content</h3>
+            </StyledTitle>
+          </StyledLeftHalf>
+
+          <StyledRightHalf>
+            <StyledTitle>
+              <h3>Code Solution</h3>
+            </StyledTitle>
+          </StyledRightHalf>
+        </MainWrapper>
+      </StyledEditor>
+    </MainWrapper>
   );
 };
 
