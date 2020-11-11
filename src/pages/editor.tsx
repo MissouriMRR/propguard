@@ -1,11 +1,11 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { AnyStyledComponent } from "styled-components";
 import { Navbar } from "../components/navbar";
 import "../components/app/normalize.css";
 
 import { background, grey } from "../constants";
 
-const StyledEditor = styled.div`
+const StyledEditor: AnyStyledComponent = styled.div`
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -15,7 +15,7 @@ const StyledEditor = styled.div`
   overflow: auto;
 `;
 
-const MainWrapper = styled.main`
+const MainWrapper: AnyStyledComponent = styled.main`
   display: flex;
   align-items: flex-start;
   flex-direction: row;
@@ -23,7 +23,7 @@ const MainWrapper = styled.main`
   flex: 1;
 `;
 
-const StyledHeader = styled.div`
+const StyledHeader: AnyStyledComponent = styled.div`
   height: 72px;
   width: 100%;
   display: flex;
@@ -36,7 +36,7 @@ const StyledHeader = styled.div`
   border-left: none;
 `;
 
-const StyledTitle = styled.div`
+const StyledTitle: AnyStyledComponent = styled.div`
   height: 42px;
   width: 100%;
   display: flex;
@@ -50,18 +50,26 @@ const StyledTitle = styled.div`
   border-right: none;
 `;
 
-const StyledLeftHalf = styled.div`
+const StyledLeftHalf: AnyStyledComponent = styled.div`
   height: 100%;
   width: 50%;
   color: white;
   border-right: 1px solid ${grey};
 `;
 
-const StyledRightHalf = styled.div`
+const StyledRightHalf: AnyStyledComponent = styled.div`
   height: 100%;
   width: 50%;
   color: white;
   border-left: 1px solid ${grey};
+  border-right: 1px solid ${grey};
+`;
+
+const StyledStepNav: AnyStyledComponent = styled.div`
+  height: 100%;
+  width: 75px;
+  color: white;
+  border-bottom: 1px solid ${grey};
   border-right: 1px solid ${grey};
 `;
 
@@ -74,6 +82,7 @@ const EditorPage = (): JSX.Element => {
           <h2>Tutorial Editor</h2>
         </StyledHeader>
         <MainWrapper>
+          <StyledStepNav />
           <StyledLeftHalf>
             <StyledTitle>
               <h3>Step</h3>
