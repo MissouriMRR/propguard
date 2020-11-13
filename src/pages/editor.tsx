@@ -74,6 +74,30 @@ const StyledStepNav: AnyStyledComponent = styled.div`
   border-top: 1px solid ${grey};
 `;
 
+const StyledStepSection: AnyStyledComponent = styled.div`
+  height: 40%;
+  width: 100%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+`;
+
+const StyledTextInput: AnyStyledComponent = styled.div`
+  height: 80px;
+  width: 536px;
+  color: white;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+`;
+const StyledTextBox: AnyStyledComponent = styled.input`
+  height: 46px;
+  width: 100%;
+  color: white;
+  background: grey;
+`;
+
 const EditorPage = (): JSX.Element => {
   return (
     <MainWrapper>
@@ -88,6 +112,32 @@ const EditorPage = (): JSX.Element => {
             <StyledTitle>
               <h3>Step</h3>
             </StyledTitle>
+            <StyledStepSection>
+              <StyledTextInput>
+                <form>
+                  <label>
+                    Step Title: <br />
+                  </label>
+                  <StyledTextBox type="text" placeholder="Step Title" />
+                </form>
+              </StyledTextInput>
+              <StyledTextInput>
+                <form>
+                  <label>
+                    Hint: <br />
+                  </label>
+                  <StyledTextBox type="text" placeholder="Hint" />
+                </form>
+              </StyledTextInput>
+              <StyledTextInput>
+                <form>
+                  <label>
+                    Success Message: <br />
+                  </label>
+                  <StyledTextBox type="text" placeholder="Success Message" />
+                </form>
+              </StyledTextInput>
+            </StyledStepSection>
             <StyledTitle>
               <h3>Step Content</h3>
             </StyledTitle>
