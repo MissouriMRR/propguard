@@ -34,6 +34,7 @@ const StyledHeader: AnyStyledComponent = styled.div`
   color: white;
   border: 1px solid ${grey};
   border-left: none;
+  border-bottom: none;
 `;
 
 const StyledTitle: AnyStyledComponent = styled.div`
@@ -61,7 +62,6 @@ const StyledRightHalf: AnyStyledComponent = styled.div`
   height: 100%;
   width: 50%;
   color: white;
-  border-left: 1px solid ${grey};
   border-right: 1px solid ${grey};
 `;
 
@@ -71,6 +71,7 @@ const StyledStepNav: AnyStyledComponent = styled.div`
   color: white;
   border-bottom: 1px solid ${grey};
   border-right: 1px solid ${grey};
+  border-top: 1px solid ${grey};
 `;
 
 const EditorPage = (): JSX.Element => {
