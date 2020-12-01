@@ -2,6 +2,7 @@ import React from "react";
 import styled, { AnyStyledComponent } from "styled-components";
 import AceEditor from "react-ace";
 import { Navbar } from "../components/navbar";
+import { Button } from "../components/textEditor/button";
 import "../components/app/normalize.css";
 
 import "ace-builds";
@@ -81,7 +82,15 @@ const StyledStepNav: AnyStyledComponent = styled.div`
   border-top: 1px solid ${grey};
 `;
 
+const StepContentBody: AnyStyledComponent = styled.div`
+  padding: 40px;
+`;
+
 const EditorPage = (): JSX.Element => {
+  const addBlock = (): void => {
+    console.log("block added");
+  };
+
   return (
     <MainWrapper>
       <Navbar />
@@ -98,6 +107,9 @@ const EditorPage = (): JSX.Element => {
             <StyledTitle>
               <h3>Step Content</h3>
             </StyledTitle>
+            <StepContentBody>
+              <Button submitFunction={addBlock} text="Add Block" />
+            </StepContentBody>
           </StyledLeftHalf>
 
           <StyledRightHalf>
