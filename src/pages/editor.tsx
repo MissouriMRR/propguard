@@ -80,14 +80,17 @@ const StyledStepSection: AnyStyledComponent = styled.div`
   color: white;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  align-items: center;
+  padding: 2px;
 `;
 
 const StyledTextInput: AnyStyledComponent = styled.div`
   height: 80px;
-  width: 536px;
+  width: 100%;
   color: white;
   padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
   display: flex;
   flex-direction: column;
 `;
@@ -95,7 +98,16 @@ const StyledTextBox: AnyStyledComponent = styled.input`
   height: 46px;
   width: 100%;
   color: white;
-  background: grey;
+  background-color: #46464e;
+  outline: none;
+  border: none;
+`;
+const StyledLabel: AnyStyledComponent = styled.label`
+  color: white;
+  width: 100%;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const EditorPage = (): JSX.Element => {
@@ -115,25 +127,25 @@ const EditorPage = (): JSX.Element => {
             <StyledStepSection>
               <StyledTextInput>
                 <form>
-                  <label>
+                  <StyledLabel>
                     Step Title: <br />
-                  </label>
+                  </StyledLabel>
                   <StyledTextBox type="text" placeholder="Step Title" />
                 </form>
               </StyledTextInput>
               <StyledTextInput>
                 <form>
-                  <label>
+                  <StyledLabel>
                     Hint: <br />
-                  </label>
+                  </StyledLabel>
                   <StyledTextBox type="text" placeholder="Hint" />
                 </form>
               </StyledTextInput>
               <StyledTextInput>
                 <form>
-                  <label>
+                  <StyledLabel>
                     Success Message: <br />
-                  </label>
+                  </StyledLabel>
                   <StyledTextBox type="text" placeholder="Success Message" />
                 </form>
               </StyledTextInput>
