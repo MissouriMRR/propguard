@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import AceEditor from "react-ace";
 import { Navbar } from "../components/navbar";
@@ -86,7 +86,25 @@ const StepContentBody: AnyStyledComponent = styled.div`
   padding: 40px;
 `;
 
+const StepContentList: AnyStyledComponent = styled.div``;
+
+interface ContentBlock {
+  type: string;
+  value: string;
+}
+
 const EditorPage = (): JSX.Element => {
+  const [content] = useState([
+    {
+      type: "text",
+      value: "Lorem epsum."
+    },
+    {
+      type: "text",
+      value: "Lorem epsum."
+    }
+  ]);
+
   const addBlock = (): void => {
     console.log("block added");
   };
@@ -108,6 +126,11 @@ const EditorPage = (): JSX.Element => {
               <h3>Step Content</h3>
             </StyledTitle>
             <StepContentBody>
+              <StepContentList>
+                {content.map((value: ContentBlock) => {
+                  return <div key={value.toString()}>{value.value}</div>;
+                })}
+              </StepContentList>
               <Button submitFunction={addBlock} text="Add Block" />
             </StepContentBody>
           </StyledLeftHalf>
