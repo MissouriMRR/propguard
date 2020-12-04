@@ -1,6 +1,9 @@
 import React, { useState } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import AceEditor from "react-ace";
+import { Icon } from "@iconify/react";
+import chevronUp from "@iconify-icons/feather/chevron-up";
+import chevronDown from "@iconify-icons/feather/chevron-down";
 import { Navbar } from "../components/navbar";
 import "../components/app/normalize.css";
 
@@ -105,7 +108,7 @@ const StyledButton: AnyStyledComponent = styled.button`
   border: 2px solid #e9e9e9;
   border-radius: 1px;
   color: ${textPrimary};
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   outline: none;
   margin-bottom: 20px;
@@ -117,6 +120,21 @@ const StyledButton: AnyStyledComponent = styled.button`
 
   &:active {
     height: 2rem;
+  }
+`;
+
+const UpDownContainer: AnyStyledComponent = styled.div`
+  position: relative;
+  float: right;
+  display: inline-block;
+`;
+
+const Arrow: AnyStyledComponent = styled(Icon)`
+  width: 40px;
+  height: 40px;
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 
@@ -206,6 +224,10 @@ const EditorPage = (): JSX.Element => {
                       >
                         Code
                       </StyledButton>
+                      <UpDownContainer>
+                        <Arrow icon={chevronUp} />
+                        <Arrow icon={chevronDown} />
+                      </UpDownContainer>
                       <br />
                       <TextInput
                         style={{
@@ -229,7 +251,7 @@ const EditorPage = (): JSX.Element => {
                         fontSize="16px"
                         mode="python"
                         theme="tomorrow_night_eighties"
-                        placeholder="Write your code solution here."
+                        placeholder="Type code here..."
                         setOptions={{
                           enableBasicAutocompletion: true,
                           enableLiveAutocompletion: true,
@@ -241,7 +263,9 @@ const EditorPage = (): JSX.Element => {
                   );
                 })}
               </StepContentList>
-              <StyledButton onClick={addBlock}>Add Block</StyledButton>
+              <StyledButton onClick={addBlock} style={{ width: 150 }}>
+                Add Block
+              </StyledButton>
             </StepContentBody>
           </StyledLeftHalf>
 

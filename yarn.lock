@@ -1341,6 +1341,11 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@iconify-icons/feather@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@iconify-icons/feather/-/feather-1.1.0.tgz#49fd9afb5e67873eb2ac28b67754268d75595fbe"
+  integrity sha512-jBq1yuHJAdCN3CvEby6s++xy5rQFBUvRt/iIn1yFlSrFYdwwXbhsR2AGuior8Gu67x4b8X0wUQ0FSlIooOviBw==
+
 "@iconify/icons-dashicons@^1.0.4":
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/@iconify/icons-dashicons/-/icons-dashicons-1.0.10.tgz#ec9da0536ed3a77c88c1712b62fc33576117236b"
