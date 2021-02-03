@@ -188,7 +188,21 @@ const EditorPage = (): JSX.Element => {
   };
 
   const addBlock = (): void => {
-    console.log(content);
+    const contentCopy = [...content];
+    contentCopy.push({
+      type: "text",
+      value: ""
+    });
+    setContent(contentCopy);
+  };
+
+  const handleTextChange = (
+    index: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    const contentCopy = [...content];
+    contentCopy[index].value = event.target.value;
+    setContent(contentCopy);
   };
 
   return (
@@ -261,10 +275,10 @@ const EditorPage = (): JSX.Element => {
                         }}
                         type="text"
                         placeholder="Type text here..."
-                        onChange={(val: string): void => {
-                          const contentCopy = content;
-                          contentCopy[index].value = val;
-                          setContent(contentCopy);
+                        onChange={(
+                          event: React.ChangeEvent<HTMLInputElement>
+                        ): void => {
+                          handleTextChange(index, event);
                         }}
                       />
                       <AceEditor
