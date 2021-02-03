@@ -159,22 +159,36 @@ const EditorPage = (): JSX.Element => {
   const [content, setContent] = useState([
     {
       type: "text",
-      value: "Lorem epsum."
+      value: "First content."
     },
     {
       type: "code",
-      value: "Lorem epsum."
+      value: "Second content."
     }
   ]);
 
   const changeType = (type: string, index: number): void => {
-    const contentCopy = content;
+    const contentCopy = [...content];
     contentCopy[index].type = type;
     setContent(contentCopy);
   };
 
+  const changeOrder = (direction: "up" | "down", index: number): void => {
+    const contentCopy = [...content];
+    if (direction === "up" && index - 1 >= 0) {
+      const temp = contentCopy[index - 1];
+      contentCopy[index - 1] = contentCopy[index];
+      contentCopy[index] = temp;
+    } else if (direction === "down" && index + 1 < content.length) {
+      const temp = contentCopy[index + 1];
+      contentCopy[index + 1] = contentCopy[index];
+      contentCopy[index] = temp;
+    }
+    setContent(contentCopy);
+  };
+
   const addBlock = (): void => {
-    console.log("block added");
+    console.log(content);
   };
 
   return (
@@ -225,19 +239,36 @@ const EditorPage = (): JSX.Element => {
                         Code
                       </StyledButton>
                       <UpDownContainer>
-                        <Arrow icon={chevronUp} />
-                        <Arrow icon={chevronDown} />
+                        <Arrow
+                          icon={chevronUp}
+                          onClick={(): void => {
+                            changeOrder("up", index);
+                          }}
+                        />
+                        <Arrow
+                          icon={chevronDown}
+                          onClick={(): void => {
+                            changeOrder("down", index);
+                          }}
+                        />
                       </UpDownContainer>
                       <br />
                       <TextInput
+                        value={content[index].value}
                         style={{
                           display:
                             content[index].type === "text" ? "block" : "none"
                         }}
                         type="text"
                         placeholder="Type text here..."
+                        onChange={(val: string): void => {
+                          const contentCopy = content;
+                          contentCopy[index].value = val;
+                          setContent(contentCopy);
+                        }}
                       />
                       <AceEditor
+                        value={content[index].value}
                         style={{
                           position: "relative",
                           marginTop: "0px",
