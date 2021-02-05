@@ -14,7 +14,7 @@
 - [Usage](#usage)
 - [Get Started](#get-started)
 - [Roadmap and Progress](#roadmap-and-progress)
-- [Contributing](#contributing)
+- [Adding/editing tutorials](#adding/editing-tutorials)
 
 ## What is this?
 
@@ -61,18 +61,7 @@ yarn start
 
 4. Now play around, code, and enjoy!
 
-[stars-shield]: https://img.shields.io/github/stars/MissouriMRR/propguard
-[stars-url]: https://github.com/MissouriMRR/propguard/stargazers
-[issues-shield]: https://img.shields.io/github/issues/MissouriMRR/propguard
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-
-## Roadmap and progress
-
-See the [Projects section](https://github.com/MissouriMRR/propguard/projects) for more information on deadlines and tasks that need to be done. We expect to have Propguard ready before the summer of 2020.
-
-## Contributing
-
-To start contributing to Propguard, follow these steps.
+### Contributing to the codebase
 
 1. Follow the get started section and get your project set up
 2. Create a new branch for your feature (`git checkout -b feature/my-feature`)
@@ -80,3 +69,20 @@ To start contributing to Propguard, follow these steps.
 4. Push the branch to the remote repo (`git push origin feature/my-feature`)
 5. Open a pull request.
 6. Free feel to contact any member of the Missouri S&T Multirotor Design Team for help!
+
+## Adding/editing tutorials
+
+[Visit here](https://github.com/MissouriMRR/propguard/blob/master/contributing-tutorials.md) for more information about contributing your own Propguard tutorials.
+
+We'll flesh this out more when we finish the editor!
+
+## Roadmap and progress
+
+See the [Projects section](https://github.com/MissouriMRR/propguard/projects) for more information on deadlines and tasks that need to be done. We expect to have Propguard's editor ready before the summer of 2021.
+
+<!-- Shield links here -->
+
+[stars-shield]: https://img.shields.io/github/stars/MissouriMRR/propguard
+[stars-url]: https://github.com/MissouriMRR/propguard/stargazers
+[issues-shield]: https://img.shields.io/github/issues/MissouriMRR/propguard
+[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
