@@ -159,11 +159,7 @@ const EditorPage = (): JSX.Element => {
   const [content, setContent] = useState([
     {
       type: "text",
-      value: "First content."
-    },
-    {
-      type: "code",
-      value: "Second content."
+      value: ""
     }
   ]);
 
@@ -231,7 +227,8 @@ const EditorPage = (): JSX.Element => {
                           background:
                             value.type === "text"
                               ? "rgba(256, 256, 256, 0.2)"
-                              : "none"
+                              : "none",
+                          userSelect: "none"
                         }}
                         onClick={(): void => {
                           changeType("text", index);
@@ -244,7 +241,8 @@ const EditorPage = (): JSX.Element => {
                           background:
                             value.type === "code"
                               ? "rgba(256, 256, 256, 0.2)"
-                              : "none"
+                              : "none",
+                          userSelect: "none"
                         }}
                         onClick={(): void => {
                           changeType("code", index);
@@ -266,7 +264,6 @@ const EditorPage = (): JSX.Element => {
                           }}
                         />
                       </UpDownContainer>
-                      <br />
                       <TextInput
                         value={content[index].value}
                         style={{
