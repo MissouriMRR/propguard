@@ -1,5 +1,5 @@
 import React, { setGlobal } from "reactn";
-import { TutorialApp } from "../components/app";
+import { TutorialApp } from "../components/tutorialApp";
 import { useLocalStorageView } from "../components/hooks/index";
 import { defaultTutorial } from "../constants";
 
