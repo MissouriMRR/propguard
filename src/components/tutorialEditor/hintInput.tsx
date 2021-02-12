@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled, { AnyStyledComponent } from "styled-components";
-import "../app/normalize.css";
 
 const StyledTextBox: AnyStyledComponent = styled.input`
   height: 46px;

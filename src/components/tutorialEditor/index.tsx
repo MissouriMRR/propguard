@@ -2,7 +2,6 @@ import React from "react";
 import styled, { AnyStyledComponent } from "styled-components";
 import { HintInput } from "./hintInput";
 import { Navbar } from "../navbar";
-import "../app/normalize.css";
 
 import { background, grey } from "../../constants";
 

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { TutEditor } from "../components/tutorialEditor";
-import "../components/app/normalize.css";
+import "../styles/normalize.css";
 
 const EditorPage = (): JSX.Element => {
   return <TutEditor />;
