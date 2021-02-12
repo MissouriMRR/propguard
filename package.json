@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Multirotor Design Team",
   "dependencies": {
+    "@iconify-icons/bx": "^1.1.0",
     "@iconify-icons/feather": "^1.1.0",
     "@iconify/icons-dashicons": "^1.0.4",
     "@iconify/icons-heroicons-solid": "^1.0.4",

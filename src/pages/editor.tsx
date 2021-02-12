@@ -4,6 +4,7 @@ import AceEditor from "react-ace";
 import { Icon } from "@iconify/react";
 import chevronUp from "@iconify-icons/feather/chevron-up";
 import chevronDown from "@iconify-icons/feather/chevron-down";
+import bxTrashAlt from "@iconify-icons/bx/bx-trash-alt";
 import { Navbar } from "../components/navbar";
 import "../components/app/normalize.css";
 
@@ -150,6 +151,22 @@ const TextInput: AnyStyledComponent = styled.textarea`
   resize: none;
 `;
 
+const DeleteBlock: AnyStyledComponent = styled.div`
+  position: relative;
+  float: right;
+  margin-right: 0px;
+  background-color: blue;
+  width: 40px;
+  height: 100%;
+  justify-content center;
+`;
+
+const TrashIcon: AnyStyledComponent = styled(Icon)`
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 interface ContentBlock {
   type: string;
   value: string;
@@ -189,6 +206,12 @@ const EditorPage = (): JSX.Element => {
       type: "text",
       value: ""
     });
+    setContent(contentCopy);
+  };
+
+  const deleteBlock = (index: number): void => {
+    const contentCopy = [...content];
+    contentCopy.splice(index, 1);
     setContent(contentCopy);
   };
 
@@ -301,6 +324,14 @@ const EditorPage = (): JSX.Element => {
                           tabSize: 4
                         }}
                       />
+                      <DeleteBlock>
+                        <TrashIcon
+                          onClick={(): void => {
+                            deleteBlock(index);
+                          }}
+                          icon={bxTrashAlt}
+                        />
+                      </DeleteBlock>
                     </ContentBlock>
                   );
                 })}

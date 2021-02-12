@@ -1341,6 +1341,11 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@iconify-icons/bx@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@iconify-icons/bx/-/bx-1.1.0.tgz#7c248552375b7a3faba9fee0a632b650336cffdf"
+  integrity sha512-JlCsrgpp4vujb7tDaZtJ/OfeTnsSFyDFSauNO+2ilsHviCb/u3VXbLjdIoDIR5ISGMr0a+W/f0YNOHn3zUqChA==
+
 "@iconify-icons/feather@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@iconify-icons/feather/-/feather-1.1.0.tgz#49fd9afb5e67873eb2ac28b67754268d75595fbe"
