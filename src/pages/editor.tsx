@@ -92,9 +92,14 @@ const StepContentBody: AnyStyledComponent = styled.div`
 const StepContentList: AnyStyledComponent = styled.div``;
 
 const ContentBlock: AnyStyledComponent = styled.div`
+  display: flex;
   border: 1px solid #727272;
   margin-bottom: 20px;
+`;
+
+const ContentBlockInnerWrapper: AnyStyledComponent = styled.div`
   padding: 20px;
+  width: 93%;
 `;
 
 interface StyledProps {
@@ -152,19 +157,22 @@ const TextInput: AnyStyledComponent = styled.textarea`
 `;
 
 const DeleteBlock: AnyStyledComponent = styled.div`
-  position: relative;
-  float: right;
-  margin-right: 0px;
-  background-color: blue;
-  width: 40px;
-  height: 100%;
-  justify-content center;
+  display: flex;
+  border-left: solid 1px #727272;
+  width: 7%;
+  text-align: center;
+  justify-content: center;
+
+  &:hover {
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.1);
+  }
 `;
 
 const TrashIcon: AnyStyledComponent = styled(Icon)`
-  &:hover {
-    cursor: pointer;
-  }
+  align-self: center;
+  width: 22px;
+  height: 22px;
 `;
 
 interface ContentBlock {
@@ -245,92 +253,93 @@ const EditorPage = (): JSX.Element => {
                 {content.map((value: ContentBlock, index: number) => {
                   return (
                     <ContentBlock key={index.toString()}>
-                      <StyledButton
-                        style={{
-                          background:
-                            value.type === "text"
-                              ? "rgba(256, 256, 256, 0.2)"
-                              : "none",
-                          userSelect: "none"
-                        }}
+                      <ContentBlockInnerWrapper>
+                        <StyledButton
+                          style={{
+                            background:
+                              value.type === "text"
+                                ? "rgba(256, 256, 256, 0.2)"
+                                : "none",
+                            userSelect: "none"
+                          }}
+                          onClick={(): void => {
+                            changeType("text", index);
+                          }}
+                        >
+                          Text
+                        </StyledButton>
+                        <StyledButton
+                          style={{
+                            background:
+                              value.type === "code"
+                                ? "rgba(256, 256, 256, 0.2)"
+                                : "none",
+                            userSelect: "none"
+                          }}
+                          onClick={(): void => {
+                            changeType("code", index);
+                          }}
+                        >
+                          Code
+                        </StyledButton>
+                        <UpDownContainer>
+                          <Arrow
+                            icon={chevronUp}
+                            onClick={(): void => {
+                              changeOrder("up", index);
+                            }}
+                          />
+                          <Arrow
+                            icon={chevronDown}
+                            onClick={(): void => {
+                              changeOrder("down", index);
+                            }}
+                          />
+                        </UpDownContainer>
+                        <TextInput
+                          value={content[index].value}
+                          style={{
+                            display:
+                              content[index].type === "text" ? "block" : "none"
+                          }}
+                          type="text"
+                          placeholder="Type text here..."
+                          onChange={(
+                            event: React.ChangeEvent<HTMLInputElement>
+                          ): void => {
+                            handleTextChange(index, event);
+                          }}
+                        />
+                        <AceEditor
+                          value={content[index].value}
+                          style={{
+                            position: "relative",
+                            marginTop: "0px",
+                            height: "82px",
+                            width: "100%",
+                            backgroundColor: background,
+                            fontFamily: "Source Code Pro",
+                            display:
+                              content[index].type === "code" ? "block" : "none"
+                          }}
+                          fontSize="16px"
+                          mode="python"
+                          theme="tomorrow_night_eighties"
+                          placeholder="Type code here..."
+                          setOptions={{
+                            enableBasicAutocompletion: true,
+                            enableLiveAutocompletion: true,
+                            enableSnippets: true,
+                            tabSize: 4
+                          }}
+                        />
+                      </ContentBlockInnerWrapper>
+                      <DeleteBlock
                         onClick={(): void => {
-                          changeType("text", index);
+                          deleteBlock(index);
                         }}
                       >
-                        Text
-                      </StyledButton>
-                      <StyledButton
-                        style={{
-                          background:
-                            value.type === "code"
-                              ? "rgba(256, 256, 256, 0.2)"
-                              : "none",
-                          userSelect: "none"
-                        }}
-                        onClick={(): void => {
-                          changeType("code", index);
-                        }}
-                      >
-                        Code
-                      </StyledButton>
-                      <UpDownContainer>
-                        <Arrow
-                          icon={chevronUp}
-                          onClick={(): void => {
-                            changeOrder("up", index);
-                          }}
-                        />
-                        <Arrow
-                          icon={chevronDown}
-                          onClick={(): void => {
-                            changeOrder("down", index);
-                          }}
-                        />
-                      </UpDownContainer>
-                      <TextInput
-                        value={content[index].value}
-                        style={{
-                          display:
-                            content[index].type === "text" ? "block" : "none"
-                        }}
-                        type="text"
-                        placeholder="Type text here..."
-                        onChange={(
-                          event: React.ChangeEvent<HTMLInputElement>
-                        ): void => {
-                          handleTextChange(index, event);
-                        }}
-                      />
-                      <AceEditor
-                        value={content[index].value}
-                        style={{
-                          position: "relative",
-                          marginTop: "0px",
-                          height: "82px",
-                          width: "100%",
-                          backgroundColor: background,
-                          fontFamily: "Source Code Pro",
-                          display:
-                            content[index].type === "code" ? "block" : "none"
-                        }}
-                        fontSize="16px"
-                        mode="python"
-                        theme="tomorrow_night_eighties"
-                        placeholder="Type code here..."
-                        setOptions={{
-                          enableBasicAutocompletion: true,
-                          enableLiveAutocompletion: true,
-                          enableSnippets: true,
-                          tabSize: 4
-                        }}
-                      />
-                      <DeleteBlock>
-                        <TrashIcon
-                          onClick={(): void => {
-                            deleteBlock(index);
-                          }}
-                          icon={bxTrashAlt}
-                        />
+                        <TrashIcon icon={bxTrashAlt} />
                       </DeleteBlock>
                     </ContentBlock>
                   );
