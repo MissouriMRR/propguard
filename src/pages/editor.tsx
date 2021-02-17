@@ -16,6 +16,14 @@ import "ace-builds/src-noconflict/theme-tomorrow_night_eighties";
 
 import { background, grey, accent, textPrimary } from "../constants";
 
+interface StyledProps {
+  text: string;
+}
+
+interface DeleteProps {
+  visible: string;
+}
+
 const StyledEditor: AnyStyledComponent = styled.div`
   height: 100vh;
   width: 100vw;
@@ -99,12 +107,9 @@ const ContentBlock: AnyStyledComponent = styled.div`
 
 const ContentBlockInnerWrapper: AnyStyledComponent = styled.div`
   padding: 20px;
-  width: 93%;
+  width: ${(props: DeleteProps): string =>
+    props.visible === "flex" ? "93%" : "100%"};
 `;
-
-interface StyledProps {
-  text: string;
-}
 
 const StyledButton: AnyStyledComponent = styled.button`
   height: 2.5rem;
@@ -157,7 +162,7 @@ const TextInput: AnyStyledComponent = styled.textarea`
 `;
 
 const DeleteBlock: AnyStyledComponent = styled.div`
-  display: flex;
+  display: ${(props: DeleteProps): string => props.visible};
   border-left: solid 1px #727272;
   width: 7%;
   text-align: center;
@@ -187,6 +192,8 @@ const EditorPage = (): JSX.Element => {
       value: ""
     }
   ]);
+
+  const [showDelete, setShowDelete] = useState("none");
 
   const changeType = (type: string, index: number): void => {
     const contentCopy = [...content];
@@ -252,7 +259,15 @@ const EditorPage = (): JSX.Element => {
               <StepContentList>
                 {content.map((value: ContentBlock, index: number) => {
                   return (
-                    <ContentBlock key={index.toString()}>
+                    <ContentBlock
+                      key={index.toString()}
+                      onMouseEnter={(): void => {
+                        setShowDelete("flex");
+                      }}
+                      onMouseLeave={(): void => {
+                        setShowDelete("none");
+                      }}
+                    >
                       <ContentBlockInnerWrapper>
                         <StyledButton
                           style={{
@@ -335,6 +350,7 @@ const EditorPage = (): JSX.Element => {
                         />
                       </ContentBlockInnerWrapper>
                       <DeleteBlock
+                        visible={showDelete}
                         onClick={(): void => {
                           deleteBlock(index);
                         }}
