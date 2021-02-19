@@ -48,6 +48,7 @@ const TextEditor: React.FC = (): JSX.Element => {
   const [tutorialName] = useGlobal("tutorialName");
   const [tutorialStep] = useGlobal("tutorialStep");
   const [output, setOutput] = useGlobal("output");
+  const [componentView] = useGlobal("componentView");
 
   const gqlData = useStaticQuery(graphql`
     query {
@@ -107,7 +108,10 @@ const TextEditor: React.FC = (): JSX.Element => {
   };
 
   const handleHint = (): void => {
-    if (data.instructions[tutorialStep - 1].hint) {
+    if (
+      componentView === "TutorialComponent" &&
+      data.instructions[tutorialStep - 1].hint
+    ) {
       toggleHintModal();
     }
   };
