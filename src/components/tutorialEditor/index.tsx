@@ -224,7 +224,7 @@ const TutEditor: React.FC = (): JSX.Element => {
     }
   ]);
 
-  const [showDelete, setShowDelete] = useState("none");
+  const [hovering, setHovering] = useState(-1);
 
   const changeType = (type: string, index: number): void => {
     const contentCopy = [...content];
@@ -307,10 +307,10 @@ const TutEditor: React.FC = (): JSX.Element => {
                     <ContentBlock
                       key={index.toString()}
                       onMouseEnter={(): void => {
-                        setShowDelete("flex");
+                        setHovering(index);
                       }}
                       onMouseLeave={(): void => {
-                        setShowDelete("none");
+                        setHovering(-1);
                       }}
                     >
                       <ContentBlockInnerWrapper>
@@ -395,7 +395,7 @@ const TutEditor: React.FC = (): JSX.Element => {
                         />
                       </ContentBlockInnerWrapper>
                       <DeleteBlock
-                        visible={showDelete}
+                        visible={hovering === index ? "flex" : "none"}
                         onClick={(): void => {
                           deleteBlock(index);
                         }}
@@ -406,7 +406,10 @@ const TutEditor: React.FC = (): JSX.Element => {
                   );
                 })}
               </StepContentList>
-              <StyledButton onClick={addBlock} style={{ width: 150 }}>
+              <StyledButton
+                onClick={addBlock}
+                style={{ width: 150, userSelect: "none" }}
+              >
                 Add Block
               </StyledButton>
             </StepContentBody>
