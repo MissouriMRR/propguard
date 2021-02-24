@@ -7,9 +7,9 @@ import { useStaticQuery, graphql } from "gatsby";
 import AceEditor from "react-ace";
 
 import { HintModal } from "./hintModal";
-import { Button } from "./button";
+import { Button } from "../button";
 import { background, grey } from "../../constants";
-import { Tutorial } from "../types";
+import { Tutorial } from "../../types";
 import { submitAnswer } from "./submitAnswer";
 
 import "ace-builds";

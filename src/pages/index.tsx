@@ -27,6 +27,11 @@ setGlobal({
     correct: false,
     message: "",
     droneTask: ""
+  },
+  editorState: {
+    selectedTutorial: "",
+    selectedStep: 1,
+    saved: false
   }
 });
 

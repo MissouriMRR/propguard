@@ -70,12 +70,6 @@ yarn start
 5. Open a pull request.
 6. Free feel to contact any member of the Missouri S&T Multirotor Design Team for help!
 
-## Adding/editing tutorials
-
-[Visit here](https://github.com/MissouriMRR/propguard/blob/master/contributing-tutorials.md) for more information about contributing your own Propguard tutorials.
-
-We'll flesh this out more when we finish the editor!
-
 ## Roadmap and progress
 
 See the [Projects section](https://github.com/MissouriMRR/propguard/projects) for more information on deadlines and tasks that need to be done. We expect to have Propguard's editor ready before the summer of 2021.
@@ -86,3 +80,33 @@ See the [Projects section](https://github.com/MissouriMRR/propguard/projects) fo
 [stars-url]: https://github.com/MissouriMRR/propguard/stargazers
 [issues-shield]: https://img.shields.io/github/issues/MissouriMRR/propguard
 [issues-url]: https://github.com/othneildrew/Best-README-Template/issues
+
+## Adding/editing tutorials
+
+[Visit here](https://github.com/MissouriMRR/propguard/#contributing-tutorials.md) for more information about contributing your own Propguard tutorials.
+
+We'll flesh this out more when we finish the editor!
+
+### Tutorial Schema
+
+```
+type Tutorial {
+  name: String!
+  description: String!
+  instructions: [Instruction]
+}
+
+
+type Instruction {
+  title: String!
+  hint: String!
+  output: Output!
+  content: [InstructionContent]!
+  solution: String!
+}
+
+type InstructionContent {
+  type: String!
+  value: String!
+}
+```

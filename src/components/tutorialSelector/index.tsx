@@ -1,7 +1,7 @@
 import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
-import { Tutorial } from "../types";
+import { Tutorial } from "../../types";
 import { useLocalStorage, useLocalStorageView } from "../hooks/index";
 
 import { accent, background, grey, textPrimary } from "../../constants";

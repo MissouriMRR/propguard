@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 
 import { Navbar } from "../navbar";
 
-import { background, codeColor, grey } from "../../constants";
+import {
+  accent,
+  background,
+  codeColor,
+  grey,
+  textPrimary,
+  textSecondary
+} from "../../constants";
 
 const StyledEditorContainer: AnyStyledComponent = styled.div`
   width: 100vw;
@@ -20,8 +27,9 @@ const StyledWelcomeContainer: AnyStyledComponent = styled.div`
   flex-direction: column;
 
   h2 {
+    color: ${textPrimary};
     font-size: 24px;
-    margin: 0;
+    margin: 0 0 0.5rem 0;
   }
 `;
 
@@ -41,16 +49,28 @@ const StyledWelcomeSection: AnyStyledComponent = styled.main`
   justify-content: stretch;
 
   h1 {
+    color: ${textPrimary};
     font-size: 48px;
     margin-bottom: 1rem;
   }
 
   p {
+    color: ${textSecondary};
   }
 `;
 
 const StyledWelcomeInfo: AnyStyledComponent = styled.div`
   flex: 2;
+  padding-right: 2rem;
+`;
+
+const StyledLink: AnyStyledComponent = styled.a`
+  color: ${accent};
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 `;
 
 const StyledCard: AnyStyledComponent = styled.div`
@@ -65,7 +85,13 @@ const StyledWelcomeSidebar: AnyStyledComponent = styled.div`
   flex: 1;
 `;
 
-const EditorApp: React.FC = () => {
+const EditorWelcome: React.FC = () => {
+  const [editorState, setEditorState] = useGlobal("editorState");
+
+  const createNewTutorial = (): void => {
+    setEditorState({ ...editorState, selectedTutorial: "New Tutorial" });
+  };
+
   return (
     <StyledEditorContainer>
       <Navbar />
@@ -79,16 +105,13 @@ const EditorApp: React.FC = () => {
             <p>Pass the torch to the next generation by writing tutorials.</p>
             <StyledCard>
               <h2>Modify</h2>
-              <ul>
-                <li>Select an existing tutorial</li>
-                <li>Or upload your own tutorial file (JSON)</li>
-              </ul>
+              <p>Modification features are coming soon!</p>
             </StyledCard>
             <StyledCard>
               <h2>Create</h2>
-              <ul>
-                <li>Create a brand new tutorial from scratch</li>
-              </ul>
+              <StyledLink onClick={createNewTutorial}>
+                Create a brand new tutorial from scratch
+              </StyledLink>
             </StyledCard>
           </StyledWelcomeInfo>
           <StyledWelcomeSidebar>
@@ -115,4 +138,4 @@ const EditorApp: React.FC = () => {
   );
 };
 
-export { EditorApp };
+export { EditorWelcome };
