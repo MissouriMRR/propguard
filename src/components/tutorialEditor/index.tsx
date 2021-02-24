@@ -101,6 +101,7 @@ const StyledStepNav: AnyStyledComponent = styled.div`
 `;
 
 const StyledStepSection: AnyStyledComponent = styled.div`
+  height: 40%;
   width: 100%;
   color: white;
   display: flex;
