@@ -101,7 +101,6 @@ const StyledStepNav: AnyStyledComponent = styled.div`
 `;
 
 const StyledStepSection: AnyStyledComponent = styled.div`
-  height: 40%;
   width: 100%;
   color: white;
   display: flex;
@@ -160,12 +159,10 @@ const StyledButton: AnyStyledComponent = styled.button`
   font-weight: 600;
   outline: none;
   margin-bottom: 20px;
-
   &:hover {
     background-color: rgba(256, 256, 256, 0.2);
     cursor: pointer;
   }
-
   &:active {
     height: 2rem;
   }
@@ -180,7 +177,6 @@ const UpDownContainer: AnyStyledComponent = styled.div`
 const Arrow: AnyStyledComponent = styled(Icon)`
   width: 40px;
   height: 40px;
-
   &:hover {
     cursor: pointer;
   }
@@ -204,7 +200,6 @@ const DeleteBlock: AnyStyledComponent = styled.div`
   width: 7%;
   text-align: center;
   justify-content: center;
-
   &:hover {
     cursor: pointer;
     background: rgba(255, 255, 255, 0.1);
