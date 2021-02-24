@@ -270,6 +270,12 @@ const TutEditor: React.FC = (): JSX.Element => {
     setContent(contentCopy);
   };
 
+  const handleCodeChange = (index: number, code: string): void => {
+    const contentCopy = [...content];
+    contentCopy[index].value = code;
+    setContent(contentCopy);
+  };
+
   return (
     <MainWrapper>
       <Navbar />
@@ -391,6 +397,9 @@ const TutEditor: React.FC = (): JSX.Element => {
                             enableLiveAutocompletion: true,
                             enableSnippets: true,
                             tabSize: 4
+                          }}
+                          onChange={(code: string): void => {
+                            handleCodeChange(index, code);
                           }}
                         />
                       </ContentBlockInnerWrapper>
