@@ -133,11 +133,9 @@ const StepContentBody: AnyStyledComponent = styled.div`
   padding: 40px;
 `;
 
-const StepContentList: AnyStyledComponent = styled.div``;
-
 const ContentBlock: AnyStyledComponent = styled.div`
   display: flex;
-  border: 1px solid #727272;
+  border: 1px solid ${grey};
   margin-bottom: 20px;
 `;
 
@@ -303,7 +301,7 @@ const TutEditor: React.FC = (): JSX.Element => {
               <h3>Step Content</h3>
             </StyledTitle>
             <StepContentBody>
-              <StepContentList>
+              <div>
                 {content.map((value: ContentBlock, index: number) => {
                   return (
                     <ContentBlock
@@ -410,7 +408,7 @@ const TutEditor: React.FC = (): JSX.Element => {
                     </ContentBlock>
                   );
                 })}
-              </StepContentList>
+              </div>
               <StyledButton
                 onClick={addBlock}
                 style={{ width: 150, userSelect: "none" }}
