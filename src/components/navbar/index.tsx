@@ -6,7 +6,7 @@ import listIcon from "@iconify/icons-ic/round-format-list-bulleted";
 import pencilIcon from "@iconify/icons-mdi/pencil";
 import { useLocalStorageView } from "../hooks/index";
 
-import { textPrimary, grey } from "../../constants";
+import { accent, textPrimary, grey } from "../../constants";
 import Logo from "../../assets/logo.svg";
 
 const NavWrapper: AnyStyledComponent = styled.nav`
@@ -25,6 +25,10 @@ const NavWrapper: AnyStyledComponent = styled.nav`
   }
 `;
 
+interface NavIconProps {
+  isSelected: boolean;
+}
+
 const NavLogo: AnyStyledComponent = styled(Link)`
   height: 4rem;
   width: 4rem;
@@ -34,6 +38,10 @@ const NavLogo: AnyStyledComponent = styled(Link)`
   align-items: center;
   font-size: 32px;
   text-decoration: none;
+  filter: ${(props: NavIconProps): string =>
+    props.isSelected
+      ? "invert(58%) sepia(81%) saturate(2820%) hue-rotate(173deg) brightness(90%) contrast(90%)"
+      : "none"};
 
   &:active {
     padding: 1.25rem;
@@ -44,7 +52,8 @@ const NavIcon: AnyStyledComponent = styled(Icon)`
   height: 4rem;
   width: 4rem;
   padding: 0.75rem;
-  color: ${textPrimary};
+  color: ${(props: NavIconProps): string =>
+    props.isSelected ? accent : textPrimary};
 
   &:active {
     padding: 1rem;
@@ -52,7 +61,7 @@ const NavIcon: AnyStyledComponent = styled(Icon)`
 `;
 
 const Navbar: React.FC = (): JSX.Element => {
-  const [, setComponentView] = useGlobal("componentView");
+  const [componentView, setComponentView] = useGlobal("componentView");
   const [, setComponentViewSave] = useLocalStorageView();
 
   const openTutorialComponent = (): void => {
@@ -66,9 +75,18 @@ const Navbar: React.FC = (): JSX.Element => {
     setComponentViewSave("TutorialSelector");
   };
 
+  const openTutorialEditor = (): void => {
+    setComponentView("TutorialEditor");
+    setComponentViewSave("TutorialEditor");
+  };
+
   return (
     <NavWrapper>
-      <NavLogo to="/" onClick={openTutorialComponent}>
+      <NavLogo
+        to="/"
+        onClick={openTutorialComponent}
+        isSelected={componentView === "TutorialComponent"}
+      >
         <Logo />
       </NavLogo>
       <Link to="/">
@@ -76,10 +94,15 @@ const Navbar: React.FC = (): JSX.Element => {
           icon={listIcon}
           width="2.5rem"
           onClick={openTutorialSelector}
+          isSelected={componentView === "TutorialSelector"}
         />
       </Link>
-      <Link to="/editor">
-        <NavIcon icon={pencilIcon} width="2.5rem" />
+      <Link to="/editor" onClick={openTutorialEditor}>
+        <NavIcon
+          icon={pencilIcon}
+          width="2.5rem"
+          isSelected={componentView === "TutorialEditor"}
+        />
       </Link>
     </NavWrapper>
   );
