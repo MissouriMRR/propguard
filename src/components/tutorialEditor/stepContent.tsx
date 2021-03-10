@@ -100,6 +100,16 @@ const StepContent: React.FC<StepContentProps> = (props): JSX.Element => {
 
   const [hovering, setHovering] = useState(-1);
 
+  const codeInput = {
+    position: "relative",
+    marginTop: "0px",
+    height: "82px",
+    width: "100%",
+    backgroundColor: background,
+    fontFamily: "Source Code Pro",
+    display: content[index].type === "code" ? "block" : "none"
+  };
+
   const changeType = (type: string): void => {
     const contentCopy = [...content];
     contentCopy[index].type = type;
@@ -196,15 +206,7 @@ const StepContent: React.FC<StepContentProps> = (props): JSX.Element => {
         />
         <AceEditor
           value={content[index].value}
-          style={{
-            position: "relative",
-            marginTop: "0px",
-            height: "82px",
-            width: "100%",
-            backgroundColor: background,
-            fontFamily: "Source Code Pro",
-            display: content[index].type === "code" ? "block" : "none"
-          }}
+          style={codeInput}
           fontSize="16px"
           mode="python"
           theme="tomorrow_night_eighties"
