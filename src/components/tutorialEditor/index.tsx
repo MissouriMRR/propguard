@@ -16,11 +16,8 @@ import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/theme-tomorrow_night_eighties";
 
-import { background, grey, accent, textPrimary } from "../../constants";
-
-interface StyledProps {
-  text: string;
-}
+import { background, grey } from "../../constants";
+import { Button } from "../textEditor/button";
 
 interface DeleteProps {
   visible: string;
@@ -145,31 +142,11 @@ const ContentBlockInnerWrapper: AnyStyledComponent = styled.div`
     props.visible === "flex" ? "93%" : "100%"};
 `;
 
-const StyledButton: AnyStyledComponent = styled.button`
-  height: 2.5rem;
-  width: 7rem;
-  background: ${(props: StyledProps): string =>
-    props.text === "Run" ? accent : background};
-  border: 2px solid #e9e9e9;
-  border-radius: 1px;
-  color: ${textPrimary};
-  font-size: 18px;
-  font-weight: 600;
-  outline: none;
-  margin-bottom: 20px;
-  &:hover {
-    background-color: rgba(256, 256, 256, 0.2);
-    cursor: pointer;
-  }
-  &:active {
-    height: 2rem;
-  }
-`;
-
 const UpDownContainer: AnyStyledComponent = styled.div`
   position: relative;
   float: right;
   display: inline-block;
+  margin-bottom: 15px;
 `;
 
 const Arrow: AnyStyledComponent = styled(Icon)`
@@ -314,34 +291,28 @@ const TutEditor: React.FC = (): JSX.Element => {
                       }}
                     >
                       <ContentBlockInnerWrapper>
-                        <StyledButton
-                          style={{
-                            background:
-                              value.type === "text"
-                                ? "rgba(256, 256, 256, 0.2)"
-                                : "none",
-                            userSelect: "none"
-                          }}
-                          onClick={(): void => {
+                        <Button
+                          backgroundColor={
+                            value.type === "text"
+                              ? "rgba(256, 256, 256, 0.2)"
+                              : "none"
+                          }
+                          submitFunction={(): void => {
                             changeType("text", index);
                           }}
-                        >
-                          Text
-                        </StyledButton>
-                        <StyledButton
-                          style={{
-                            background:
-                              value.type === "code"
-                                ? "rgba(256, 256, 256, 0.2)"
-                                : "none",
-                            userSelect: "none"
-                          }}
-                          onClick={(): void => {
+                          text="Text"
+                        />
+                        <Button
+                          backgroundColor={
+                            value.type === "code"
+                              ? "rgba(256, 256, 256, 0.2)"
+                              : "none"
+                          }
+                          submitFunction={(): void => {
                             changeType("code", index);
                           }}
-                        >
-                          Code
-                        </StyledButton>
+                          text="Code"
+                        />
                         <UpDownContainer>
                           <Arrow
                             icon={chevronUp}
@@ -409,12 +380,11 @@ const TutEditor: React.FC = (): JSX.Element => {
                   );
                 })}
               </div>
-              <StyledButton
-                onClick={addBlock}
-                style={{ width: 150, userSelect: "none" }}
-              >
-                Add Block
-              </StyledButton>
+              <Button
+                submitFunction={addBlock}
+                width="150px"
+                text="Add Block"
+              />
             </StepContentBody>
           </StyledLeftHalf>
 
