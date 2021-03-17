@@ -1,6 +1,5 @@
 import React, { useState } from "reactn";
-import styled, { AnyStyledComponent } from "styled-components";
-import "../app/normalize.css";
+import styled, { AnyStyledComponent, CSSProperties } from "styled-components";
 
 import AceEditor from "react-ace";
 import { Icon } from "@iconify/react";
@@ -41,7 +40,6 @@ const ContentBlockInnerWrapper: AnyStyledComponent = styled.div`
 const UpDownContainer: AnyStyledComponent = styled.div`
   position: relative;
   float: right;
-  display: inline-block;
   margin-bottom: 15px;
 `;
 
@@ -100,7 +98,7 @@ const StepContent: React.FC<StepContentProps> = (props): JSX.Element => {
 
   const [hovering, setHovering] = useState(-1);
 
-  const codeInput = {
+  const codeInputStyle: CSSProperties = {
     position: "relative",
     marginTop: "0px",
     height: "82px",
@@ -206,7 +204,7 @@ const StepContent: React.FC<StepContentProps> = (props): JSX.Element => {
         />
         <AceEditor
           value={content[index].value}
-          style={codeInput}
+          style={codeInputStyle}
           fontSize="16px"
           mode="python"
           theme="tomorrow_night_eighties"
