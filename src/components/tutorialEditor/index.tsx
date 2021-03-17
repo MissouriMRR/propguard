@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useState } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 
+import AceEditor from "react-ace";
 import { HintInput } from "./hintInput";
 import { Header } from "./header";
 import { Navbar } from "../navbar";
 
+import { StepContent } from "./stepContent";
+
+import "ace-builds";
+import "ace-builds/webpack-resolver";
+import "ace-builds/src-noconflict/mode-python";
+import "ace-builds/src-noconflict/ext-language_tools";
+import "ace-builds/src-noconflict/theme-tomorrow_night_eighties";
+
 import { background, grey } from "../../constants";
+import { Button } from "../button";
+
+interface ContentBlock {
+  type: string;
+  value: string;
+}
 
 const StyledEditor: AnyStyledComponent = styled.div`
   height: 100vh;
@@ -54,13 +69,13 @@ const StyledRightHalf: AnyStyledComponent = styled.div`
 `;
 
 const StyledStepSection: AnyStyledComponent = styled.div`
-  height: 40%;
   width: 100%;
   color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 2px;
+  padding-bottom: 20px;
 `;
 
 const StyledTextInput: AnyStyledComponent = styled.div`
@@ -82,7 +97,33 @@ const StyledLabel: AnyStyledComponent = styled.label`
   flex-direction: column;
 `;
 
+const StepContentBody: AnyStyledComponent = styled.div`
+  padding: 40px;
+`;
+
+const ContentBlock: AnyStyledComponent = styled.div`
+  display: flex;
+  border: 1px solid ${grey};
+  margin-bottom: 20px;
+`;
+
 const TutEditor: React.FC = (): JSX.Element => {
+  const [content, setContent] = useState([
+    {
+      type: "text",
+      value: ""
+    }
+  ]);
+
+  const addBlock = (): void => {
+    const contentCopy = [...content];
+    contentCopy.push({
+      type: "text",
+      value: ""
+    });
+    setContent(contentCopy);
+  };
+
   return (
     <MainWrapper>
       <Navbar />
@@ -110,12 +151,52 @@ const TutEditor: React.FC = (): JSX.Element => {
             <StyledTitle>
               <h3>Step Content</h3>
             </StyledTitle>
+            <StepContentBody>
+              <div>
+                {content.map((value: ContentBlock, index: number) => {
+                  return (
+                    <StepContent
+                      value={value}
+                      index={index}
+                      key={index.toString()}
+                      content={content}
+                      setContent={setContent}
+                    />
+                  );
+                })}
+              </div>
+              <Button
+                submitFunction={addBlock}
+                width="150px"
+                text="Add Block"
+              />
+            </StepContentBody>
           </StyledLeftHalf>
 
           <StyledRightHalf>
             <StyledTitle>
               <h3>Code Solution</h3>
             </StyledTitle>
+            <AceEditor
+              style={{
+                position: "relative",
+                marginTop: "1%",
+                height: "90%",
+                width: "99.9%",
+                backgroundColor: background,
+                fontFamily: "Source Code Pro"
+              }}
+              fontSize="16px"
+              mode="python"
+              theme="tomorrow_night_eighties"
+              placeholder="Write your code solution here."
+              setOptions={{
+                enableBasicAutocompletion: true,
+                enableLiveAutocompletion: true,
+                enableSnippets: true,
+                tabSize: 4
+              }}
+            />
           </StyledRightHalf>
         </MainWrapper>
       </StyledEditor>
