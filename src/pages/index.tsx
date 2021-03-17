@@ -28,6 +28,8 @@ setGlobal({
     message: "",
     droneTask: ""
   },
+  hintModalOpen: false,
+  showHintAnswer: false,
   editorState: {
     selectedTutorial: "",
     selectedStep: 1,
