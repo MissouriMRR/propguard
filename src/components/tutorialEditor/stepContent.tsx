@@ -87,14 +87,26 @@ interface ContentBlock {
 }
 
 interface StepContentProps {
-  value: ContentBlock;
+  content: ContentBlock;
   index: number;
-  content: ContentBlock[];
-  setContent: Function;
+  deleteBlock: (index: number) => void;
+  changeHandler: (
+    change: React.ChangeEvent<HTMLInputElement> | string,
+    index: number
+  ) => void;
+  changeOrder: (direction: "up" | "down", index: number) => void;
+  toggleBlockType: (type: string, index: number) => void;
 }
 
 const StepContent: React.FC<StepContentProps> = (props): JSX.Element => {
-  const { value, index, content, setContent } = props;
+  const {
+    content,
+    index,
+    deleteBlock,
+    changeHandler,
+    changeOrder,
+    toggleBlockType
+  } = props;
 
   const [hovering, setHovering] = useState(-1);
 
@@ -105,47 +117,7 @@ const StepContent: React.FC<StepContentProps> = (props): JSX.Element => {
     width: "100%",
     backgroundColor: background,
     fontFamily: "Source Code Pro",
-    display: content[index].type === "code" ? "block" : "none"
-  };
-
-  const changeType = (type: string): void => {
-    const contentCopy = [...content];
-    contentCopy[index].type = type;
-    setContent(contentCopy);
-  };
-
-  const changeOrder = (direction: "up" | "down"): void => {
-    const contentCopy = [...content];
-    if (direction === "up" && index - 1 >= 0) {
-      const temp = contentCopy[index - 1];
-      contentCopy[index - 1] = contentCopy[index];
-      contentCopy[index] = temp;
-    } else if (direction === "down" && index + 1 < content.length) {
-      const temp = contentCopy[index + 1];
-      contentCopy[index + 1] = contentCopy[index];
-      contentCopy[index] = temp;
-    }
-    setContent(contentCopy);
-  };
-
-  const deleteBlock = (): void => {
-    const contentCopy = [...content];
-    contentCopy.splice(index, 1);
-    setContent(contentCopy);
-  };
-
-  const handleTextChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    const contentCopy = [...content];
-    contentCopy[index].value = event.target.value;
-    setContent(contentCopy);
-  };
-
-  const handleCodeChange = (code: string): void => {
-    const contentCopy = [...content];
-    contentCopy[index].value = code;
-    setContent(contentCopy);
+    display: content.type === "code" ? "block" : "none"
   };
 
   return (
@@ -161,19 +133,19 @@ const StepContent: React.FC<StepContentProps> = (props): JSX.Element => {
       <ContentBlockInnerWrapper>
         <Button
           backgroundColor={
-            value.type === "text" ? "rgba(256, 256, 256, 0.2)" : "none"
+            content.type === "text" ? "rgba(256, 256, 256, 0.2)" : "none"
           }
           submitFunction={(): void => {
-            changeType("text");
+            toggleBlockType("text", index);
           }}
           text="Text"
         />
         <Button
           backgroundColor={
-            value.type === "code" ? "rgba(256, 256, 256, 0.2)" : "none"
+            content.type === "code" ? "rgba(256, 256, 256, 0.2)" : "none"
           }
           submitFunction={(): void => {
-            changeType("code");
+            toggleBlockType("code", index);
           }}
           text="Code"
         />
@@ -181,29 +153,29 @@ const StepContent: React.FC<StepContentProps> = (props): JSX.Element => {
           <Arrow
             icon={chevronUp}
             onClick={(): void => {
-              changeOrder("up");
+              changeOrder("up", index);
             }}
           />
           <Arrow
             icon={chevronDown}
             onClick={(): void => {
-              changeOrder("down");
+              changeOrder("down", index);
             }}
           />
         </UpDownContainer>
         <TextInput
-          value={content[index].value}
+          value={content.value}
           style={{
-            display: content[index].type === "text" ? "block" : "none"
+            display: content.type === "text" ? "block" : "none"
           }}
           type="text"
           placeholder="Type text here..."
           onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
-            handleTextChange(event);
+            changeHandler(event, index);
           }}
         />
         <AceEditor
-          value={content[index].value}
+          value={content.value}
           style={codeInputStyle}
           fontSize="16px"
           mode="python"
@@ -216,14 +188,14 @@ const StepContent: React.FC<StepContentProps> = (props): JSX.Element => {
             tabSize: 4
           }}
           onChange={(code: string): void => {
-            handleCodeChange(code);
+            changeHandler(code, index);
           }}
         />
       </ContentBlockInnerWrapper>
       <DeleteBlock
         visible={hovering === index ? "flex" : "none"}
         onClick={(): void => {
-          deleteBlock();
+          deleteBlock(index);
         }}
       >
         <TrashIcon icon={bxTrashAlt} />

@@ -107,21 +107,110 @@ const ContentBlock: AnyStyledComponent = styled.div`
   margin-bottom: 20px;
 `;
 
+// TODO: See if some of the block editing functions can be simplified
 const TutEditor: React.FC = (): JSX.Element => {
-  const [content, setContent] = useState([
+  const [step /* , setStep */] = useState(0);
+  const [steps, setSteps] = useState([
     {
-      type: "text",
-      value: ""
+      stepTitle: "Step 1",
+      stepHint: "",
+      stepSuccess: "",
+      content: [
+        {
+          type: "code",
+          value: ""
+        }
+      ]
     }
   ]);
 
   const addBlock = (): void => {
-    const contentCopy = [...content];
-    contentCopy.push({
+    const stepCopy = steps[step];
+    stepCopy.content.push({
       type: "text",
       value: ""
     });
-    setContent(contentCopy);
+
+    setSteps([
+      ...steps.slice(0, step),
+      stepCopy,
+      ...steps.slice(step + 1, steps.length)
+    ]);
+  };
+
+  const deleteBlock = (index: number): void => {
+    const stepCopy = steps[step];
+    stepCopy.content = [
+      ...stepCopy.content.slice(0, index),
+      ...stepCopy.content.slice(index + 1, stepCopy.content.length)
+    ];
+
+    setSteps([
+      ...steps.slice(0, step),
+      stepCopy,
+      ...steps.slice(step + 1, steps.length)
+    ]);
+  };
+
+  const changeOrder = (direction: "up" | "down", index: number): void => {
+    const stepCopy = steps[step];
+    const contentCopy = stepCopy.content;
+    let diff = 0;
+
+    if (direction === "up" && index - 1 >= 0) {
+      // const temp = contentCopy[index - 1];
+      // contentCopy[index - 1] = contentCopy[index];
+      // contentCopy[index] = temp;
+      diff = -1;
+    } else if (direction === "down" && index + 1 < contentCopy.length) {
+      diff = 1;
+    }
+
+    const temp = contentCopy[index + diff];
+    contentCopy[index + diff] = contentCopy[index];
+    contentCopy[index] = temp;
+
+    stepCopy.content = contentCopy;
+    setSteps([
+      ...steps.slice(0, step),
+      stepCopy,
+      ...steps.slice(step + 1, steps.length)
+    ]);
+  };
+
+  const toggleBlockType = (type: string, index: number): void => {
+    const stepCopy = steps[step];
+    stepCopy.content[index].type = type;
+    setSteps([
+      ...steps.slice(0, step),
+      stepCopy,
+      ...steps.slice(step + 1, steps.length)
+    ]);
+  };
+
+  // This change handler works for both text blocks and code blocks
+  // by checking the type of the change argument.
+  const blockChangeHandler = (
+    change: React.ChangeEvent<HTMLInputElement> | string,
+    index: number
+  ): void => {
+    let changeText = "";
+    // Checks to see what type the change argument is because it can
+    // either be an onChange event or just a string, which is what Ace Editor
+    // uses for the code block
+    if (typeof change === "object" && change.target) {
+      changeText = change.target.value;
+    } else if (typeof change === "string") {
+      changeText = change;
+    } else return;
+
+    const stepCopy = steps[step];
+    stepCopy.content[index].value = changeText;
+    setSteps([
+      ...steps.slice(0, step),
+      stepCopy,
+      ...steps.slice(step + 1, steps.length)
+    ]);
   };
 
   return (
@@ -153,17 +242,21 @@ const TutEditor: React.FC = (): JSX.Element => {
             </StyledTitle>
             <StepContentBody>
               <div>
-                {content.map((value: ContentBlock, index: number) => {
-                  return (
-                    <StepContent
-                      value={value}
-                      index={index}
-                      key={index.toString()}
-                      content={content}
-                      setContent={setContent}
-                    />
-                  );
-                })}
+                {steps[step].content.map(
+                  (content: ContentBlock, index: number) => {
+                    return (
+                      <StepContent
+                        content={content}
+                        index={index}
+                        key={index.toString()}
+                        deleteBlock={deleteBlock}
+                        changeOrder={changeOrder}
+                        toggleBlockType={toggleBlockType}
+                        changeHandler={blockChangeHandler}
+                      />
+                    );
+                  }
+                )}
               </div>
               <Button
                 submitFunction={addBlock}
