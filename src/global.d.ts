@@ -18,6 +18,16 @@ import "reactn";
     message - The text that gets displayed on the output console
     droneTask - String representing a function of what a drone should do
 */
+interface EditorStep {
+  stepTitle: string;
+  stepHint: string;
+  stepSuccess: string;
+  content: {
+    type: string;
+    value: string;
+  }[];
+}
+
 export declare module "reactn/default" {
   interface State {
     tutorialName: string;
@@ -33,8 +43,9 @@ export declare module "reactn/default" {
     showHintAnswer: boolean;
     editorState: {
       selectedTutorial: string;
-      selectedStep: string;
+      step: number;
       saved: boolean;
     };
+    editorSteps: EditorStep[];
   }
 }

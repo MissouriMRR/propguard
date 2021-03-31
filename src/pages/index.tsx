@@ -32,9 +32,22 @@ setGlobal({
   showHintAnswer: false,
   editorState: {
     selectedTutorial: "",
-    selectedStep: 1,
+    step: 0,
     saved: false
-  }
+  },
+  editorSteps: [
+    {
+      stepTitle: "Step 1",
+      stepHint: "",
+      stepSuccess: "",
+      content: [
+        {
+          type: "code",
+          value: ""
+        }
+      ]
+    }
+  ]
 });
 
 const IndexPage = (): JSX.Element => <TutorialApp />;

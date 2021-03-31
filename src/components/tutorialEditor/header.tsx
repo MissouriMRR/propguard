@@ -11,7 +11,6 @@ const StyledHeaderContainer: AnyStyledComponent = styled.header`
 `;
 
 const StyledHeaderRow: AnyStyledComponent = styled.div`
-  border: solid red;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -20,6 +19,24 @@ const StyledHeaderRow: AnyStyledComponent = styled.div`
 
 const Header = (): JSX.Element => {
   const [editorState] = useGlobal("editorState");
+  const [editorSteps, setEditorSteps] = useGlobal("editorSteps");
+
+  const addTutorialStep = (): void => {
+    setEditorSteps([
+      ...editorSteps,
+      {
+        stepTitle: "New step",
+        stepHint: "",
+        stepSuccess: "",
+        content: [
+          {
+            type: "code",
+            value: ""
+          }
+        ]
+      }
+    ]);
+  };
 
   return (
     <StyledHeaderContainer>
@@ -33,20 +50,30 @@ const Header = (): JSX.Element => {
         <Button
           text="Discard progress"
           submitFunction={(): void => console.log("Edit")}
-          width="10rem"
+          width="12rem"
         />
       </StyledHeaderRow>
       <StyledHeaderRow>
-        <Button
-          text="Add step"
-          submitFunction={(): void => console.log("Edit")}
-          width="10rem"
-        />
+        <div>
+          <Button
+            text="Add step"
+            submitFunction={addTutorialStep}
+            width="10rem"
+          />
+          <Button
+            text="Delete step"
+            submitFunction={(): void => console.log("Edit")}
+            width="10rem"
+          />
+        </div>
+        {editorSteps.map((step, index) => (
+          <p key={step.stepTitle}>{index}</p>
+        ))}
         <p>Pagination row here</p>
         <Button
           text="Save and export"
           submitFunction={(): void => console.log("Edit")}
-          width="10rem"
+          width="12rem"
         />
       </StyledHeaderRow>
     </StyledHeaderContainer>
