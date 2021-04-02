@@ -26,10 +26,10 @@ const NavWrapper: AnyStyledComponent = styled.nav`
 `;
 
 interface NavIconProps {
-  isSelected: boolean;
+  isselected: boolean;
 }
 
-const NavLogo: AnyStyledComponent = styled(Link)`
+const NavLogo: AnyStyledComponent = styled(Link)<{ isselected: boolean }>`
   height: 4rem;
   width: 4rem;
   padding: 1rem;
@@ -39,7 +39,7 @@ const NavLogo: AnyStyledComponent = styled(Link)`
   font-size: 32px;
   text-decoration: none;
   filter: ${(props: NavIconProps): string =>
-    props.isSelected
+    props.isselected
       ? "invert(58%) sepia(81%) saturate(2820%) hue-rotate(173deg) brightness(90%) contrast(90%)"
       : "none"};
 
@@ -48,12 +48,12 @@ const NavLogo: AnyStyledComponent = styled(Link)`
   }
 `;
 
-const NavIcon: AnyStyledComponent = styled(Icon)`
+const NavIcon: AnyStyledComponent = styled(Icon)<{ isselected: boolean }>`
   height: 4rem;
   width: 4rem;
   padding: 0.75rem;
   color: ${(props: NavIconProps): string =>
-    props.isSelected ? accent : textPrimary};
+    props.isselected ? accent : textPrimary};
 
   &:active {
     padding: 1rem;
@@ -66,7 +66,6 @@ const Navbar: React.FC = (): JSX.Element => {
 
   const openTutorialComponent = (): void => {
     setComponentView("TutorialComponent");
-    // Saves panel choice on localstorage
     setComponentViewSave("TutorialComponent");
   };
 
@@ -85,7 +84,7 @@ const Navbar: React.FC = (): JSX.Element => {
       <NavLogo
         to="/"
         onClick={openTutorialComponent}
-        isSelected={componentView === "TutorialComponent"}
+        isselected={componentView === "TutorialComponent"}
       >
         <Logo />
       </NavLogo>
@@ -94,14 +93,14 @@ const Navbar: React.FC = (): JSX.Element => {
           icon={listIcon}
           width="2.5rem"
           onClick={openTutorialSelector}
-          isSelected={componentView === "TutorialSelector"}
+          isselected={componentView === "TutorialSelector"}
         />
       </Link>
       <Link to="/editor" onClick={openTutorialEditor}>
         <NavIcon
           icon={pencilIcon}
           width="2.5rem"
-          isSelected={componentView === "TutorialEditor"}
+          isselected={componentView === "TutorialEditor"}
         />
       </Link>
     </NavWrapper>
