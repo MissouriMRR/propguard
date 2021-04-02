@@ -1,7 +1,7 @@
-import React, { useGlobal } from "reactn";
+import React from "react";
 import styled, { AnyStyledComponent } from "styled-components";
 
-import { grey } from "../../constants";
+import { grey, textPrimary } from "../../constants";
 
 const StyledHeaderContainer: AnyStyledComponent = styled.header`
   border-top: 1px solid ${grey};
@@ -13,6 +13,10 @@ const StyledHeaderRow: AnyStyledComponent = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: baseline;
+
+  h1 {
+    color: ${textPrimary};
+  }
 `;
 
 const Header = (): JSX.Element => {

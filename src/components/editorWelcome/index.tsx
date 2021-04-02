@@ -54,7 +54,8 @@ const StyledWelcomeSection: AnyStyledComponent = styled.main`
     margin-bottom: 1rem;
   }
 
-  p {
+  p,
+  ul {
     color: ${textSecondary};
   }
 `;
@@ -117,12 +118,12 @@ const EditorWelcome: React.FC = () => {
           <StyledWelcomeSidebar>
             <h2>Need to update propguard?</h2>
             <p>
-              <a
+              <StyledLink
                 href="https://github.com/MissouriMRR/propguard/blob/master/contributing-tutorials.md"
                 target="blank"
               >
                 Click here
-              </a>{" "}
+              </StyledLink>{" "}
               for instructions on updating the live Propguard instance or
               contact one of the maintainers below.
             </p>
