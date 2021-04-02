@@ -1,7 +1,6 @@
 /* eslint react/jsx-one-expression-per-line: 0 */
 import React from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
-import "./normalize.css"; // Normalize CSS styles across all browsers
 
 import { Navbar } from "../navbar";
 import { Output } from "../output";

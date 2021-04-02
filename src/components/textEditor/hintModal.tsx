@@ -6,7 +6,7 @@ import { Icon } from "@iconify/react";
 import closeIcon from "@iconify/icons-mdi/close";
 import clipboardCopy from "@iconify/icons-heroicons-solid/clipboard-copy";
 import { textPrimary } from "../../constants";
-import { Tutorial } from "../types/index";
+import { Tutorial } from "../../types/index";
 
 const CloseButton: AnyStyledComponent = styled(Icon)`
   position: absolute;

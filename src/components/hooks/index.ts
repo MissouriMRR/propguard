@@ -1,4 +1,4 @@
-import { Data } from "../types/index";
+import { Data } from "../../types/index";
 
 export const useLocalStorage = (
   data: Data

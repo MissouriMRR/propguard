@@ -1,10 +1,11 @@
 import React, { useState } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
-import "../app/normalize.css";
 
 import AceEditor from "react-ace";
-import { Navbar } from "../navbar";
 import { HintInput } from "./hintInput";
+import { Header } from "./header";
+import { Navbar } from "../navbar";
+
 import { StepContent } from "./stepContent";
 
 import "ace-builds";
@@ -14,7 +15,7 @@ import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/theme-tomorrow_night_eighties";
 
 import { background, grey } from "../../constants";
-import { Button } from "../textEditor/button";
+import { Button } from "../button";
 
 interface ContentBlock {
   type: string;
@@ -37,20 +38,6 @@ const MainWrapper: AnyStyledComponent = styled.main`
   flex-direction: row;
   flex-wrap: none;
   flex: 1;
-`;
-
-const StyledHeader: AnyStyledComponent = styled.div`
-  height: 72px;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-items: stretch;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  border: 1px solid ${grey};
-  border-left: none;
-  border-bottom: none;
 `;
 
 const StyledTitle: AnyStyledComponent = styled.div`
@@ -79,15 +66,6 @@ const StyledRightHalf: AnyStyledComponent = styled.div`
   width: 50%;
   color: white;
   border-right: 1px solid ${grey};
-`;
-
-const StyledStepNav: AnyStyledComponent = styled.div`
-  height: 100%;
-  width: 75px;
-  color: white;
-  border-bottom: 1px solid ${grey};
-  border-right: 1px solid ${grey};
-  border-top: 1px solid ${grey};
 `;
 
 const StyledStepSection: AnyStyledComponent = styled.div`
@@ -150,11 +128,8 @@ const TutEditor: React.FC = (): JSX.Element => {
     <MainWrapper>
       <Navbar />
       <StyledEditor>
-        <StyledHeader>
-          <h2>Tutorial Editor</h2>
-        </StyledHeader>
+        <Header />
         <MainWrapper>
-          <StyledStepNav />
           <StyledLeftHalf>
             <StyledTitle>
               <h3>Step</h3>

@@ -14,7 +14,7 @@ import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/theme-tomorrow_night_eighties";
 
 import { background, grey } from "../../constants";
-import { Button } from "../textEditor/button";
+import { Button } from "../button";
 
 interface DeleteProps {
   visible: string;

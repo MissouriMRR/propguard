@@ -31,5 +31,10 @@ export declare module "reactn/default" {
     };
     hintModalOpen: boolean;
     showHintAnswer: boolean;
+    editorState: {
+      selectedTutorial: string;
+      selectedStep: string;
+      saved: boolean;
+    };
   }
 }

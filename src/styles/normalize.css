@@ -15,6 +15,10 @@
   box-sizing: border-box; /* Opera/IE 8+ */
 }
 
+html {
+  font-size: 16px;
+}
+
 /**
  * Firefox scrollbar settings
  */
