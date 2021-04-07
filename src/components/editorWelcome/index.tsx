@@ -93,6 +93,9 @@ const EditorWelcome: React.FC = () => {
     setEditorState({ ...editorState, selectedTutorial: "New Tutorial" });
   };
 
+  const uploadNewTutorial = (): void =>
+    document.getElementById("upload-input")?.click();
+
   return (
     <StyledEditorContainer>
       <Navbar />
@@ -113,6 +116,18 @@ const EditorWelcome: React.FC = () => {
               <StyledLink onClick={createNewTutorial}>
                 Create a brand new tutorial from scratch
               </StyledLink>
+            </StyledCard>
+            <StyledCard>
+              <h2>Upload</h2>
+              <StyledLink onClick={uploadNewTutorial}>
+                Upload an existing JSON tutorial.
+              </StyledLink>
+              <input
+                type="file"
+                style={{ display: "none" }}
+                accept=".json"
+                id="upload-input"
+              />
             </StyledCard>
           </StyledWelcomeInfo>
           <StyledWelcomeSidebar>
