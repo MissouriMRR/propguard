@@ -1,4 +1,4 @@
-import React, { useGlobal } from "reactn";
+import React, { useGlobal, useRef } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 
 import { Navbar } from "../navbar";
@@ -88,13 +88,23 @@ const StyledWelcomeSidebar: AnyStyledComponent = styled.div`
 
 const EditorWelcome: React.FC = () => {
   const [editorState, setEditorState] = useGlobal("editorState");
+  const uploadInput = useRef<HTMLInputElement>(null);
 
   const createNewTutorial = (): void => {
     setEditorState({ ...editorState, selectedTutorial: "New Tutorial" });
   };
 
-  const uploadNewTutorial = (): void =>
-    document.getElementById("upload-input")?.click();
+  const uploadNewTutorial = (): void => {
+    if (uploadInput.current !== null) {
+      uploadInput.current.click();
+    }
+  };
+
+  const handleUpload = (): void => {
+    if (uploadInput.current?.files !== null) {
+      console.log(uploadInput.current?.files[0]);
+    }
+  };
 
   return (
     <StyledEditorContainer>
@@ -126,7 +136,8 @@ const EditorWelcome: React.FC = () => {
                 type="file"
                 style={{ display: "none" }}
                 accept=".json"
-                id="upload-input"
+                ref={uploadInput}
+                onChange={handleUpload}
               />
             </StyledCard>
           </StyledWelcomeInfo>
