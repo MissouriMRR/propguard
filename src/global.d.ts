@@ -28,8 +28,8 @@ interface EditorStep {
   }[];
 }
 
-export declare module "reactn/default" {
-  interface State {
+export module "reactn/default" {
+  export interface State {
     tutorialName: string;
     tutorialStep: number;
     componentView: string;

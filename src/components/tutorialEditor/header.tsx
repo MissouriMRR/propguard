@@ -18,14 +18,14 @@ const StyledHeaderRow: AnyStyledComponent = styled.div`
 `;
 
 const Header = (): JSX.Element => {
-  const [editorState] = useGlobal("editorState");
+  const [editorState, setEditorState] = useGlobal("editorState");
   const [editorSteps, setEditorSteps] = useGlobal("editorSteps");
 
   const addTutorialStep = (): void => {
-    setEditorSteps([
+    const newSteps = [
       ...editorSteps,
       {
-        stepTitle: "New step",
+        stepTitle: `New step ${new Date().getTime()}`,
         stepHint: "",
         stepSuccess: "",
         content: [
@@ -35,7 +35,22 @@ const Header = (): JSX.Element => {
           }
         ]
       }
-    ]);
+    ];
+    setEditorSteps(newSteps);
+  };
+
+  const goToStep = async (step: number): Promise<void> => {
+    let newStep = step;
+    if (step < 0) {
+      newStep = 0;
+    } else if (step >= editorSteps.length) {
+      newStep = editorSteps.length - 1;
+    }
+
+    await setEditorState({
+      ...editorState,
+      step: newStep
+    });
   };
 
   return (
@@ -66,10 +81,27 @@ const Header = (): JSX.Element => {
             width="10rem"
           />
         </div>
-        {editorSteps.map((step, index) => (
-          <p key={step.stepTitle}>{index}</p>
-        ))}
-        <p>Pagination row here</p>
+        <div>
+          <Button
+            text="Prev"
+            submitFunction={(): Promise<void> => goToStep(editorState.step - 1)}
+            width="6rem"
+          />
+          {editorSteps.map((step, index) => (
+            <Button
+              text={index.toString()}
+              // Ensures that keys are unique
+              key={`${step.stepTitle}_${new Date().getTime()}`}
+              submitFunction={(): Promise<void> => goToStep(index)}
+              width="2.5rem"
+            />
+          ))}
+          <Button
+            text="Prev"
+            submitFunction={(): Promise<void> => goToStep(editorState.step + 1)}
+            width="6rem"
+          />
+        </div>
         <Button
           text="Save and export"
           submitFunction={(): void => console.log("Edit")}
