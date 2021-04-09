@@ -74,6 +74,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
   const [tutorialName] = useGlobal("tutorialName");
   const [componentView] = useGlobal("componentView");
   const [, setOutput] = useGlobal("output");
+  const [upload] = useGlobal("upload");
 
   let data = useStaticQuery(graphql`
     query {
@@ -91,6 +92,26 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
       }
     }
   `);
+
+  if (upload) {
+    for (let i = 0; i < upload.length; i++) {
+      const instructionsArray = [];
+      for (let j = 0; j < upload[i].instructions.length; j++) {
+        const instructionsCopy = (({ title, content }) => ({
+          title,
+          content
+        }))(upload[i].instructions[j]);
+        instructionsArray.push(instructionsCopy);
+      }
+      const uploadCopy = (({ tutorial_title }) => ({
+        tutorial_title
+      }))(upload[i]);
+
+      uploadCopy.instructions = instructionsArray;
+
+      data.allExampleGqlJson.nodes.push(uploadCopy);
+    }
+  }
 
   const [tutName, tutStep, , setStep] = useLocalStorage(data);
 

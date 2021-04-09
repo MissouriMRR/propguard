@@ -88,7 +88,6 @@ const TextEditor: React.FC = (): JSX.Element => {
       gqlData.allExampleGqlJson.nodes.push(uploadCopy);
     }
   }
-  console.log(gqlData);
 
   // We destructure the data since this query returns an array, and when
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
