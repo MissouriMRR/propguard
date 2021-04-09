@@ -32,7 +32,8 @@ setGlobal({
     selectedTutorial: "",
     selectedStep: 1,
     saved: false
-  }
+  },
+  upload: []
 });
 
 const IndexPage = (): JSX.Element => <TutorialApp />;

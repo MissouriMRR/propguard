@@ -11,6 +11,7 @@ import {
   textPrimary,
   textSecondary
 } from "../../constants";
+import { any } from "prop-types";
 
 const StyledEditorContainer: AnyStyledComponent = styled.div`
   width: 100vw;
@@ -88,6 +89,7 @@ const StyledWelcomeSidebar: AnyStyledComponent = styled.div`
 
 const EditorWelcome: React.FC = () => {
   const [editorState, setEditorState] = useGlobal("editorState");
+  const [upload, setUpload] = useGlobal("upload");
   const uploadInput = useRef<HTMLInputElement>(null);
 
   const createNewTutorial = (): void => {
@@ -102,7 +104,11 @@ const EditorWelcome: React.FC = () => {
 
   const handleUpload = (): void => {
     if (uploadInput.current?.files !== null) {
-      console.log(uploadInput.current?.files[0]);
+      uploadInput.current?.files[0].text().then((data: any) => {
+        const uploadCopy = upload;
+        uploadCopy.push(JSON.parse(data));
+        setUpload(uploadCopy);
+      });
     }
   };
 

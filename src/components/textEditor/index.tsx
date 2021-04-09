@@ -48,6 +48,7 @@ const TextEditor: React.FC = (): JSX.Element => {
   const [tutorialName] = useGlobal("tutorialName");
   const [tutorialStep] = useGlobal("tutorialStep");
   const [output, setOutput] = useGlobal("output");
+  const [upload] = useGlobal("upload");
 
   const gqlData = useStaticQuery(graphql`
     query {
@@ -66,6 +67,28 @@ const TextEditor: React.FC = (): JSX.Element => {
       }
     }
   `);
+
+  if (upload) {
+    for (let i = 0; i < upload.length; i++) {
+      const instructionsArray = [];
+      for (let j = 0; j < upload[i].instructions.length; j++) {
+        const instructionsCopy = (({ hint, answer, output }) => ({
+          hint,
+          answer,
+          output
+        }))(upload[i].instructions[j]);
+        instructionsArray.push(instructionsCopy);
+      }
+      const uploadCopy = (({ tutorial_title }) => ({
+        tutorial_title
+      }))(upload[i]);
+
+      uploadCopy.instructions = instructionsArray;
+
+      gqlData.allExampleGqlJson.nodes.push(uploadCopy);
+    }
+  }
+  console.log(gqlData);
 
   // We destructure the data since this query returns an array, and when
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
