@@ -45,7 +45,8 @@ setGlobal({
           type: "code",
           value: ""
         }
-      ]
+      ],
+      answer: ""
     }
   ]
 });

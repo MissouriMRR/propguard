@@ -1,32 +1,14 @@
 import "reactn";
 
+import { EditorStep } from "./types/editorTypes";
+
 /*
   This sets the shape of our global state since we want our global
   state to be typed. Should be the same shape as the global object
   initialized in src/pages/index.tsx
-
-  State object descriptions
-
-  tutorialName - The name of the tutorial that the user has selected
-  tutorialStep - The step of the tutorial the user is on.
-  selectorDisplay: Whether or not the tutorial selector component is displayed
-  tutorialDisplay: Whether or not the tutorial step component is displayed
-  output - Object that represents the output state
-    status - A string that is "", "Loading", "Failure", or "Successful" that
-             gives the status of the output
-    correct - Boolean for whether or not the user's answer was correct
-    message - The text that gets displayed on the output console
-    droneTask - String representing a function of what a drone should do
+  TODO: Perhaps it's time to simplify this down back into local state
+  or to use something like React Context
 */
-interface EditorStep {
-  stepTitle: string;
-  stepHint: string;
-  stepSuccess: string;
-  content: {
-    type: string;
-    value: string;
-  }[];
-}
 
 export module "reactn/default" {
   export interface State {

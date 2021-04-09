@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 
 import { Button } from "../button";
 
-import { grey, textPrimary } from "../../constants";
+import { accent, grey, textPrimary } from "../../constants";
 
 const StyledHeaderContainer: AnyStyledComponent = styled.header`
   border-top: 1px solid ${grey};
   border-right: 1px solid ${grey};
+  padding-bottom: 1rem;
 `;
 
 const StyledHeaderRow: AnyStyledComponent = styled.div`
@@ -21,11 +22,17 @@ const StyledHeaderRow: AnyStyledComponent = styled.div`
   }
 `;
 
+const StyledMarginWrapper: AnyStyledComponent = styled.div`
+  & > * {
+    margin-right: 0.25rem;
+  }
+`;
+
 const Header = (): JSX.Element => {
   const [editorState, setEditorState] = useGlobal("editorState");
   const [editorSteps, setEditorSteps] = useGlobal("editorSteps");
 
-  const addTutorialStep = (): void => {
+  const addTutorialStep = async (): Promise<void> => {
     const newSteps = [
       ...editorSteps,
       {
@@ -37,10 +44,22 @@ const Header = (): JSX.Element => {
             type: "code",
             value: ""
           }
-        ]
+        ],
+        answer: ""
       }
     ];
-    setEditorSteps(newSteps);
+    await setEditorSteps(newSteps);
+  };
+
+  const removeTutorialStep = async (toRemoveIndex: number): Promise<void> => {
+    if (editorSteps.length <= 1) return;
+    const newSteps = editorSteps.filter((_, index) => index !== toRemoveIndex);
+
+    await setEditorState({
+      ...editorState,
+      step: Math.min(editorState.step, editorSteps.length - 2)
+    });
+    await setEditorSteps(newSteps);
   };
 
   const goToStep = async (step: number): Promise<void> => {
@@ -57,6 +76,8 @@ const Header = (): JSX.Element => {
     });
   };
 
+  // TODO: Editing tutorial info, discarding progress, and exporting
+  // will be in future versions
   return (
     <StyledHeaderContainer>
       <StyledHeaderRow>
@@ -68,12 +89,12 @@ const Header = (): JSX.Element => {
         <h1>{editorState.selectedTutorial}</h1>
         <Button
           text="Discard progress"
-          submitFunction={(): void => console.log("Edit")}
+          submitFunction={(): void => console.log("Discard")}
           width="12rem"
         />
       </StyledHeaderRow>
       <StyledHeaderRow>
-        <div>
+        <StyledMarginWrapper>
           <Button
             text="Add step"
             submitFunction={addTutorialStep}
@@ -81,11 +102,13 @@ const Header = (): JSX.Element => {
           />
           <Button
             text="Delete step"
-            submitFunction={(): void => console.log("Edit")}
+            submitFunction={(): Promise<void> =>
+              removeTutorialStep(editorState.step)
+            }
             width="10rem"
           />
-        </div>
-        <div>
+        </StyledMarginWrapper>
+        <StyledMarginWrapper>
           <Button
             text="Prev"
             submitFunction={(): Promise<void> => goToStep(editorState.step - 1)}
@@ -98,17 +121,18 @@ const Header = (): JSX.Element => {
               key={`${step.stepTitle}_${new Date().getTime()}`}
               submitFunction={(): Promise<void> => goToStep(index)}
               width="2.5rem"
+              backgroundColor={index === editorState.step ? accent : undefined}
             />
           ))}
           <Button
-            text="Prev"
+            text="Next"
             submitFunction={(): Promise<void> => goToStep(editorState.step + 1)}
             width="6rem"
           />
-        </div>
+        </StyledMarginWrapper>
         <Button
           text="Save and export"
-          submitFunction={(): void => console.log("Edit")}
+          submitFunction={(): void => console.log("Export")}
           width="12rem"
         />
       </StyledHeaderRow>

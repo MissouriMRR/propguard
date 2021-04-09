@@ -1,18 +1,17 @@
-import React, { useState, useGlobal } from "reactn";
-import styled, { AnyStyledComponent } from "styled-components";
-
+import React, { useGlobal } from "reactn";
 import AceEditor from "react-ace";
-import { HintInput } from "./hintInput";
-import { Header } from "./header";
-import { Navbar } from "../navbar";
-
-import { StepContent } from "./stepContent";
-
 import "ace-builds";
 import "ace-builds/webpack-resolver";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/theme-tomorrow_night_eighties";
+import styled, { AnyStyledComponent } from "styled-components";
+
+import { HintInput } from "./hintInput";
+import { Header } from "./header";
+import { Navbar } from "../navbar";
+import { StepContent } from "./stepContent";
+import { EditorStep } from "../../types/editorTypes";
 
 import { background, grey } from "../../constants";
 import { Button } from "../button";
@@ -22,14 +21,22 @@ interface ContentBlock {
   value: string;
 }
 
-const StyledEditor: AnyStyledComponent = styled.div`
+const StyledEditorContainer: AnyStyledComponent = styled.div`
   height: 100vh;
   width: 100vw;
+  min-width: 900px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-items: stretch;
   background: ${background};
   overflow: auto;
+`;
+
+const StyledEditor: AnyStyledComponent = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const MainWrapper: AnyStyledComponent = styled.main`
@@ -107,11 +114,19 @@ const ContentBlock: AnyStyledComponent = styled.div`
   margin-bottom: 20px;
 `;
 
-// TODO: See if some of the block editing functions can be simplified
 const TutEditor: React.FC = (): JSX.Element => {
   // const [step /* , setStep */] = useState(0);
   const [editorState /* , setEditorState */] = useGlobal("editorState");
+  const [editorSteps, setEditorSteps] = useGlobal("editorSteps");
   const [steps, setSteps] = useGlobal("editorSteps");
+
+  const setStepState = (newStep: EditorStep): void => {
+    setSteps([
+      ...steps.slice(0, editorState.step),
+      newStep,
+      ...steps.slice(editorState.step + 1, steps.length)
+    ]);
+  };
 
   const addBlock = (): void => {
     const stepCopy = steps[editorState.step];
@@ -120,11 +135,7 @@ const TutEditor: React.FC = (): JSX.Element => {
       value: ""
     });
 
-    setSteps([
-      ...steps.slice(0, editorState.step),
-      stepCopy,
-      ...steps.slice(editorState.step + 1, steps.length)
-    ]);
+    setStepState(stepCopy);
   };
 
   const deleteBlock = (index: number): void => {
@@ -134,11 +145,7 @@ const TutEditor: React.FC = (): JSX.Element => {
       ...stepCopy.content.slice(index + 1, stepCopy.content.length)
     ];
 
-    setSteps([
-      ...steps.slice(0, editorState.step),
-      stepCopy,
-      ...steps.slice(editorState.step + 1, steps.length)
-    ]);
+    setStepState(stepCopy);
   };
 
   const changeOrder = (direction: "up" | "down", index: number): void => {
@@ -147,9 +154,6 @@ const TutEditor: React.FC = (): JSX.Element => {
     let diff = 0;
 
     if (direction === "up" && index - 1 >= 0) {
-      // const temp = contentCopy[index - 1];
-      // contentCopy[index - 1] = contentCopy[index];
-      // contentCopy[index] = temp;
       diff = -1;
     } else if (direction === "down" && index + 1 < contentCopy.length) {
       diff = 1;
@@ -160,21 +164,13 @@ const TutEditor: React.FC = (): JSX.Element => {
     contentCopy[index] = temp;
 
     stepCopy.content = contentCopy;
-    setSteps([
-      ...steps.slice(0, editorState.step),
-      stepCopy,
-      ...steps.slice(editorState.step + 1, steps.length)
-    ]);
+    setStepState(stepCopy);
   };
 
   const toggleBlockType = (type: string, index: number): void => {
     const stepCopy = steps[editorState.step];
     stepCopy.content[index].type = type;
-    setSteps([
-      ...steps.slice(0, editorState.step),
-      stepCopy,
-      ...steps.slice(editorState.step + 1, steps.length)
-    ]);
+    setStepState(stepCopy);
   };
 
   // This change handler works for both text blocks and code blocks
@@ -195,15 +191,25 @@ const TutEditor: React.FC = (): JSX.Element => {
 
     const stepCopy = steps[editorState.step];
     stepCopy.content[index].value = changeText;
-    setSteps([
-      ...steps.slice(0, editorState.step),
-      stepCopy,
-      ...steps.slice(editorState.step + 1, steps.length)
+    setStepState(stepCopy);
+  };
+
+  const changeEditorStepDetail = async (
+    attribute: string,
+    value: string
+  ): Promise<void> => {
+    const newStep = editorSteps[editorState.step];
+    newStep[attribute] = value;
+
+    await setEditorSteps([
+      ...editorSteps.slice(0, editorState.step),
+      newStep,
+      ...editorSteps.slice(editorState.step + 1, steps.length)
     ]);
   };
 
   return (
-    <MainWrapper>
+    <StyledEditorContainer>
       <Navbar />
       <StyledEditor>
         <Header />
@@ -215,15 +221,30 @@ const TutEditor: React.FC = (): JSX.Element => {
             <StyledStepSection>
               <StyledTextInput>
                 <StyledLabel>Step Title:</StyledLabel>
-                <HintInput placeholder="Step Title" />
+                <HintInput
+                  attributeName="stepTitle"
+                  value={editorSteps[editorState.step].stepTitle}
+                  setValue={changeEditorStepDetail}
+                  placeholder="Step Title"
+                />
               </StyledTextInput>
               <StyledTextInput>
                 <StyledLabel>Hint:</StyledLabel>
-                <HintInput placeholder="Hint" />
+                <HintInput
+                  attributeName="stepHint"
+                  value={editorSteps[editorState.step].stepHint}
+                  setValue={changeEditorStepDetail}
+                  placeholder="Hint"
+                />
               </StyledTextInput>
               <StyledTextInput>
                 <StyledLabel>Success Message:</StyledLabel>
-                <HintInput placeholder="Success Message" />
+                <HintInput
+                  attributeName="stepSuccess"
+                  value={editorSteps[editorState.step].stepSuccess}
+                  setValue={changeEditorStepDetail}
+                  placeholder="Success Message"
+                />
               </StyledTextInput>
             </StyledStepSection>
             <StyledTitle>
@@ -260,6 +281,10 @@ const TutEditor: React.FC = (): JSX.Element => {
               <h3>Code Solution</h3>
             </StyledTitle>
             <AceEditor
+              value={editorSteps[editorState.step].answer}
+              onChange={(code: string): Promise<void> =>
+                changeEditorStepDetail("answer", code)
+              }
               style={{
                 position: "relative",
                 marginTop: "1%",
@@ -282,7 +307,7 @@ const TutEditor: React.FC = (): JSX.Element => {
           </StyledRightHalf>
         </MainWrapper>
       </StyledEditor>
-    </MainWrapper>
+    </StyledEditorContainer>
   );
 };
 
