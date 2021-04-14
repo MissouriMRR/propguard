@@ -89,7 +89,13 @@ const StyledWelcomeSidebar: AnyStyledComponent = styled.div`
 
 const EditorWelcome: React.FC = () => {
   const [editorState, setEditorState] = useGlobal("editorState");
-  const [upload, setUpload] = useGlobal("upload");
+  const [uploadTextEditor, setUploadTextEditor] = useGlobal("uploadTextEditor");
+  const [uploadTutorialSelector, setUploadTutorialSelector] = useGlobal(
+    "uploadTutorialSelector"
+  );
+  const [uploadTutorialComponent, setUploadTutorialComponent] = useGlobal(
+    "uploadTutorialComponent"
+  );
   const uploadInput = useRef<HTMLInputElement>(null);
 
   const createNewTutorial = (): void => {
@@ -105,9 +111,17 @@ const EditorWelcome: React.FC = () => {
   const handleUpload = (): void => {
     if (uploadInput.current?.files !== null) {
       uploadInput.current?.files[0].text().then((data: any) => {
-        const uploadCopy = upload;
-        uploadCopy.push(JSON.parse(data));
-        setUpload(uploadCopy);
+        const uploadTextEditorCopy = uploadTextEditor;
+        const uploadTutorialSelectorCopy = uploadTutorialSelector;
+        const uploadTutorialComponentCopy = uploadTutorialComponent;
+
+        uploadTextEditorCopy.push(JSON.parse(data));
+        uploadTutorialSelectorCopy.push(JSON.parse(data));
+        uploadTutorialComponentCopy.push(JSON.parse(data));
+
+        setUploadTextEditor(uploadTextEditorCopy);
+        setUploadTutorialSelector(uploadTutorialSelectorCopy);
+        setUploadTutorialComponent(uploadTutorialComponentCopy);
       });
     }
   };

@@ -36,6 +36,8 @@ export declare module "reactn/default" {
       selectedStep: string;
       saved: boolean;
     };
-    upload: Array<any>;
+    uploadTextEditor: Array<any>;
+    uploadTutorialSelector: Array<any>;
+    uploadTutorialComponent: Array<any>;
   }
 }

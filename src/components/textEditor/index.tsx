@@ -48,7 +48,7 @@ const TextEditor: React.FC = (): JSX.Element => {
   const [tutorialName] = useGlobal("tutorialName");
   const [tutorialStep] = useGlobal("tutorialStep");
   const [output, setOutput] = useGlobal("output");
-  const [upload] = useGlobal("upload");
+  const [uploadTextEditor, setUploadTextEditor] = useGlobal("uploadTextEditor");
 
   const gqlData = useStaticQuery(graphql`
     query {
@@ -68,25 +68,27 @@ const TextEditor: React.FC = (): JSX.Element => {
     }
   `);
 
-  if (upload) {
-    for (let i = 0; i < upload.length; i++) {
+  if (uploadTextEditor.length > 0) {
+    for (let i = 0; i < uploadTextEditor.length; i++) {
       const instructionsArray = [];
-      for (let j = 0; j < upload[i].instructions.length; j++) {
+      for (let j = 0; j < uploadTextEditor[i].instructions.length; j++) {
         const instructionsCopy = (({ hint, answer, output }) => ({
           hint,
           answer,
           output
-        }))(upload[i].instructions[j]);
+        }))(uploadTextEditor[i].instructions[j]);
         instructionsArray.push(instructionsCopy);
       }
       const uploadCopy = (({ tutorial_title }) => ({
         tutorial_title
-      }))(upload[i]);
+      }))(uploadTextEditor[i]);
 
       uploadCopy.instructions = instructionsArray;
 
       gqlData.allExampleGqlJson.nodes.push(uploadCopy);
     }
+
+    setUploadTextEditor([]);
   }
 
   // We destructure the data since this query returns an array, and when
