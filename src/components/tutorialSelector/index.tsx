@@ -10,6 +10,11 @@ interface SelectorProps {
   disp: string;
 }
 
+interface Upload {
+  tutorial_title: string;
+  description: string;
+}
+
 const Selector: AnyStyledComponent = styled.div`
   height: 100%;
   width: 100%;
@@ -92,7 +97,7 @@ const TutorialSelector: React.FC = (): JSX.Element => {
 
   if (uploadTutorialSelector.length > 0) {
     for (let i = 0; i < uploadTutorialSelector.length; i++) {
-      const uploadCopy = (({ tutorial_title, description }) => ({
+      const uploadCopy = (({ tutorial_title, description }): Upload => ({
         tutorial_title,
         description
       }))(uploadTutorialSelector[i]);

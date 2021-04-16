@@ -11,7 +11,6 @@ import {
   textPrimary,
   textSecondary
 } from "../../constants";
-import { any } from "prop-types";
 
 const StyledEditorContainer: AnyStyledComponent = styled.div`
   width: 100vw;

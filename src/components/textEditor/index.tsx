@@ -9,7 +9,7 @@ import AceEditor from "react-ace";
 import { HintModal } from "./hintModal";
 import { Button } from "../button";
 import { background, grey } from "../../constants";
-import { Tutorial } from "../../types";
+import { Tutorial, Instructions } from "../../types";
 import { submitAnswer } from "./submitAnswer";
 
 import "ace-builds";
@@ -40,6 +40,17 @@ const TerminalHeader: AnyStyledComponent = styled.div`
   border-right: none;
   border-top: none;
 `;
+
+interface Upload {
+  tutorial_title: string;
+  instructions: Instructions[];
+}
+
+interface InstructionsCopy {
+  hint: string;
+  answer: string;
+  output: string;
+}
 
 const TextEditor: React.FC = (): JSX.Element => {
   const [userInput, setUserInput] = useState<string>("");
@@ -72,15 +83,20 @@ const TextEditor: React.FC = (): JSX.Element => {
     for (let i = 0; i < uploadTextEditor.length; i++) {
       const instructionsArray = [];
       for (let j = 0; j < uploadTextEditor[i].instructions.length; j++) {
-        const instructionsCopy = (({ hint, answer, output }) => ({
+        const instructionsCopy = (({
+          hint,
+          answer,
+          output
+        }): InstructionsCopy => ({
           hint,
           answer,
           output
         }))(uploadTextEditor[i].instructions[j]);
         instructionsArray.push(instructionsCopy);
       }
-      const uploadCopy = (({ tutorial_title }) => ({
-        tutorial_title
+      const uploadCopy = (({ tutorial_title, instructions }): Upload => ({
+        tutorial_title,
+        instructions
       }))(uploadTextEditor[i]);
 
       uploadCopy.instructions = instructionsArray;

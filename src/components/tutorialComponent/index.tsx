@@ -1,15 +1,11 @@
 import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
-import { Tutorial, Content } from "../../types";
+import { Tutorial, Content, Instructions } from "../../types";
 import { useLocalStorage } from "../hooks/index";
 
 import { grey, codeColor } from "../../constants";
 import { StepButton } from "./stepButton";
-
-interface TutorialProps {
-  disp: string;
-}
 
 const TutorialBG: AnyStyledComponent = styled.div`
   height: 100%;
@@ -69,6 +65,15 @@ const CodeBlock: AnyStyledComponent = styled.div`
   }
 `;
 
+interface TutorialProps {
+  disp: string;
+}
+
+interface Upload {
+  tutorial_title: string;
+  instructions: Instructions[];
+}
+
 const TutorialDisplay: React.FC = (): JSX.Element => {
   const [tutorialStep, setTutorialStep] = useGlobal("tutorialStep");
   const [tutorialName] = useGlobal("tutorialName");
@@ -99,14 +104,15 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
     for (let i = 0; i < uploadTutorialComponent.length; i++) {
       const instructionsArray = [];
       for (let j = 0; j < uploadTutorialComponent[i].instructions.length; j++) {
-        const instructionsCopy = (({ title, content }) => ({
+        const instructionsCopy = (({ title, content }): Instructions => ({
           title,
           content
         }))(uploadTutorialComponent[i].instructions[j]);
         instructionsArray.push(instructionsCopy);
       }
-      const uploadCopy = (({ tutorial_title }) => ({
-        tutorial_title
+      const uploadCopy = (({ tutorial_title, instructions }): Upload => ({
+        tutorial_title,
+        instructions
       }))(uploadTutorialComponent[i]);
 
       uploadCopy.instructions = instructionsArray;
