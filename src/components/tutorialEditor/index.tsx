@@ -1,18 +1,17 @@
-import React, { useState } from "reactn";
-import styled, { AnyStyledComponent } from "styled-components";
-
+import React, { useGlobal } from "reactn";
 import AceEditor from "react-ace";
-import { HintInput } from "./hintInput";
-import { Header } from "./header";
-import { Navbar } from "../navbar";
-
-import { StepContent } from "./stepContent";
-
 import "ace-builds";
 import "ace-builds/webpack-resolver";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/theme-tomorrow_night_eighties";
+import styled, { AnyStyledComponent } from "styled-components";
+
+import { HintInput } from "./hintInput";
+import { Header } from "./header";
+import { Navbar } from "../navbar";
+import { StepContent } from "./stepContent";
+import { EditorStep } from "../../types/editorTypes";
 
 import { background, grey } from "../../constants";
 import { Button } from "../button";
@@ -22,14 +21,22 @@ interface ContentBlock {
   value: string;
 }
 
-const StyledEditor: AnyStyledComponent = styled.div`
+const StyledEditorContainer: AnyStyledComponent = styled.div`
   height: 100vh;
   width: 100vw;
+  min-width: 900px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-items: stretch;
   background: ${background};
   overflow: auto;
+`;
+
+const StyledEditor: AnyStyledComponent = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const MainWrapper: AnyStyledComponent = styled.main`
@@ -108,24 +115,101 @@ const ContentBlock: AnyStyledComponent = styled.div`
 `;
 
 const TutEditor: React.FC = (): JSX.Element => {
-  const [content, setContent] = useState([
-    {
-      type: "text",
-      value: ""
-    }
-  ]);
+  // const [step /* , setStep */] = useState(0);
+  const [editorState /* , setEditorState */] = useGlobal("editorState");
+  const [editorSteps, setEditorSteps] = useGlobal("editorSteps");
+  const [steps, setSteps] = useGlobal("editorSteps");
+
+  const setStepState = (newStep: EditorStep): void => {
+    setSteps([
+      ...steps.slice(0, editorState.step),
+      newStep,
+      ...steps.slice(editorState.step + 1, steps.length)
+    ]);
+  };
 
   const addBlock = (): void => {
-    const contentCopy = [...content];
-    contentCopy.push({
+    const stepCopy = steps[editorState.step];
+    stepCopy.content.push({
       type: "text",
       value: ""
     });
-    setContent(contentCopy);
+
+    setStepState(stepCopy);
+  };
+
+  const deleteBlock = (index: number): void => {
+    const stepCopy = steps[editorState.step];
+    stepCopy.content = [
+      ...stepCopy.content.slice(0, index),
+      ...stepCopy.content.slice(index + 1, stepCopy.content.length)
+    ];
+
+    setStepState(stepCopy);
+  };
+
+  const changeOrder = (direction: "up" | "down", index: number): void => {
+    const stepCopy = steps[editorState.step];
+    const contentCopy = stepCopy.content;
+    let diff = 0;
+
+    if (direction === "up" && index - 1 >= 0) {
+      diff = -1;
+    } else if (direction === "down" && index + 1 < contentCopy.length) {
+      diff = 1;
+    }
+
+    const temp = contentCopy[index + diff];
+    contentCopy[index + diff] = contentCopy[index];
+    contentCopy[index] = temp;
+
+    stepCopy.content = contentCopy;
+    setStepState(stepCopy);
+  };
+
+  const toggleBlockType = (type: string, index: number): void => {
+    const stepCopy = steps[editorState.step];
+    stepCopy.content[index].type = type;
+    setStepState(stepCopy);
+  };
+
+  // This change handler works for both text blocks and code blocks
+  // by checking the type of the change argument.
+  const blockChangeHandler = (
+    change: React.ChangeEvent<HTMLInputElement> | string,
+    index: number
+  ): void => {
+    let changeText = "";
+    // Checks to see what type the change argument is because it can
+    // either be an onChange event or just a string, which is what Ace Editor
+    // uses for the code block
+    if (typeof change === "object" && change.target) {
+      changeText = change.target.value;
+    } else if (typeof change === "string") {
+      changeText = change;
+    } else return;
+
+    const stepCopy = steps[editorState.step];
+    stepCopy.content[index].value = changeText;
+    setStepState(stepCopy);
+  };
+
+  const changeEditorStepDetail = async (
+    attribute: string,
+    value: string
+  ): Promise<void> => {
+    const newStep = editorSteps[editorState.step];
+    newStep[attribute] = value;
+
+    await setEditorSteps([
+      ...editorSteps.slice(0, editorState.step),
+      newStep,
+      ...editorSteps.slice(editorState.step + 1, steps.length)
+    ]);
   };
 
   return (
-    <MainWrapper>
+    <StyledEditorContainer>
       <Navbar />
       <StyledEditor>
         <Header />
@@ -137,15 +221,30 @@ const TutEditor: React.FC = (): JSX.Element => {
             <StyledStepSection>
               <StyledTextInput>
                 <StyledLabel>Step Title:</StyledLabel>
-                <HintInput placeholder="Step Title" />
+                <HintInput
+                  attributeName="stepTitle"
+                  value={editorSteps[editorState.step].stepTitle}
+                  setValue={changeEditorStepDetail}
+                  placeholder="Step Title"
+                />
               </StyledTextInput>
               <StyledTextInput>
                 <StyledLabel>Hint:</StyledLabel>
-                <HintInput placeholder="Hint" />
+                <HintInput
+                  attributeName="stepHint"
+                  value={editorSteps[editorState.step].stepHint}
+                  setValue={changeEditorStepDetail}
+                  placeholder="Hint"
+                />
               </StyledTextInput>
               <StyledTextInput>
                 <StyledLabel>Success Message:</StyledLabel>
-                <HintInput placeholder="Success Message" />
+                <HintInput
+                  attributeName="stepSuccess"
+                  value={editorSteps[editorState.step].stepSuccess}
+                  setValue={changeEditorStepDetail}
+                  placeholder="Success Message"
+                />
               </StyledTextInput>
             </StyledStepSection>
             <StyledTitle>
@@ -153,17 +252,21 @@ const TutEditor: React.FC = (): JSX.Element => {
             </StyledTitle>
             <StepContentBody>
               <div>
-                {content.map((value: ContentBlock, index: number) => {
-                  return (
-                    <StepContent
-                      value={value}
-                      index={index}
-                      key={index.toString()}
-                      content={content}
-                      setContent={setContent}
-                    />
-                  );
-                })}
+                {steps[editorState.step].content.map(
+                  (content: ContentBlock, index: number) => {
+                    return (
+                      <StepContent
+                        content={content}
+                        index={index}
+                        key={index.toString()}
+                        deleteBlock={deleteBlock}
+                        changeOrder={changeOrder}
+                        toggleBlockType={toggleBlockType}
+                        changeHandler={blockChangeHandler}
+                      />
+                    );
+                  }
+                )}
               </div>
               <Button
                 submitFunction={addBlock}
@@ -178,6 +281,10 @@ const TutEditor: React.FC = (): JSX.Element => {
               <h3>Code Solution</h3>
             </StyledTitle>
             <AceEditor
+              value={editorSteps[editorState.step].answer}
+              onChange={(code: string): Promise<void> =>
+                changeEditorStepDetail("answer", code)
+              }
               style={{
                 position: "relative",
                 marginTop: "1%",
@@ -200,7 +307,7 @@ const TutEditor: React.FC = (): JSX.Element => {
           </StyledRightHalf>
         </MainWrapper>
       </StyledEditor>
-    </MainWrapper>
+    </StyledEditorContainer>
   );
 };
 
