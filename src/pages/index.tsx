@@ -1,7 +1,10 @@
 import React, { setGlobal } from "reactn";
-import { TutorialApp } from "../components/app";
+
+import { TutorialApp } from "../components/tutorialApp";
 import { useLocalStorageView } from "../components/hooks/index";
 import { defaultTutorial } from "../constants";
+
+import "../styles/normalize.css";
 
 /*
   Initialize global state here. Define types/shape for global state in
@@ -24,7 +27,28 @@ setGlobal({
     correct: false,
     message: "",
     droneTask: ""
-  }
+  },
+  hintModalOpen: false,
+  showHintAnswer: false,
+  editorState: {
+    selectedTutorial: "",
+    step: 0,
+    saved: false
+  },
+  editorSteps: [
+    {
+      stepTitle: "Step 1",
+      stepHint: "",
+      stepSuccess: "",
+      content: [
+        {
+          type: "code",
+          value: ""
+        }
+      ],
+      answer: ""
+    }
+  ]
 });
 
 const IndexPage = (): JSX.Element => <TutorialApp />;

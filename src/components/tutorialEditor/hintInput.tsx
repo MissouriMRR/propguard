@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import styled, { AnyStyledComponent } from "styled-components";
-import "../app/normalize.css";
 
 const StyledTextBox: AnyStyledComponent = styled.input`
   height: 46px;
@@ -13,14 +12,20 @@ const StyledTextBox: AnyStyledComponent = styled.input`
 `;
 
 interface HintProps {
+  attributeName: string;
+  value: string;
+  setValue: (attributeName: string, value: string) => void;
   placeholder: string;
 }
 
-const HintInput: React.FC<HintProps> = ({ placeholder }): JSX.Element => {
-  const [value, setValue] = useState("");
-
+const HintInput: React.FC<HintProps> = ({
+  attributeName,
+  value,
+  setValue,
+  placeholder
+}): JSX.Element => {
   const onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    return setValue(event.target.value);
+    return setValue(attributeName, event.target.value);
   };
 
   return (

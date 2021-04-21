@@ -5,6 +5,8 @@
   "version": "0.1.0",
   "author": "Multirotor Design Team",
   "dependencies": {
+    "@iconify-icons/bx": "^1.1.0",
+    "@iconify-icons/feather": "^1.1.0",
     "@iconify/icons-dashicons": "^1.0.4",
     "@iconify/icons-heroicons-solid": "^1.0.4",
     "@iconify/icons-ic": "^1.0.9",
@@ -33,7 +35,6 @@
     "styled-components": "^5.0.1"
   },
   "devDependencies": {
-    "@iconify/icons-mdi": "^1.0.148",
     "@types/jest": "^25.1.4",
     "@types/node": "^13.9.1",
     "@types/react": "^16.9.23",
