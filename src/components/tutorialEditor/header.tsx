@@ -2,6 +2,7 @@ import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 
 import { Button } from "../button";
+import { exportTutorial } from "../../utils/exportTutorial";
 
 import { accent, grey, textPrimary } from "../../constants";
 
@@ -76,6 +77,10 @@ const Header = (): JSX.Element => {
     });
   };
 
+  const saveTutorial = async (): Promise<void> => {
+    await exportTutorial(editorState.selectedTutorial, "", editorSteps);
+  };
+
   // TODO: Editing tutorial info, discarding progress, and exporting
   // will be in future versions
   return (
@@ -132,7 +137,7 @@ const Header = (): JSX.Element => {
         </StyledMarginWrapper>
         <Button
           text="Save and export"
-          submitFunction={(): void => console.log("Export")}
+          submitFunction={saveTutorial}
           width="12rem"
         />
       </StyledHeaderRow>
