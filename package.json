@@ -32,7 +32,7 @@
     "react-helmet": "^5.2.1",
     "react-modal": "^3.11.2",
     "reactn": "^2.2.6",
-    "styled-components": "^5.0.1"
+    "styled-components": "^5.1.0"
   },
   "devDependencies": {
     "@types/jest": "^25.1.4",
