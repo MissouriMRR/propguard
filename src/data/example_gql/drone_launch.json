@@ -3,8 +3,6 @@
   "description": "Let's fly!",
   "instructions": [
     {
-      "type": "frame",
-      "step": 1,
       "title": "Drone Liftoff",
       "hint": "Read the code block and copy it.",
       "content": [
@@ -24,8 +22,6 @@
       }
     },
     {
-      "type": "frame",
-      "step": 2,
       "title": "Drone Move",
       "hint": "Type the code in the code block please.",
       "content": [
@@ -45,8 +41,6 @@
       }
     },
     {
-      "type": "frame",
-      "step": 3,
       "title": "Drone Landing",
       "hint": "Please type the code in the code block.",
       "content": [
@@ -66,8 +60,6 @@
       }
     },
     {
-      "type": "frame",
-      "step": 4,
       "title": "Congrats!",
       "hint": "Your hint is in that code block to the left",
       "content": [
