@@ -7,11 +7,11 @@ import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/theme-tomorrow_night_eighties";
 import styled, { AnyStyledComponent } from "styled-components";
 
+import { EditorStep } from "../../types/editorTypes";
 import { HintInput } from "./hintInput";
 import { Header } from "./header";
 import { Navbar } from "../navbar";
 import { StepContent } from "./stepContent";
-import { EditorStep } from "../../types/editorTypes";
 
 import { background, grey } from "../../constants";
 import { Button } from "../button";
@@ -115,8 +115,7 @@ const ContentBlock: AnyStyledComponent = styled.div`
 `;
 
 const TutEditor: React.FC = (): JSX.Element => {
-  // const [step /* , setStep */] = useState(0);
-  const [editorState /* , setEditorState */] = useGlobal("editorState");
+  const [editorState] = useGlobal("editorState");
   const [editorSteps, setEditorSteps] = useGlobal("editorSteps");
   const [steps, setSteps] = useGlobal("editorSteps");
 

@@ -1,8 +1,9 @@
-import React, { useGlobal } from "reactn";
+import React, { useState, useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 
 import { Button } from "../button";
 import { exportTutorial } from "../../utils/exportTutorial";
+import { TutorialModal } from "./tutorialModal";
 
 import { accent, grey, textPrimary } from "../../constants";
 
@@ -30,6 +31,7 @@ const StyledMarginWrapper: AnyStyledComponent = styled.div`
 `;
 
 const Header = (): JSX.Element => {
+  const [modalOpen, setModalOpen] = useState(false);
   const [editorState, setEditorState] = useGlobal("editorState");
   const [editorSteps, setEditorSteps] = useGlobal("editorSteps");
 
@@ -78,17 +80,24 @@ const Header = (): JSX.Element => {
   };
 
   const saveTutorial = async (): Promise<void> => {
-    await exportTutorial(editorState.selectedTutorial, "", editorSteps);
+    await exportTutorial(
+      editorState.selectedTutorial,
+      editorState.selectedTutorialDesc,
+      editorSteps
+    );
   };
 
-  // TODO: Editing tutorial info, discarding progress, and exporting
-  // will be in future versions
+  // TODO: Discard progress should reset editor state
   return (
     <StyledHeaderContainer>
+      <TutorialModal
+        isOpen={modalOpen}
+        closeModal={(): void => setModalOpen(false)}
+      />
       <StyledHeaderRow>
         <Button
           text="Edit info"
-          submitFunction={(): void => console.log("Edit")}
+          submitFunction={(): void => setModalOpen(true)}
           width="10rem"
         />
         <h1>{editorState.selectedTutorial}</h1>
