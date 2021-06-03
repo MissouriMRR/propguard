@@ -81,8 +81,7 @@ const StyledStepSection: AnyStyledComponent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2px;
-  padding-bottom: 20px;
+  padding: 1rem 2rem 2rem 2rem;
 `;
 
 const StyledTextInput: AnyStyledComponent = styled.div`

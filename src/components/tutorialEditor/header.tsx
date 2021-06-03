@@ -10,24 +10,33 @@ import { accent, grey, textPrimary } from "../../constants";
 const StyledHeaderContainer: AnyStyledComponent = styled.header`
   border-top: 1px solid ${grey};
   border-right: 1px solid ${grey};
-  padding-bottom: 1rem;
+  padding: 0 2rem 0 2rem;
 `;
 
 const StyledHeaderRow: AnyStyledComponent = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: baseline;
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: end;
 
   h1 {
     color: ${textPrimary};
+    font-size: 24px;
   }
 `;
 
 const StyledMarginWrapper: AnyStyledComponent = styled.div`
   & > * {
-    margin-right: 0.25rem;
+    margin-right: 0.5rem;
   }
+`;
+
+const AlignCenter: AnyStyledComponent = styled.div`
+  place-self: center;
+`;
+
+const AlignRight: AnyStyledComponent = styled.div`
+  place-self: end;
 `;
 
 const Header = (): JSX.Element => {
@@ -100,13 +109,18 @@ const Header = (): JSX.Element => {
           submitFunction={(): void => setModalOpen(true)}
           width="10rem"
         />
-        <h1>{editorState.selectedTutorial}</h1>
-        <Button
-          text="Discard progress"
-          submitFunction={(): void => console.log("Discard")}
-          width="12rem"
-        />
+        <AlignCenter>
+          <h1>{editorState.selectedTutorial}</h1>
+        </AlignCenter>
+        <AlignRight>
+          <Button
+            text="Discard progress"
+            submitFunction={(): void => console.log("Discard")}
+            width="12rem"
+          />
+        </AlignRight>
       </StyledHeaderRow>
+
       <StyledHeaderRow>
         <StyledMarginWrapper>
           <Button
@@ -122,33 +136,43 @@ const Header = (): JSX.Element => {
             width="10rem"
           />
         </StyledMarginWrapper>
-        <StyledMarginWrapper>
-          <Button
-            text="Prev"
-            submitFunction={(): Promise<void> => goToStep(editorState.step - 1)}
-            width="6rem"
-          />
-          {editorSteps.map((step, index) => (
+        <AlignCenter>
+          <StyledMarginWrapper>
             <Button
-              text={index.toString()}
-              // Ensures that keys are unique
-              key={`${step.stepTitle}_${new Date().getTime()}`}
-              submitFunction={(): Promise<void> => goToStep(index)}
-              width="2.5rem"
-              backgroundColor={index === editorState.step ? accent : undefined}
+              text="Prev"
+              submitFunction={(): Promise<void> =>
+                goToStep(editorState.step - 1)
+              }
+              width="6rem"
             />
-          ))}
+            {editorSteps.map((step, index) => (
+              <Button
+                text={index.toString()}
+                // Ensures that keys are unique
+                key={`${step.stepTitle}_${new Date().getTime()}`}
+                submitFunction={(): Promise<void> => goToStep(index)}
+                width="2.5rem"
+                backgroundColor={
+                  index === editorState.step ? accent : undefined
+                }
+              />
+            ))}
+            <Button
+              text="Next"
+              submitFunction={(): Promise<void> =>
+                goToStep(editorState.step + 1)
+              }
+              width="6rem"
+            />
+          </StyledMarginWrapper>
+        </AlignCenter>
+        <AlignRight>
           <Button
-            text="Next"
-            submitFunction={(): Promise<void> => goToStep(editorState.step + 1)}
-            width="6rem"
+            text="Save and export"
+            submitFunction={saveTutorial}
+            width="12rem"
           />
-        </StyledMarginWrapper>
-        <Button
-          text="Save and export"
-          submitFunction={saveTutorial}
-          width="12rem"
-        />
+        </AlignRight>
       </StyledHeaderRow>
     </StyledHeaderContainer>
   );

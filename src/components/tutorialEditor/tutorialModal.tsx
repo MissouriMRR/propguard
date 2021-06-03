@@ -4,7 +4,7 @@ import Modal from "react-modal";
 
 import { Icon } from "@iconify/react";
 import closeIcon from "@iconify/icons-mdi/close";
-import { textPrimary } from "../../constants";
+import { codeColor, textPrimary } from "../../constants";
 
 const CloseButton: AnyStyledComponent = styled(Icon)`
   position: absolute;
@@ -22,17 +22,29 @@ const StyledLabel = styled.h1`
 `;
 
 const StyledInput = styled.input`
+  width: 100%;
   margin-bottom: 1rem;
+  padding: 0.5rem;
+  background-color: ${codeColor};
+  border: 0;
+  border-radius: 2px;
+  color: ${textPrimary};
 `;
 
-const StyledTextArea = styled.textarea``;
+const StyledTextArea = styled.textarea`
+  width: 100%;
+  padding: 0.5rem;
+  background-color: ${codeColor};
+  border: 0;
+  border-radius: 2px;
+  color: ${textPrimary};
+`;
 
 interface HintModalProps {
   isOpen: boolean;
   closeModal: () => void;
 }
 
-// TODO: Style component
 const TutorialModal: React.FC<HintModalProps> = ({
   isOpen,
   closeModal
@@ -43,13 +55,14 @@ const TutorialModal: React.FC<HintModalProps> = ({
     <Modal
       isOpen={isOpen}
       onRequestClose={closeModal}
-      // Styled Components are difficult/infeasible to implement since the style prop for this modal library doesn't reflect the behavior of a regular style prop
+      // This modal library doesn't play well with regular styled components
       style={{
         content: {
           backgroundColor: "#262626",
           color: "#ffffff",
-          width: 450,
-          height: 250,
+          width: 500,
+          height: 300,
+          padding: "2rem",
           position: "relative",
           left: "50%",
           transform: "translateX(-50%)"
