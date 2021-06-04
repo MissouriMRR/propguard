@@ -32,10 +32,9 @@
     "react-helmet": "^5.2.1",
     "react-modal": "^3.11.2",
     "reactn": "^2.2.6",
-    "styled-components": "^5.0.1"
+    "styled-components": "^5.1.0"
   },
   "devDependencies": {
-    "@iconify/icons-mdi": "^1.0.148",
     "@types/jest": "^25.1.4",
     "@types/node": "^13.9.1",
     "@types/react": "^16.9.23",

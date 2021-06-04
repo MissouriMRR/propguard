@@ -87,7 +87,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
     query {
       allExampleGqlJson {
         nodes {
-          tutorial_title
+          tutorialTitle
           instructions {
             title
             content {
@@ -143,7 +143,7 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
   // it just picks the first element
   data = data.allExampleGqlJson.nodes.find((tutorial: Tutorial): boolean => {
-    return tutorial.tutorial_title === tutorialName;
+    return tutorial.tutorialTitle === tutorialName;
   });
 
   const tutorialData = data.instructions[tutStep - 1].content.map(

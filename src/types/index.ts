@@ -15,7 +15,7 @@ export interface Instruction {
 
 export interface Tutorial {
   id: string;
-  tutorial_title: string;
+  tutorialTitle: string;
   description: string;
   instructions: Array<Instruction>;
 }

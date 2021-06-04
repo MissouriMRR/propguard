@@ -28,14 +28,31 @@ setGlobal({
     message: "",
     droneTask: ""
   },
+  hintModalOpen: false,
+  showHintAnswer: false,
   editorState: {
     selectedTutorial: "",
-    selectedStep: 1,
+    selectedTutorialDesc: "",
+    step: 0,
     saved: false
   },
   uploadTextEditor: [],
   uploadTutorialSelector: [],
-  uploadTutorialComponent: []
+  uploadTutorialComponent: [],
+  editorSteps: [
+    {
+      stepTitle: "Step 1",
+      stepHint: "",
+      stepSuccess: "",
+      content: [
+        {
+          type: "code",
+          value: ""
+        }
+      ],
+      answer: ""
+    }
+  ]
 });
 
 const IndexPage = (): JSX.Element => <TutorialApp />;

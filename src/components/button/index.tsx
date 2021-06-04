@@ -4,14 +4,15 @@ import styled, { AnyStyledComponent } from "styled-components";
 import { accent, background, textPrimary } from "../../constants";
 
 interface StyledProps {
-  text: string;
+  backgroundColor?: string;
+  width?: string;
 }
 
-const StyledButton: AnyStyledComponent = styled.button`
+const StyledButton: AnyStyledComponent = styled.button<StyledProps>`
   height: 2.5rem;
-  width: 8rem;
-  background: ${(props: StyledProps): string =>
-    props.text === "Run" ? accent : background};
+  width: ${(props): string => (props.width ? props.width : "8rem")};
+  background: ${(props): string =>
+    props.backgroundColor ? props.backgroundColor : background};
   border: 2px solid #e9e9e9;
   border-radius: 1px;
   color: ${textPrimary};

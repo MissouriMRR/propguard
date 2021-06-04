@@ -60,12 +60,13 @@ const TextEditor: React.FC = (): JSX.Element => {
   const [tutorialStep] = useGlobal("tutorialStep");
   const [output, setOutput] = useGlobal("output");
   const [uploadTextEditor, setUploadTextEditor] = useGlobal("uploadTextEditor");
+  const [componentView] = useGlobal("componentView");
 
   const gqlData = useStaticQuery(graphql`
     query {
       allExampleGqlJson {
         nodes {
-          tutorial_title
+          tutorialTitle
           instructions {
             hint
             answer
@@ -112,7 +113,7 @@ const TextEditor: React.FC = (): JSX.Element => {
   // it just picks the first element
   const data: Tutorial = gqlData.allExampleGqlJson.nodes.find(
     (tutorial: Tutorial): boolean => {
-      return tutorial.tutorial_title === tutorialName;
+      return tutorial.tutorialTitle === tutorialName;
     }
   );
 
@@ -147,7 +148,10 @@ const TextEditor: React.FC = (): JSX.Element => {
   };
 
   const handleHint = (): void => {
-    if (data.instructions[tutorialStep - 1].hint) {
+    if (
+      componentView === "TutorialComponent" &&
+      data.instructions[tutorialStep - 1].hint
+    ) {
       toggleHintModal();
     }
   };
