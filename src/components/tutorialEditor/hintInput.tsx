@@ -1,14 +1,17 @@
 import React from "react";
 import styled, { AnyStyledComponent } from "styled-components";
 
+import { codeColor } from "../../constants";
+
 const StyledTextBox: AnyStyledComponent = styled.input`
   height: 46px;
   width: 100%;
   color: white;
-  background-color: #46464e;
+  background-color: ${codeColor};
   outline: none;
   padding: 14px;
   border: none;
+  border-radius: 2px;
 `;
 
 interface HintProps {

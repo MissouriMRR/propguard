@@ -32,6 +32,7 @@ setGlobal({
   showHintAnswer: false,
   editorState: {
     selectedTutorial: "",
+    selectedTutorialDesc: "",
     step: 0,
     saved: false
   },

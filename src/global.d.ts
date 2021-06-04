@@ -25,6 +25,7 @@ export module "reactn/default" {
     showHintAnswer: boolean;
     editorState: {
       selectedTutorial: string;
+      selectedTutorialDesc: string;
       step: number;
       saved: boolean;
     };

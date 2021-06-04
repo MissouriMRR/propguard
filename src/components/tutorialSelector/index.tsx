@@ -80,7 +80,7 @@ const TutorialSelector: React.FC = (): JSX.Element => {
     query {
       allExampleGqlJson {
         nodes {
-          tutorial_title
+          tutorialTitle
           description
         }
       }
@@ -112,9 +112,9 @@ const TutorialSelector: React.FC = (): JSX.Element => {
         return (
           <SingleTutorial
             key={tutorialName + index.toString()}
-            onClick={(): void => handleClick(value.tutorial_title)}
+            onClick={(): void => handleClick(value.tutorialTitle)}
           >
-            <Title>{value.tutorial_title}</Title>
+            <Title>{value.tutorialTitle}</Title>
             <Description>{value.description}</Description>
           </SingleTutorial>
         );

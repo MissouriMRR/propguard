@@ -54,7 +54,7 @@ const TextEditor: React.FC = (): JSX.Element => {
     query {
       allExampleGqlJson {
         nodes {
-          tutorial_title
+          tutorialTitle
           instructions {
             hint
             answer
@@ -73,7 +73,7 @@ const TextEditor: React.FC = (): JSX.Element => {
   // it just picks the first element
   const data: Tutorial = gqlData.allExampleGqlJson.nodes.find(
     (tutorial: Tutorial): boolean => {
-      return tutorial.tutorial_title === tutorialName;
+      return tutorial.tutorialTitle === tutorialName;
     }
   );
 
