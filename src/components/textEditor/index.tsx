@@ -9,7 +9,7 @@ import AceEditor from "react-ace";
 import { HintModal } from "./hintModal";
 import { Button } from "../button";
 import { background, grey } from "../../constants";
-import { Tutorial, Instructions } from "../../types";
+import { Tutorial } from "../../types";
 import { submitAnswer } from "./submitAnswer";
 
 import "ace-builds";
@@ -41,25 +41,13 @@ const TerminalHeader: AnyStyledComponent = styled.div`
   border-top: none;
 `;
 
-interface Upload {
-  tutorial_title: string;
-  instructions: Instructions[];
-}
-
-interface InstructionsCopy {
-  hint: string;
-  answer: string;
-  output: string;
-}
-
 const TextEditor: React.FC = (): JSX.Element => {
   const [userInput, setUserInput] = useState<string>("");
   const [hintModalOpen, setHintModalOpen] = useGlobal("hintModalOpen");
   const [, setShowHintAnswer] = useGlobal("showHintAnswer");
   const [tutorialName] = useGlobal("tutorialName");
   const [tutorialStep] = useGlobal("tutorialStep");
-  const [output, setOutput] = useGlobal("output");
-  const [uploadTextEditor, setUploadTextEditor] = useGlobal("uploadTextEditor");
+  const [outputResult, setOutputResult] = useGlobal("output");
   const [componentView] = useGlobal("componentView");
 
   const gqlData = useStaticQuery(graphql`
@@ -80,34 +68,6 @@ const TextEditor: React.FC = (): JSX.Element => {
     }
   `);
 
-  if (uploadTextEditor.length > 0) {
-    for (let i = 0; i < uploadTextEditor.length; i++) {
-      const instructionsArray = [];
-      for (let j = 0; j < uploadTextEditor[i].instructions.length; j++) {
-        const instructionsCopy = (({
-          hint,
-          answer,
-          output
-        }): InstructionsCopy => ({
-          hint,
-          answer,
-          output
-        }))(uploadTextEditor[i].instructions[j]);
-        instructionsArray.push(instructionsCopy);
-      }
-      const uploadCopy = (({ tutorial_title, instructions }): Upload => ({
-        tutorial_title,
-        instructions
-      }))(uploadTextEditor[i]);
-
-      uploadCopy.instructions = instructionsArray;
-
-      gqlData.allExampleGqlJson.nodes.push(uploadCopy);
-    }
-
-    setUploadTextEditor([]);
-  }
-
   // We destructure the data since this query returns an array, and when
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
   // it just picks the first element
@@ -121,7 +81,7 @@ const TextEditor: React.FC = (): JSX.Element => {
     event.preventDefault();
     if (!userInput) return;
 
-    setOutput({ ...output, status: "Loading" });
+    setOutputResult({ ...outputResult, status: "Loading" });
 
     const result = submitAnswer(
       userInput,
@@ -130,14 +90,14 @@ const TextEditor: React.FC = (): JSX.Element => {
 
     setTimeout(() => {
       if (result.correct) {
-        setOutput({
+        setOutputResult({
           status: "Successful",
           correct: result.correct,
           message: data.instructions[tutorialStep - 1].output.successMessage,
           droneTask: data.instructions[tutorialStep - 1].output.droneRoutine
         });
       } else {
-        setOutput({ ...result, status: "Error", droneTask: "" });
+        setOutputResult({ ...result, status: "Error", droneTask: "" });
       }
     }, 1000);
   };

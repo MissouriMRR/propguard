@@ -30,9 +30,6 @@ export module "reactn/default" {
       step: number;
       saved: boolean;
     };
-    uploadTextEditor: Array<any>;
-    uploadTutorialSelector: Array<any>;
-    uploadTutorialComponent: Array<any>;
     editorSteps: EditorStep[];
   }
 }

@@ -80,9 +80,6 @@ const TutorialSelector: React.FC = (): JSX.Element => {
   const [, setTutorialStep] = useGlobal("tutorialStep");
   const [tutorialName, setTutorialName] = useGlobal("tutorialName");
   const [componentView, setComponentView] = useGlobal("componentView");
-  const [uploadTutorialSelector, setUploadTutorialSelector] = useGlobal(
-    "uploadTutorialSelector"
-  );
 
   const data = useStaticQuery(graphql`
     query {
@@ -94,18 +91,6 @@ const TutorialSelector: React.FC = (): JSX.Element => {
       }
     }
   `);
-
-  if (uploadTutorialSelector.length > 0) {
-    for (let i = 0; i < uploadTutorialSelector.length; i++) {
-      const uploadCopy = (({ tutorial_title, description }): Upload => ({
-        tutorial_title,
-        description
-      }))(uploadTutorialSelector[i]);
-      data.allExampleGqlJson.nodes.push(uploadCopy);
-    }
-
-    setUploadTutorialSelector([]);
-  }
 
   const [, tutStep, setCurrentTutorial] = useLocalStorage(data);
   const [, setComponentViewSave] = useLocalStorageView();

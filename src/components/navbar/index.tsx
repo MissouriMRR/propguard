@@ -12,6 +12,8 @@ import Logo from "../../assets/logo.svg";
 const NavWrapper: AnyStyledComponent = styled.nav`
   height: 100vh;
   display: flex;
+  position: sticky;
+  top: 0;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;

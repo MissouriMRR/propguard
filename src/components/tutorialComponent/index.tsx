@@ -1,7 +1,7 @@
 import React, { useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
-import { Tutorial, Content, Instructions } from "../../types";
+import { Tutorial, Content } from "../../types";
 import { useLocalStorage } from "../hooks/index";
 
 import { grey, codeColor } from "../../constants";
@@ -69,19 +69,11 @@ interface TutorialProps {
   disp: string;
 }
 
-interface Upload {
-  tutorial_title: string;
-  instructions: Instructions[];
-}
-
 const TutorialDisplay: React.FC = (): JSX.Element => {
   const [tutorialStep, setTutorialStep] = useGlobal("tutorialStep");
   const [tutorialName] = useGlobal("tutorialName");
   const [componentView] = useGlobal("componentView");
   const [, setOutput] = useGlobal("output");
-  const [uploadTutorialComponent, setUploadTutorialComponent] = useGlobal(
-    "uploadTutorialComponent"
-  );
 
   let data = useStaticQuery(graphql`
     query {
@@ -99,29 +91,6 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
       }
     }
   `);
-
-  if (uploadTutorialComponent.length > 0) {
-    for (let i = 0; i < uploadTutorialComponent.length; i++) {
-      const instructionsArray = [];
-      for (let j = 0; j < uploadTutorialComponent[i].instructions.length; j++) {
-        const instructionsCopy = (({ title, content }): Instructions => ({
-          title,
-          content
-        }))(uploadTutorialComponent[i].instructions[j]);
-        instructionsArray.push(instructionsCopy);
-      }
-      const uploadCopy = (({ tutorial_title, instructions }): Upload => ({
-        tutorial_title,
-        instructions
-      }))(uploadTutorialComponent[i]);
-
-      uploadCopy.instructions = instructionsArray;
-
-      data.allExampleGqlJson.nodes.push(uploadCopy);
-    }
-
-    setUploadTutorialComponent([]);
-  }
 
   const [tutName, tutStep, , setStep] = useLocalStorage(data);
 

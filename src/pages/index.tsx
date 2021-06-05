@@ -14,6 +14,8 @@ import "../styles/normalize.css";
 */
 
 const [componentViewSave] = useLocalStorageView();
+// FIXME: Stops showing anything on the left column when componentViewSave
+// is TutorialEditor
 const tutName = localStorage.getItem("tutName") || defaultTutorial;
 
 // Tutorialstep is stored with the key being the name of the tutorial and
@@ -36,9 +38,6 @@ setGlobal({
     step: 0,
     saved: false
   },
-  uploadTextEditor: [],
-  uploadTutorialSelector: [],
-  uploadTutorialComponent: [],
   editorSteps: [
     {
       stepTitle: "Step 1",

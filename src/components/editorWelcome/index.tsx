@@ -11,6 +11,8 @@ import {
   textPrimary,
   textSecondary
 } from "../../constants";
+import { Instruction } from "../../types";
+import { EditorStep } from "../../types/editorTypes";
 
 const StyledEditorContainer: AnyStyledComponent = styled.div`
   width: 100vw;
@@ -86,18 +88,14 @@ const StyledWelcomeSidebar: AnyStyledComponent = styled.div`
   flex: 1;
 `;
 
+// TODO: Drag and drop support
 const EditorWelcome: React.FC = () => {
   const [editorState, setEditorState] = useGlobal("editorState");
-  const [uploadTextEditor, setUploadTextEditor] = useGlobal("uploadTextEditor");
-  const [uploadTutorialSelector, setUploadTutorialSelector] = useGlobal(
-    "uploadTutorialSelector"
-  );
-  const [uploadTutorialComponent, setUploadTutorialComponent] = useGlobal(
-    "uploadTutorialComponent"
-  );
+  const [, setEditorSteps] = useGlobal("editorSteps");
   const uploadInput = useRef<HTMLInputElement>(null);
 
   const createNewTutorial = (): void => {
+    // Change the view from the editor welcome screen to the tutorial editor
     setEditorState({ ...editorState, selectedTutorial: "New Tutorial" });
   };
 
@@ -107,21 +105,40 @@ const EditorWelcome: React.FC = () => {
     }
   };
 
-  const handleUpload = (): void => {
+  const handleUpload = async (): Promise<void> => {
     if (uploadInput.current?.files !== null) {
-      uploadInput.current?.files[0].text().then((data: any) => {
-        const uploadTextEditorCopy = uploadTextEditor;
-        const uploadTutorialSelectorCopy = uploadTutorialSelector;
-        const uploadTutorialComponentCopy = uploadTutorialComponent;
+      // Lazy way of making sure that no errors occur due to improperly
+      // formatted JSON files
+      try {
+        const uploadedText = await uploadInput.current?.files[0].text();
 
-        uploadTextEditorCopy.push(JSON.parse(data));
-        uploadTutorialSelectorCopy.push(JSON.parse(data));
-        uploadTutorialComponentCopy.push(JSON.parse(data));
+        if (!uploadedText) {
+          throw Error("Looks like your file is empty");
+        }
 
-        setUploadTextEditor(uploadTextEditorCopy);
-        setUploadTutorialSelector(uploadTutorialSelectorCopy);
-        setUploadTutorialComponent(uploadTutorialComponentCopy);
-      });
+        const jsonifiedData = JSON.parse(uploadedText);
+
+        // Load in the instructions of the tutorial file into the tutorial editor
+        const convertedInstructions = jsonifiedData.instructions.map(
+          (instruction: Instruction): EditorStep => ({
+            stepTitle: instruction.title,
+            stepHint: instruction.hint,
+            stepSuccess: instruction.output.successMessage,
+            content: instruction.content,
+            answer: instruction.answer.join("\n")
+          })
+        );
+        setEditorSteps(convertedInstructions);
+        // Load in the basic information of the tutorial file into the editor
+        // Also change the view to the tutorial editor
+        setEditorState({
+          ...editorState,
+          selectedTutorial: jsonifiedData.tutorialTitle,
+          selectedTutorialDesc: jsonifiedData.description
+        });
+      } catch (error) {
+        alert(error);
+      }
     }
   };
 
@@ -153,7 +170,7 @@ const EditorWelcome: React.FC = () => {
               </StyledLink>
               <input
                 type="file"
-                style={{ display: "none" }}
+                // style={{ display: "none" }}
                 accept=".json"
                 ref={uploadInput}
                 onChange={handleUpload}
