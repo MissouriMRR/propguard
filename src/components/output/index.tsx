@@ -20,7 +20,7 @@ const OutputWrapper: AnyStyledComponent = styled.div`
 `;
 
 const OutputConsole: AnyStyledComponent = styled.div`
-  min-height: 15rem;
+  min-height: 400px;
   max-width: 100%;
   padding: 0 1rem;
   border-bottom: 1px solid ${grey};

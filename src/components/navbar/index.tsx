@@ -95,7 +95,6 @@ const Navbar: React.FC = (): JSX.Element => {
       <Link to="/">
         <NavIcon
           icon={listIcon}
-          width="2.5rem"
           onClick={openTutorialSelector}
           $isSelected={componentView === "TutorialSelector"}
         />
@@ -103,7 +102,6 @@ const Navbar: React.FC = (): JSX.Element => {
       <Link to="/editor" onClick={openTutorialEditor}>
         <NavIcon
           icon={pencilIcon}
-          width="2.5rem"
           $isSelected={componentView === "TutorialEditor"}
         />
       </Link>
