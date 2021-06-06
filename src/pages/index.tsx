@@ -35,8 +35,7 @@ setGlobal({
   editorState: {
     selectedTutorial: "",
     selectedTutorialDesc: "",
-    step: 0,
-    saved: false
+    step: 0
   },
   editorSteps: [
     {
@@ -45,7 +44,7 @@ setGlobal({
       stepSuccess: "",
       content: [
         {
-          type: "code",
+          type: "text",
           value: ""
         }
       ],

@@ -8,7 +8,7 @@ import AceEditor from "react-ace";
 
 import { HintModal } from "./hintModal";
 import { Button } from "../button";
-import { background, grey } from "../../constants";
+import { accent, background, grey } from "../../constants";
 import { Tutorial } from "../../types";
 import { submitAnswer } from "./submitAnswer";
 
@@ -120,7 +120,11 @@ const TextEditor: React.FC = (): JSX.Element => {
     <TerminalWrapper>
       <TerminalHeader>
         <Button submitFunction={handleHint} text="Hint" />
-        <Button submitFunction={handleSubmit} text="Run" />
+        <Button
+          backgroundColor={accent}
+          submitFunction={handleSubmit}
+          text="Run"
+        />
       </TerminalHeader>
       <AceEditor
         style={{

@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { AnyStyledComponent } from "styled-components";
 
-import { accent, background, textPrimary } from "../../constants";
+import { background, textPrimary } from "../../constants";
 
 interface StyledProps {
   backgroundColor?: string;

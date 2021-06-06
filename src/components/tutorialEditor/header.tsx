@@ -2,10 +2,11 @@ import React, { useState, useGlobal } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 
 import { Button } from "../button";
+import { DiscardModal } from "./DiscardModal";
 import { exportTutorial } from "../../utils/exportTutorial";
 import { TutorialModal } from "./tutorialModal";
 
-import { accent, grey, textPrimary } from "../../constants";
+import { accent, grey, outputError, textPrimary } from "../../constants";
 
 const StyledHeaderContainer: AnyStyledComponent = styled.header`
   border-top: 1px solid ${grey};
@@ -40,7 +41,8 @@ const AlignRight: AnyStyledComponent = styled.div`
 `;
 
 const Header = (): JSX.Element => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [tutorialModal, setTutorialModal] = useState(false);
+  const [discardModal, setDiscardModal] = useState(false);
   const [editorState, setEditorState] = useGlobal("editorState");
   const [editorSteps, setEditorSteps] = useGlobal("editorSteps");
 
@@ -96,17 +98,29 @@ const Header = (): JSX.Element => {
     );
   };
 
-  // TODO: Discard progress should reset editor state
+  const discardTutorial = (): void => {
+    setEditorState({
+      ...editorState,
+      selectedTutorial: ""
+    });
+  };
+
   return (
     <StyledHeaderContainer>
       <TutorialModal
-        isOpen={modalOpen}
-        closeModal={(): void => setModalOpen(false)}
+        isOpen={tutorialModal}
+        closeModal={(): void => setTutorialModal(false)}
+      />
+      <DiscardModal
+        isOpen={discardModal}
+        closeModal={(): void => setDiscardModal(false)}
+        discardFunction={discardTutorial}
+        exportFunction={saveTutorial}
       />
       <StyledHeaderRow>
         <Button
           text="Edit info"
-          submitFunction={(): void => setModalOpen(true)}
+          submitFunction={(): void => setTutorialModal(true)}
           width="10rem"
         />
         <AlignCenter>
@@ -114,8 +128,9 @@ const Header = (): JSX.Element => {
         </AlignCenter>
         <AlignRight>
           <Button
+            backgroundColor={outputError}
             text="Discard progress"
-            submitFunction={(): void => console.log("Discard")}
+            submitFunction={(): void => setDiscardModal(true)}
             width="12rem"
           />
         </AlignRight>
@@ -168,6 +183,7 @@ const Header = (): JSX.Element => {
         </AlignCenter>
         <AlignRight>
           <Button
+            backgroundColor={accent}
             text="Save and export"
             submitFunction={saveTutorial}
             width="12rem"

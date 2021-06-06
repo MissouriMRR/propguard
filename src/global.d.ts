@@ -28,7 +28,6 @@ export module "reactn/default" {
       selectedTutorial: string;
       selectedTutorialDesc: string;
       step: number;
-      saved: boolean;
     };
     editorSteps: EditorStep[];
   }
