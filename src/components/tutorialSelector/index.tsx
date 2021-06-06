@@ -10,11 +10,6 @@ interface SelectorProps {
   disp: string;
 }
 
-interface Upload {
-  tutorial_title: string;
-  description: string;
-}
-
 const Selector: AnyStyledComponent = styled.div`
   height: 100%;
   width: 100%;

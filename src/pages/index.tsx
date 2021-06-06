@@ -14,8 +14,8 @@ import "../styles/normalize.css";
 */
 
 const [componentViewSave] = useLocalStorageView();
-// FIXME: Stops showing anything on the left column when componentViewSave
-// is TutorialEditor
+// FIXME: Neither the tutorial selector or the tutorial instructor
+// show up on the left bar when the user hits the back button
 const tutName = localStorage.getItem("tutName") || defaultTutorial;
 
 // Tutorialstep is stored with the key being the name of the tutorial and
