@@ -6,8 +6,9 @@ import { EditorStep } from "./types/editorTypes";
   This sets the shape of our global state since we want our global
   state to be typed. Should be the same shape as the global object
   initialized in src/pages/index.tsx
-  TODO: Perhaps it's time to simplify this down back into local state
-  or to use something like React Context
+
+  Do note that there are various parts of the global state that can just
+  be local if this ever gets too big
 */
 
 export module "reactn/default" {
@@ -27,7 +28,6 @@ export module "reactn/default" {
       selectedTutorial: string;
       selectedTutorialDesc: string;
       step: number;
-      saved: boolean;
     };
     editorSteps: EditorStep[];
   }

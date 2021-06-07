@@ -7,10 +7,6 @@ import { useLocalStorage } from "../hooks/index";
 import { grey, codeColor } from "../../constants";
 import { StepButton } from "./stepButton";
 
-interface TutorialProps {
-  disp: string;
-}
-
 const TutorialBG: AnyStyledComponent = styled.div`
   height: 100%;
   width: 100%;
@@ -68,6 +64,10 @@ const CodeBlock: AnyStyledComponent = styled.div`
     white-space: pre;
   }
 `;
+
+interface TutorialProps {
+  disp: string;
+}
 
 const TutorialDisplay: React.FC = (): JSX.Element => {
   const [tutorialStep, setTutorialStep] = useGlobal("tutorialStep");

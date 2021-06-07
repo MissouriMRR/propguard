@@ -12,6 +12,8 @@ import Logo from "../../assets/logo.svg";
 const NavWrapper: AnyStyledComponent = styled.nav`
   height: 100vh;
   display: flex;
+  position: sticky;
+  top: 0;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
@@ -93,7 +95,6 @@ const Navbar: React.FC = (): JSX.Element => {
       <Link to="/">
         <NavIcon
           icon={listIcon}
-          width="2.5rem"
           onClick={openTutorialSelector}
           $isSelected={componentView === "TutorialSelector"}
         />
@@ -101,7 +102,6 @@ const Navbar: React.FC = (): JSX.Element => {
       <Link to="/editor" onClick={openTutorialEditor}>
         <NavIcon
           icon={pencilIcon}
-          width="2.5rem"
           $isSelected={componentView === "TutorialEditor"}
         />
       </Link>

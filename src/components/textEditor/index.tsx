@@ -8,7 +8,7 @@ import AceEditor from "react-ace";
 
 import { HintModal } from "./hintModal";
 import { Button } from "../button";
-import { background, grey } from "../../constants";
+import { accent, background, grey } from "../../constants";
 import { Tutorial } from "../../types";
 import { submitAnswer } from "./submitAnswer";
 
@@ -47,7 +47,7 @@ const TextEditor: React.FC = (): JSX.Element => {
   const [, setShowHintAnswer] = useGlobal("showHintAnswer");
   const [tutorialName] = useGlobal("tutorialName");
   const [tutorialStep] = useGlobal("tutorialStep");
-  const [output, setOutput] = useGlobal("output");
+  const [outputResult, setOutputResult] = useGlobal("output");
   const [componentView] = useGlobal("componentView");
 
   const gqlData = useStaticQuery(graphql`
@@ -81,7 +81,7 @@ const TextEditor: React.FC = (): JSX.Element => {
     event.preventDefault();
     if (!userInput) return;
 
-    setOutput({ ...output, status: "Loading" });
+    setOutputResult({ ...outputResult, status: "Loading" });
 
     const result = submitAnswer(
       userInput,
@@ -90,14 +90,14 @@ const TextEditor: React.FC = (): JSX.Element => {
 
     setTimeout(() => {
       if (result.correct) {
-        setOutput({
+        setOutputResult({
           status: "Successful",
           correct: result.correct,
           message: data.instructions[tutorialStep - 1].output.successMessage,
           droneTask: data.instructions[tutorialStep - 1].output.droneRoutine
         });
       } else {
-        setOutput({ ...result, status: "Error", droneTask: "" });
+        setOutputResult({ ...result, status: "Error", droneTask: "" });
       }
     }, 1000);
   };
@@ -120,7 +120,11 @@ const TextEditor: React.FC = (): JSX.Element => {
     <TerminalWrapper>
       <TerminalHeader>
         <Button submitFunction={handleHint} text="Hint" />
-        <Button submitFunction={handleSubmit} text="Run" />
+        <Button
+          backgroundColor={accent}
+          submitFunction={handleSubmit}
+          text="Run"
+        />
       </TerminalHeader>
       <AceEditor
         style={{

@@ -14,6 +14,8 @@ import "../styles/normalize.css";
 */
 
 const [componentViewSave] = useLocalStorageView();
+// FIXME: Neither the tutorial selector or the tutorial instructor
+// show up on the left bar when the user hits the back button
 const tutName = localStorage.getItem("tutName") || defaultTutorial;
 
 // Tutorialstep is stored with the key being the name of the tutorial and
@@ -33,8 +35,7 @@ setGlobal({
   editorState: {
     selectedTutorial: "",
     selectedTutorialDesc: "",
-    step: 0,
-    saved: false
+    step: 0
   },
   editorSteps: [
     {
@@ -43,7 +44,7 @@ setGlobal({
       stepSuccess: "",
       content: [
         {
-          type: "code",
+          type: "text",
           value: ""
         }
       ],

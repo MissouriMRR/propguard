@@ -9,6 +9,7 @@ interface StyledProps {
 }
 
 const StyledButton: AnyStyledComponent = styled(Icon)<StyledProps>`
+  font-size: 2.5rem;
   display: block;
   visibility: ${(props): string => (props.hidden ? "hidden" : "visible")};
 
@@ -41,14 +42,7 @@ const StepButton: React.FC<ButtonProps> = (props): JSX.Element => {
     else setHidden(false);
   });
 
-  return (
-    <StyledButton
-      onClick={clickFunction}
-      hidden={hidden}
-      icon={icon}
-      width="2.5rem"
-    />
-  );
+  return <StyledButton onClick={clickFunction} hidden={hidden} icon={icon} />;
 };
 
 export { StepButton };
