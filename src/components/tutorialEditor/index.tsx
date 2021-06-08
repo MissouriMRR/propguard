@@ -1,10 +1,9 @@
 import React, { useGlobal } from "reactn";
-import AceEditor from "react-ace";
-import "ace-builds";
-import "ace-builds/webpack-resolver";
-import "ace-builds/src-noconflict/mode-python";
-import "ace-builds/src-noconflict/ext-language_tools";
-import "ace-builds/src-noconflict/theme-tomorrow_night_eighties";
+import Editor from "react-simple-code-editor";
+import { highlight, languages } from "prismjs/components/prism-core";
+import "prismjs/components/prism-clike";
+import "prismjs/components/prism-python";
+import "prismjs/themes/prism.css";
 import styled, { AnyStyledComponent } from "styled-components";
 
 import { EditorStep } from "../../types/editorTypes";
@@ -278,29 +277,25 @@ const TutEditor: React.FC = (): JSX.Element => {
             <StyledTitle>
               <h3>Code Solution</h3>
             </StyledTitle>
-            <AceEditor
+            <Editor
               value={editorSteps[editorState.step].answer}
-              onChange={(code: string): Promise<void> =>
+              onValueChange={(code: string): Promise<void> =>
                 changeEditorStepDetail("answer", code)
               }
+              highlight={(code: string): string =>
+                highlight(code, languages.py)
+              }
+              tabSize={4}
               style={{
                 position: "relative",
                 marginTop: "1%",
                 height: "90%",
                 width: "99.9%",
                 backgroundColor: background,
-                fontFamily: "Source Code Pro"
+                fontFamily: "Source Code Pro",
+                fontSize: "16px"
               }}
-              fontSize="16px"
-              mode="python"
-              theme="tomorrow_night_eighties"
-              placeholder="Write your code solution here."
-              setOptions={{
-                enableBasicAutocompletion: true,
-                enableLiveAutocompletion: true,
-                enableSnippets: true,
-                tabSize: 4
-              }}
+              padding="0.5rem"
             />
           </StyledRightHalf>
         </MainWrapper>

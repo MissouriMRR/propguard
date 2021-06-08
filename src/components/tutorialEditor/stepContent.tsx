@@ -1,19 +1,16 @@
 import React, { useState } from "reactn";
+import Editor from "react-simple-code-editor";
+import { highlight, languages } from "prismjs/components/prism-core";
+import "prismjs/components/prism-clike";
+import "prismjs/components/prism-python";
+import "prismjs/themes/prism.css";
 import styled, { AnyStyledComponent, CSSProperties } from "styled-components";
-
-import AceEditor from "react-ace";
 import { Icon } from "@iconify/react";
 import chevronUp from "@iconify-icons/feather/chevron-up";
 import chevronDown from "@iconify-icons/feather/chevron-down";
 import bxTrashAlt from "@iconify-icons/bx/bx-trash-alt";
 
-import "ace-builds";
-import "ace-builds/webpack-resolver";
-import "ace-builds/src-noconflict/mode-python";
-import "ace-builds/src-noconflict/ext-language_tools";
-import "ace-builds/src-noconflict/theme-tomorrow_night_eighties";
-
-import { background, grey } from "../../constants";
+import { codeColor, grey } from "../../constants";
 import { Button } from "../button";
 
 interface DeleteProps {
@@ -54,7 +51,7 @@ const Arrow: AnyStyledComponent = styled(Icon)`
 const TextInput: AnyStyledComponent = styled.textarea`
   width: 100%;
   min-height: 82px;
-  background-color: #46464e;
+  background-color: ${codeColor};
   outline: none;
   border: none;
   border-radius: 1px;
@@ -115,8 +112,9 @@ const StepContent: React.FC<StepContentProps> = (props): JSX.Element => {
     marginTop: "0px",
     height: "82px",
     width: "100%",
-    backgroundColor: background,
+    backgroundColor: codeColor,
     fontFamily: "Source Code Pro",
+    fontSize: "16px",
     display: content.type === "code" ? "block" : "none"
   };
 
@@ -174,22 +172,15 @@ const StepContent: React.FC<StepContentProps> = (props): JSX.Element => {
             changeHandler(event, index);
           }}
         />
-        <AceEditor
+        <Editor
           value={content.value}
           style={codeInputStyle}
-          fontSize="16px"
-          mode="python"
-          theme="tomorrow_night_eighties"
-          placeholder="Type code here..."
-          setOptions={{
-            enableBasicAutocompletion: true,
-            enableLiveAutocompletion: true,
-            enableSnippets: true,
-            tabSize: 4
-          }}
-          onChange={(code: string): void => {
+          onValueChange={(code: string): void => {
             changeHandler(code, index);
           }}
+          tabSize={4}
+          highlight={(code: string): string => highlight(code, languages.py)}
+          padding="0.5rem"
         />
       </ContentBlockInnerWrapper>
       <DeleteBlock
