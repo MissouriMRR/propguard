@@ -27,6 +27,7 @@ const LineNumber: AnyStyledComponent = styled.div`
 
   p {
     margin: 0;
+    color: #828282;
   }
 `;
 

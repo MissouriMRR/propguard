@@ -1,60 +1,36 @@
-import React, { setGlobal } from "reactn";
+import React, { useEffect, useGlobal } from "reactn";
 
+import { initializeGlobalState } from "../utils/initializeGlobalState";
 import { TutorialApp } from "../components/tutorialApp";
 import { useLocalStorageView } from "../components/hooks/index";
 import { defaultTutorial } from "../constants";
 
 import "../styles/normalize.css";
 
-/*
-  Initialize global state here. Define types/shape for global state in
-  src/global.d.ts
-  We also use localstorage if the user has already used the webapp before
-  which overrides some of the default global state values
-*/
+initializeGlobalState();
 
-const [componentViewSave] = useLocalStorageView();
-// FIXME: Neither the tutorial selector or the tutorial instructor
-// show up on the left bar when the user hits the back button
-const tutName = localStorage.getItem("tutName") || defaultTutorial;
-console.log(componentViewSave);
-console.log(tutName);
+const IndexPage = (): JSX.Element => {
+  const [, setTutorialName] = useGlobal("tutorialName");
+  const [, setTutorialStep] = useGlobal("tutorialStep");
+  const [, setComponentView] = useGlobal("componentView");
 
-// Tutorialstep is stored with the key being the name of the tutorial and
-// the value being the step that the user was last on.
-setGlobal({
-  tutorialName: tutName,
-  tutorialStep: parseInt(localStorage.getItem(tutName) || "1", 10),
-  componentView: componentViewSave,
-  output: {
-    status: "",
-    correct: false,
-    message: "",
-    droneTask: ""
-  },
-  hintModalOpen: false,
-  showHintAnswer: false,
-  editorState: {
-    selectedTutorial: "",
-    selectedTutorialDesc: "",
-    step: 0
-  },
-  editorSteps: [
-    {
-      stepTitle: "Step 1",
-      stepHint: "",
-      stepSuccess: "",
-      content: [
-        {
-          type: "text",
-          value: ""
-        }
-      ],
-      answer: ""
-    }
-  ]
-});
+  // Wrap all localStorage operations in a useEffect hook since Gatsby
+  // is server-side rendered/generated
+  useEffect(() => {
+    const [componentViewSave] = useLocalStorageView();
+    const localTutorialName =
+      localStorage.getItem("tutName") || defaultTutorial;
+    const localTutorialStep = parseInt(
+      localStorage.getItem(localTutorialName) || "1",
+      10
+    );
 
-const IndexPage = (): JSX.Element => <TutorialApp />;
+    setTutorialName(localTutorialName);
+    setTutorialStep(localTutorialStep);
+    setComponentView(componentViewSave);
+  }, []);
+
+  return <TutorialApp />;
+};
 
 export default IndexPage;

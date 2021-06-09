@@ -75,7 +75,11 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
   const [componentView] = useGlobal("componentView");
   const [, setOutput] = useGlobal("output");
 
-  let data = useStaticQuery(graphql`
+  // useEffect(() => {
+
+  // }, [tutorialName])
+
+  const data = useStaticQuery(graphql`
     query {
       allExampleGqlJson {
         nodes {
@@ -92,17 +96,22 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
     }
   `);
 
-  const [tutName, tutStep, , setStep] = useLocalStorage(data);
+  const setLocalStorage = (step: number): void => {
+    if (localStorage) {
+      const [, , , setStep] = useLocalStorage(data);
+      setStep(tutorialName, step);
+    }
+  };
 
   const stepForward = (): void => {
-    setStep(tutName, tutStep + 1);
+    setLocalStorage(tutorialStep + 1);
     setTutorialStep(tutorialStep + 1);
     // Reset output
     setOutput({ status: "", correct: false, message: "", droneTask: "" });
   };
 
   const stepBackward = (): void => {
-    setStep(tutName, tutStep - 1);
+    setLocalStorage(tutorialStep - 1);
     setTutorialStep(tutorialStep - 1);
     // Reset output
     setOutput({ status: "", correct: false, message: "", droneTask: "" });
@@ -111,23 +120,29 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
   // We destructure the data since this query returns an array, and when
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
   // it just picks the first element
-  data = data.allExampleGqlJson.nodes.find((tutorial: Tutorial): boolean => {
-    return tutorial.tutorialTitle === tutorialName;
-  });
-
-  const tutorialData = data.instructions[tutStep - 1].content.map(
-    (element: Content, index: number) => {
-      if (element.type === "text")
-        return <p key={tutorialName + index.toString()}>{element.value}</p>;
-      if (element.type === "code")
-        return (
-          <CodeBlock key={tutorialName + index.toString()}>
-            <span>{element.value}</span>
-          </CodeBlock>
-        );
-      return "Invalid content type found! Check your source JSONs!";
+  const tutorialData = data.allExampleGqlJson.nodes.find(
+    (tutorial: Tutorial): boolean => {
+      return tutorial.tutorialTitle === tutorialName;
     }
   );
+
+  if (!tutorialData) {
+    return <p>Loading...</p>;
+  }
+
+  const tutorialInstructions = tutorialData.instructions[
+    tutorialStep - 1
+  ].content.map((element: Content, index: number) => {
+    if (element.type === "text")
+      return <p key={tutorialName + index.toString()}>{element.value}</p>;
+    if (element.type === "code")
+      return (
+        <CodeBlock key={tutorialName + index.toString()}>
+          <span>{element.value}</span>
+        </CodeBlock>
+      );
+    return "Invalid content type found! Check your source JSONs!";
+  });
 
   // Display of tutorial component depends on the global state variable
   // componentView and whether or not it equals "TutorialComponent"
@@ -137,18 +152,18 @@ const TutorialDisplay: React.FC = (): JSX.Element => {
         <StepButton
           clickFunction={stepBackward}
           next={false}
-          tutorialStep={tutStep}
-          totalSteps={data.instructions.length}
+          tutorialStep={tutorialStep}
+          totalSteps={tutorialData.instructions.length}
         />
-        <h1>{data.instructions[tutStep - 1].title}</h1>
+        <h1>{tutorialData.instructions[tutorialStep - 1].title}</h1>
         <StepButton
           clickFunction={stepForward}
           next
-          tutorialStep={tutStep}
-          totalSteps={data.instructions.length}
+          tutorialStep={tutorialStep}
+          totalSteps={tutorialData.instructions.length}
         />
       </TutorialHeader>
-      <ContentWrapper>{tutorialData}</ContentWrapper>
+      <ContentWrapper>{tutorialInstructions}</ContentWrapper>
     </TutorialBG>
   );
 };

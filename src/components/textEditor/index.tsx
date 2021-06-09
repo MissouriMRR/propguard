@@ -65,11 +65,15 @@ const TextEditor: React.FC = (): JSX.Element => {
   // We destructure the data since this query returns an array, and when
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
   // it just picks the first element
-  const data: Tutorial = gqlData.allExampleGqlJson.nodes.find(
+  const tutorialData: Tutorial = gqlData.allExampleGqlJson.nodes.find(
     (tutorial: Tutorial): boolean => {
       return tutorial.tutorialTitle === tutorialName;
     }
   );
+
+  if (!tutorialData) {
+    return <p>Loading...</p>;
+  }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -79,7 +83,7 @@ const TextEditor: React.FC = (): JSX.Element => {
 
     const result = submitAnswer(
       userInput,
-      data.instructions[tutorialStep - 1].answer
+      tutorialData.instructions[tutorialStep - 1].answer
     );
 
     setTimeout(() => {
@@ -87,8 +91,10 @@ const TextEditor: React.FC = (): JSX.Element => {
         setOutputResult({
           status: "Successful",
           correct: result.correct,
-          message: data.instructions[tutorialStep - 1].output.successMessage,
-          droneTask: data.instructions[tutorialStep - 1].output.droneRoutine
+          message:
+            tutorialData.instructions[tutorialStep - 1].output.successMessage,
+          droneTask:
+            tutorialData.instructions[tutorialStep - 1].output.droneRoutine
         });
       } else {
         setOutputResult({ ...result, status: "Error", droneTask: "" });
@@ -104,7 +110,7 @@ const TextEditor: React.FC = (): JSX.Element => {
   const handleHint = (): void => {
     if (
       componentView === "TutorialComponent" &&
-      data.instructions[tutorialStep - 1].hint
+      tutorialData.instructions[tutorialStep - 1].hint
     ) {
       toggleHintModal();
     }
@@ -124,7 +130,7 @@ const TextEditor: React.FC = (): JSX.Element => {
         value={userInput}
         onChange={(value: string): void => setUserInput(value)}
       />
-      <HintModal data={data} />
+      <HintModal data={tutorialData} />
     </TerminalWrapper>
   );
 };
