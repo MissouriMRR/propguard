@@ -17,6 +17,8 @@ const [componentViewSave] = useLocalStorageView();
 // FIXME: Neither the tutorial selector or the tutorial instructor
 // show up on the left bar when the user hits the back button
 const tutName = localStorage.getItem("tutName") || defaultTutorial;
+console.log(componentViewSave);
+console.log(tutName);
 
 // Tutorialstep is stored with the key being the name of the tutorial and
 // the value being the step that the user was last on.

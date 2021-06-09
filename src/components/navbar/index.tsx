@@ -78,11 +78,6 @@ const Navbar: React.FC = (): JSX.Element => {
     setComponentViewSave("TutorialSelector");
   };
 
-  const openTutorialEditor = (): void => {
-    setComponentView("TutorialEditor");
-    setComponentViewSave("TutorialEditor");
-  };
-
   return (
     <NavWrapper>
       <NavLogo
@@ -99,7 +94,7 @@ const Navbar: React.FC = (): JSX.Element => {
           $isSelected={componentView === "TutorialSelector"}
         />
       </Link>
-      <Link to="/editor" onClick={openTutorialEditor}>
+      <Link to="/editor">
         <NavIcon
           icon={pencilIcon}
           $isSelected={componentView === "TutorialEditor"}
