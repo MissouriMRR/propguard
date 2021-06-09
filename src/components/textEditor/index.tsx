@@ -3,18 +3,14 @@
 /* eslint @typescript-eslint/indent: 0 */
 import React, { useState, useGlobal } from "reactn";
 import { useStaticQuery, graphql } from "gatsby";
-import Editor from "react-simple-code-editor";
-import { highlight, languages } from "prismjs/components/prism-core";
-import "prismjs/components/prism-clike";
-import "prismjs/components/prism-python";
-import "prismjs/themes/prism.css";
 import styled, { AnyStyledComponent } from "styled-components";
 
 import { HintModal } from "./hintModal";
 import { Button } from "../button";
-import { accent, background, grey } from "../../constants";
+import { CodeEditor } from "../codeEditor";
 import { Tutorial } from "../../types";
 import { submitAnswer } from "./submitAnswer";
+import { accent, grey } from "../../constants";
 
 const TerminalWrapper: AnyStyledComponent = styled.div`
   display: flex;
@@ -124,23 +120,9 @@ const TextEditor: React.FC = (): JSX.Element => {
           text="Run"
         />
       </TerminalHeader>
-      <Editor
-        style={{
-          position: "relative",
-          marginTop: "1%",
-          height: "90%",
-          width: "99.9%",
-          backgroundColor: background,
-          fontSize: "16px",
-          fontFamily: "Source Code Pro"
-        }}
+      <CodeEditor
         value={userInput}
-        onValueChange={(value: string): void => {
-          setUserInput(value);
-        }}
-        tabSize={4}
-        highlight={(code: string): string => highlight(code, languages.py)}
-        padding="0.5rem"
+        onChange={(value: string): void => setUserInput(value)}
       />
       <HintModal data={data} />
     </TerminalWrapper>

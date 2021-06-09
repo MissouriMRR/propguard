@@ -1,11 +1,7 @@
 import React, { useGlobal } from "reactn";
-import Editor from "react-simple-code-editor";
-import { highlight, languages } from "prismjs/components/prism-core";
-import "prismjs/components/prism-clike";
-import "prismjs/components/prism-python";
-import "prismjs/themes/prism.css";
 import styled, { AnyStyledComponent } from "styled-components";
 
+import { CodeEditor } from "../codeEditor";
 import { EditorStep } from "../../types/editorTypes";
 import { HintInput } from "./hintInput";
 import { Header } from "./header";
@@ -277,25 +273,15 @@ const TutEditor: React.FC = (): JSX.Element => {
             <StyledTitle>
               <h3>Code Solution</h3>
             </StyledTitle>
-            <Editor
+            <CodeEditor
               value={editorSteps[editorState.step].answer}
-              onValueChange={(code: string): Promise<void> =>
+              onChange={(code: string): Promise<void> =>
                 changeEditorStepDetail("answer", code)
               }
-              highlight={(code: string): string =>
-                highlight(code, languages.py)
-              }
-              tabSize={4}
-              style={{
+              customStyles={{
                 position: "relative",
-                marginTop: "1%",
-                height: "90%",
-                width: "99.9%",
-                backgroundColor: background,
-                fontFamily: "Source Code Pro",
-                fontSize: "16px"
+                backgroundColor: background
               }}
-              padding="0.5rem"
             />
           </StyledRightHalf>
         </MainWrapper>

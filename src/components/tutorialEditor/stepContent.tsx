@@ -1,9 +1,4 @@
 import React, { useState } from "reactn";
-import Editor from "react-simple-code-editor";
-import { highlight, languages } from "prismjs/components/prism-core";
-import "prismjs/components/prism-clike";
-import "prismjs/components/prism-python";
-import "prismjs/themes/prism.css";
 import styled, { AnyStyledComponent, CSSProperties } from "styled-components";
 import { Icon } from "@iconify/react";
 import chevronUp from "@iconify-icons/feather/chevron-up";
@@ -12,6 +7,7 @@ import bxTrashAlt from "@iconify-icons/bx/bx-trash-alt";
 
 import { codeColor, grey } from "../../constants";
 import { Button } from "../button";
+import { CodeEditor } from "../codeEditor";
 
 interface DeleteProps {
   visible: string;
@@ -109,12 +105,7 @@ const StepContent: React.FC<StepContentProps> = (props): JSX.Element => {
 
   const codeInputStyle: CSSProperties = {
     position: "relative",
-    marginTop: "0px",
-    height: "82px",
-    width: "100%",
     backgroundColor: codeColor,
-    fontFamily: "Source Code Pro",
-    fontSize: "16px",
     display: content.type === "code" ? "block" : "none"
   };
 
@@ -161,27 +152,27 @@ const StepContent: React.FC<StepContentProps> = (props): JSX.Element => {
             }}
           />
         </UpDownContainer>
-        <TextInput
-          value={content.value}
-          style={{
-            display: content.type === "text" ? "block" : "none"
-          }}
-          type="text"
-          placeholder="Type text here..."
-          onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
-            changeHandler(event, index);
-          }}
-        />
-        <Editor
-          value={content.value}
-          style={codeInputStyle}
-          onValueChange={(code: string): void => {
-            changeHandler(code, index);
-          }}
-          tabSize={4}
-          highlight={(code: string): string => highlight(code, languages.py)}
-          padding="0.5rem"
-        />
+        {content.type === "code" ? (
+          <CodeEditor
+            value={content.value}
+            customStyles={codeInputStyle}
+            onChange={(code: string): void => {
+              changeHandler(code, index);
+            }}
+          />
+        ) : (
+          <TextInput
+            value={content.value}
+            style={{
+              display: content.type === "text" ? "block" : "none"
+            }}
+            type="text"
+            placeholder="Type text here..."
+            onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
+              changeHandler(event, index);
+            }}
+          />
+        )}
       </ContentBlockInnerWrapper>
       <DeleteBlock
         visible={hovering === index ? "flex" : "none"}

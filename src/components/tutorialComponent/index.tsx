@@ -56,7 +56,7 @@ const ContentWrapper: AnyStyledComponent = styled.div`
 
 const CodeBlock: AnyStyledComponent = styled.div`
   padding: 1.5rem;
-  font-family: "Source Code Pro";
+  font-family: "Source Code Pro", monospace;
   background-color: ${codeColor};
   border-radius: 5px;
 
