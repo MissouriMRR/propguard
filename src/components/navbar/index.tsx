@@ -66,21 +66,22 @@ const NavIcon: AnyStyledComponent = styled(Icon)<NavIconProps>`
 
 const Navbar: React.FC = (): JSX.Element => {
   const [componentView, setComponentView] = useGlobal("componentView");
-  const [, setComponentViewSave] = useLocalStorageView();
+
+  const setLocalStorage = (parameter: string): void => {
+    if (localStorage) {
+      const [, setComponentViewSave] = useLocalStorageView();
+      setComponentViewSave(parameter);
+    }
+  };
 
   const openTutorialComponent = (): void => {
     setComponentView("TutorialComponent");
-    setComponentViewSave("TutorialComponent");
+    setLocalStorage("TutorialComponent");
   };
 
   const openTutorialSelector = (): void => {
     setComponentView("TutorialSelector");
-    setComponentViewSave("TutorialSelector");
-  };
-
-  const openTutorialEditor = (): void => {
-    setComponentView("TutorialEditor");
-    setComponentViewSave("TutorialEditor");
+    setLocalStorage("TutorialSelector");
   };
 
   return (
@@ -99,7 +100,7 @@ const Navbar: React.FC = (): JSX.Element => {
           $isSelected={componentView === "TutorialSelector"}
         />
       </Link>
-      <Link to="/editor" onClick={openTutorialEditor}>
+      <Link to="/editor">
         <NavIcon
           icon={pencilIcon}
           $isSelected={componentView === "TutorialEditor"}

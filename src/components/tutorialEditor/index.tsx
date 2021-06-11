@@ -1,12 +1,7 @@
 import React, { useGlobal } from "reactn";
-import AceEditor from "react-ace";
-import "ace-builds";
-import "ace-builds/webpack-resolver";
-import "ace-builds/src-noconflict/mode-python";
-import "ace-builds/src-noconflict/ext-language_tools";
-import "ace-builds/src-noconflict/theme-tomorrow_night_eighties";
 import styled, { AnyStyledComponent } from "styled-components";
 
+import { CodeEditor } from "../codeEditor";
 import { EditorStep } from "../../types/editorTypes";
 import { HintInput } from "./hintInput";
 import { Header } from "./header";
@@ -278,28 +273,14 @@ const TutEditor: React.FC = (): JSX.Element => {
             <StyledTitle>
               <h3>Code Solution</h3>
             </StyledTitle>
-            <AceEditor
+            <CodeEditor
               value={editorSteps[editorState.step].answer}
               onChange={(code: string): Promise<void> =>
                 changeEditorStepDetail("answer", code)
               }
-              style={{
+              customStyles={{
                 position: "relative",
-                marginTop: "1%",
-                height: "90%",
-                width: "99.9%",
-                backgroundColor: background,
-                fontFamily: "Source Code Pro"
-              }}
-              fontSize="16px"
-              mode="python"
-              theme="tomorrow_night_eighties"
-              placeholder="Write your code solution here."
-              setOptions={{
-                enableBasicAutocompletion: true,
-                enableLiveAutocompletion: true,
-                enableSnippets: true,
-                tabSize: 4
+                backgroundColor: background
               }}
             />
           </StyledRightHalf>

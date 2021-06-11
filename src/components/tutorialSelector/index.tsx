@@ -1,4 +1,4 @@
-import React, { useGlobal } from "reactn";
+import React, { useGlobal, useEffect } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
 import { Tutorial } from "../../types";
@@ -87,18 +87,20 @@ const TutorialSelector: React.FC = (): JSX.Element => {
     }
   `);
 
-  const [, tutStep, setCurrentTutorial] = useLocalStorage(data);
-  const [, setComponentViewSave] = useLocalStorageView();
-
   const handleClick = (title: string): void => {
-    // Setting Global States
-    setTutorialStep(tutStep);
-    setTutorialName(title);
-    setComponentView("TutorialComponent"); // Changes view to show instructions
+    if (localStorage) {
+      const [, tutStep, setCurrentTutorial] = useLocalStorage(data);
+      const [, setComponentViewSave] = useLocalStorageView();
 
-    // Setting Local Storage
-    setCurrentTutorial(title);
-    setComponentViewSave("TutorialComponent"); // Saves the view choice
+      // Setting Global States
+      setTutorialStep(tutStep);
+      setTutorialName(title);
+      setComponentView("TutorialComponent"); // Changes view to show instructions
+
+      // Setting Local Storage
+      setCurrentTutorial(title);
+      setComponentViewSave("TutorialComponent"); // Saves the view choice
+    }
   };
 
   // Display of tutorial selector depends on the global state variable

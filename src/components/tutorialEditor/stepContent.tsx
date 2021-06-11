@@ -1,20 +1,13 @@
 import React, { useState } from "reactn";
 import styled, { AnyStyledComponent, CSSProperties } from "styled-components";
-
-import AceEditor from "react-ace";
 import { Icon } from "@iconify/react";
 import chevronUp from "@iconify-icons/feather/chevron-up";
 import chevronDown from "@iconify-icons/feather/chevron-down";
 import bxTrashAlt from "@iconify-icons/bx/bx-trash-alt";
 
-import "ace-builds";
-import "ace-builds/webpack-resolver";
-import "ace-builds/src-noconflict/mode-python";
-import "ace-builds/src-noconflict/ext-language_tools";
-import "ace-builds/src-noconflict/theme-tomorrow_night_eighties";
-
-import { background, grey } from "../../constants";
+import { codeColor, grey } from "../../constants";
 import { Button } from "../button";
+import { CodeEditor } from "../codeEditor";
 
 interface DeleteProps {
   visible: string;
@@ -54,7 +47,7 @@ const Arrow: AnyStyledComponent = styled(Icon)`
 const TextInput: AnyStyledComponent = styled.textarea`
   width: 100%;
   min-height: 82px;
-  background-color: #46464e;
+  background-color: ${codeColor};
   outline: none;
   border: none;
   border-radius: 1px;
@@ -112,11 +105,7 @@ const StepContent: React.FC<StepContentProps> = (props): JSX.Element => {
 
   const codeInputStyle: CSSProperties = {
     position: "relative",
-    marginTop: "0px",
-    height: "82px",
-    width: "100%",
-    backgroundColor: background,
-    fontFamily: "Source Code Pro",
+    backgroundColor: codeColor,
     display: content.type === "code" ? "block" : "none"
   };
 
@@ -163,34 +152,27 @@ const StepContent: React.FC<StepContentProps> = (props): JSX.Element => {
             }}
           />
         </UpDownContainer>
-        <TextInput
-          value={content.value}
-          style={{
-            display: content.type === "text" ? "block" : "none"
-          }}
-          type="text"
-          placeholder="Type text here..."
-          onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
-            changeHandler(event, index);
-          }}
-        />
-        <AceEditor
-          value={content.value}
-          style={codeInputStyle}
-          fontSize="16px"
-          mode="python"
-          theme="tomorrow_night_eighties"
-          placeholder="Type code here..."
-          setOptions={{
-            enableBasicAutocompletion: true,
-            enableLiveAutocompletion: true,
-            enableSnippets: true,
-            tabSize: 4
-          }}
-          onChange={(code: string): void => {
-            changeHandler(code, index);
-          }}
-        />
+        {content.type === "code" ? (
+          <CodeEditor
+            value={content.value}
+            customStyles={codeInputStyle}
+            onChange={(code: string): void => {
+              changeHandler(code, index);
+            }}
+          />
+        ) : (
+          <TextInput
+            value={content.value}
+            style={{
+              display: content.type === "text" ? "block" : "none"
+            }}
+            type="text"
+            placeholder="Type text here..."
+            onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
+              changeHandler(event, index);
+            }}
+          />
+        )}
       </ContentBlockInnerWrapper>
       <DeleteBlock
         visible={hovering === index ? "flex" : "none"}

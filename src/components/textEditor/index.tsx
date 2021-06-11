@@ -2,21 +2,15 @@
 // rules on a certain weird indentation edge case on line 74-76. on var input
 /* eslint @typescript-eslint/indent: 0 */
 import React, { useState, useGlobal } from "reactn";
-import styled, { AnyStyledComponent } from "styled-components";
 import { useStaticQuery, graphql } from "gatsby";
-import AceEditor from "react-ace";
+import styled, { AnyStyledComponent } from "styled-components";
 
 import { HintModal } from "./hintModal";
 import { Button } from "../button";
-import { accent, background, grey } from "../../constants";
+import { CodeEditor } from "../codeEditor";
 import { Tutorial } from "../../types";
 import { submitAnswer } from "./submitAnswer";
-
-import "ace-builds";
-import "ace-builds/webpack-resolver";
-import "ace-builds/src-noconflict/mode-python";
-import "ace-builds/src-noconflict/ext-language_tools";
-import "ace-builds/src-noconflict/theme-tomorrow_night_eighties";
+import { accent, grey } from "../../constants";
 
 const TerminalWrapper: AnyStyledComponent = styled.div`
   display: flex;
@@ -71,11 +65,15 @@ const TextEditor: React.FC = (): JSX.Element => {
   // We destructure the data since this query returns an array, and when
   // we use the GraphQL filter it'll end up being an array of size 1. Otherwise
   // it just picks the first element
-  const data: Tutorial = gqlData.allExampleGqlJson.nodes.find(
+  const tutorialData: Tutorial = gqlData.allExampleGqlJson.nodes.find(
     (tutorial: Tutorial): boolean => {
       return tutorial.tutorialTitle === tutorialName;
     }
   );
+
+  if (!tutorialData) {
+    return <p>Loading...</p>;
+  }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -85,7 +83,7 @@ const TextEditor: React.FC = (): JSX.Element => {
 
     const result = submitAnswer(
       userInput,
-      data.instructions[tutorialStep - 1].answer
+      tutorialData.instructions[tutorialStep - 1].answer
     );
 
     setTimeout(() => {
@@ -93,8 +91,10 @@ const TextEditor: React.FC = (): JSX.Element => {
         setOutputResult({
           status: "Successful",
           correct: result.correct,
-          message: data.instructions[tutorialStep - 1].output.successMessage,
-          droneTask: data.instructions[tutorialStep - 1].output.droneRoutine
+          message:
+            tutorialData.instructions[tutorialStep - 1].output.successMessage,
+          droneTask:
+            tutorialData.instructions[tutorialStep - 1].output.droneRoutine
         });
       } else {
         setOutputResult({ ...result, status: "Error", droneTask: "" });
@@ -110,7 +110,7 @@ const TextEditor: React.FC = (): JSX.Element => {
   const handleHint = (): void => {
     if (
       componentView === "TutorialComponent" &&
-      data.instructions[tutorialStep - 1].hint
+      tutorialData.instructions[tutorialStep - 1].hint
     ) {
       toggleHintModal();
     }
@@ -126,31 +126,11 @@ const TextEditor: React.FC = (): JSX.Element => {
           text="Run"
         />
       </TerminalHeader>
-      <AceEditor
-        style={{
-          position: "relative",
-          marginTop: "1%",
-          height: "90%",
-          width: "99.9%",
-          backgroundColor: background,
-          fontFamily: "Source Code Pro"
-        }}
-        fontSize="16px"
-        mode="python"
-        theme="tomorrow_night_eighties"
-        placeholder="Write your code here."
+      <CodeEditor
         value={userInput}
-        onChange={(value: string): void => {
-          setUserInput(value);
-        }}
-        setOptions={{
-          enableBasicAutocompletion: true,
-          enableLiveAutocompletion: true,
-          enableSnippets: true,
-          tabSize: 4
-        }}
+        onChange={(value: string): void => setUserInput(value)}
       />
-      <HintModal data={data} />
+      <HintModal data={tutorialData} />
     </TerminalWrapper>
   );
 };

@@ -2,15 +2,15 @@ import React, { useGlobal, useRef, useState } from "reactn";
 import styled, { AnyStyledComponent } from "styled-components";
 
 import { Navbar } from "../navbar";
-
 import {
+  grey,
   accent,
   background,
   codeColor,
-  grey,
   textPrimary,
   textSecondary
 } from "../../constants";
+
 import { Instruction } from "../../types";
 import { EditorStep } from "../../types/editorTypes";
 
@@ -108,6 +108,11 @@ const StyledUpload: AnyStyledComponent = styled.div`
     top: 0;
     left: 0;
     opacity: 0;
+  }
+
+  &:hover {
+    cursor: pointer;
+    border: dashed ${accent} 4px;
   }
 `;
 
