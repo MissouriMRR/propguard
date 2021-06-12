@@ -12,6 +12,7 @@
 
 - [What is this?](#what-is-this)
 - [Usage](#usage)
+    - [Deploy](#deploy)
 - [Get Started](#get-started)
 - [Roadmap and Progress](#roadmap-and-progress)
 - [Adding/editing tutorials](#adding/editing-tutorials)
@@ -69,6 +70,10 @@ yarn start
 4. Push the branch to the remote repo (`git push origin feature/my-feature`)
 5. Open a pull request.
 6. Free feel to contact any member of the Missouri S&T Multirotor Design Team for help!
+
+### Deploy
+
+To deploy the live version/demo with the latest changes from the main branch, clone the repo, `yarn install`, and then `yarn deploy`.
 
 ## Roadmap and progress
 
