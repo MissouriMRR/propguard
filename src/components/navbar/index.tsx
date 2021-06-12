@@ -4,6 +4,8 @@ import { Link } from "gatsby";
 import { Icon } from "@iconify/react";
 import listIcon from "@iconify/icons-ic/round-format-list-bulleted";
 import pencilIcon from "@iconify/icons-mdi/pencil";
+import bxlGithub from "@iconify-icons/bx/bxl-github";
+
 import { useLocalStorageView } from "../hooks/index";
 
 import { accent, textPrimary, grey } from "../../constants";
@@ -15,7 +17,7 @@ const NavWrapper: AnyStyledComponent = styled.nav`
   position: sticky;
   top: 0;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   border: 1px solid ${grey};
   color: ${textPrimary};
@@ -25,6 +27,13 @@ const NavWrapper: AnyStyledComponent = styled.nav`
       brightness(90%) contrast(90%);
     cursor: pointer;
   }
+`;
+
+const TopIcons: AnyStyledComponent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 `;
 
 interface NavIconProps {
@@ -86,25 +95,30 @@ const Navbar: React.FC = (): JSX.Element => {
 
   return (
     <NavWrapper>
-      <NavLogo
-        to="/"
-        onClick={openTutorialComponent}
-        $isSelected={componentView === "TutorialComponent"}
-      >
-        <Logo />
-      </NavLogo>
-      <Link to="/">
-        <NavIcon
-          icon={listIcon}
-          onClick={openTutorialSelector}
-          $isSelected={componentView === "TutorialSelector"}
-        />
-      </Link>
-      <Link to="/editor">
-        <NavIcon
-          icon={pencilIcon}
-          $isSelected={componentView === "TutorialEditor"}
-        />
+      <TopIcons>
+        <NavLogo
+          to="/"
+          onClick={openTutorialComponent}
+          $isSelected={componentView === "TutorialComponent"}
+        >
+          <Logo />
+        </NavLogo>
+        <Link to="/">
+          <NavIcon
+            icon={listIcon}
+            onClick={openTutorialSelector}
+            $isSelected={componentView === "TutorialSelector"}
+          />
+        </Link>
+        <Link to="/editor">
+          <NavIcon
+            icon={pencilIcon}
+            $isSelected={componentView === "TutorialEditor"}
+          />
+        </Link>
+      </TopIcons>
+      <Link to="https://github.com/MissouriMRR/propguard">
+        <NavIcon icon={bxlGithub} />
       </Link>
     </NavWrapper>
   );

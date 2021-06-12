@@ -5,28 +5,29 @@
 <br />
 <p align="center">
     <h2 align="center">Propguard</h2>
-    <p align="center">Propguard is a webapp that teaches people how to start writing basic flight code with technologies like PX4, MAVSDK, and Python.</p>
+    <p align="center">Propguard is a Codecademy-style webapp that lets you create and learn from interactive coding tutorials. Client-side only, no servers needed except for hosting instances.</p>
 </p>
 
 ## Table of Contents
 
 - [What is this?](#what-is-this)
 - [Usage](#usage)
+    - [Deploy](#deploy)
 - [Get Started](#get-started)
 - [Roadmap and Progress](#roadmap-and-progress)
 - [Adding/editing tutorials](#adding/editing-tutorials)
 
 ## What is this?
 
-Propguard is a web app built for Missouri S&T's Multirotor Robot Design Team meant to preserve the knowledge and experience of its past members. Propguard teaches new members how to start working on the team's flight code via a Codeacademy-like tutorial interface.
+Propguard is a web app built for Missouri S&T's Multirotor Robot Design Team meant to preserve the knowledge and experience of its past members. Propguard teaches new members how to start working on the team's flight code via a Codeacademy-like tutorial interface that includes a simple text editor and basic mock-output.
 
-It includes a wiki that will serve as the collective knowledge of all the past members of the team. During our flight tests we always run into issues, and some of those issues happen to be things that have been solved in the past. We obviously don't want to keep making the same mistakes.
-
-The tech stack for the front-end is Typescript and ReactJS.
+This app also includes a tutorial editor for creating and editing existing tutorials. In order to make this project client-side only, we use GatbyJS which lets us more easily manage tutorials as JSON files. In order to update tutorials on the live instance, we can just edit the JSON files in `src/data` and update the repo.
 
 ## Usage
 
-We're working on getting a live version up so for now you'll have to run this project locally on your machine. See the [**Get Started**](#get-started) section for instructions on how to run it.
+Continue on if you want to run this locally. Otherwise [go here](https://missourimrr.github.io/propguard/) for a quick demo.
+
+**For more info on how to use Propguard, reference our [user guide](USERGUIDE.md).**
 
 ## Get started
 
@@ -70,9 +71,13 @@ yarn start
 5. Open a pull request.
 6. Free feel to contact any member of the Missouri S&T Multirotor Design Team for help!
 
+### Deploy
+
+To deploy the live version/demo with the latest changes from the main branch, clone the repo, `yarn install`, and then `yarn deploy`.
+
 ## Roadmap and progress
 
-See the [Projects section](https://github.com/MissouriMRR/propguard/projects) for more information on deadlines and tasks that need to be done. We expect to have Propguard's editor ready before the summer of 2021.
+See the [Projects section](https://github.com/MissouriMRR/propguard/projects) for more tasks and feature improvements. Otherwise most functionality of Propguard is complete.
 
 <!-- Shield links here -->
 
@@ -83,7 +88,7 @@ See the [Projects section](https://github.com/MissouriMRR/propguard/projects) fo
 
 ## Adding/editing tutorials
 
-[Visit here](https://github.com/MissouriMRR/propguard/#contributing-tutorials.md) for more information about contributing your own Propguard tutorials.
+[Visit here](USERGUIDE.md#contributing-tutorials) for more information about contributing your own Propguard tutorials.
 
 We'll flesh this out more when we finish the editor!
 
